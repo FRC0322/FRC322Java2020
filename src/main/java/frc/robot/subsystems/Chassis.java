@@ -44,8 +44,8 @@ public class Chassis extends SubsystemBase {
   /**
   * Racing game style driving for the Chassis.
   *
-  * @param left  Speed in range [-1,1]
-  * @param right Speed in range [-1,1]
+  * @param left  Speed in range [-1.0,1.0]
+  * @param right Speed in range [-1.0,1.0]
   */
   public void drive(double left, double right) {
     m_drive.arcadeDrive(left, right, true);
