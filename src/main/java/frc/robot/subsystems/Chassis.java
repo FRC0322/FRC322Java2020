@@ -37,7 +37,8 @@ public class Chassis extends SubsystemBase {
   */
   public Chassis() {
     super();
-
+    m_leftMotors.setInverted(true);
+    m_rightMotors.setInverted(true);
   }
 
   /**
