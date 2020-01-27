@@ -34,7 +34,7 @@ public class RobotContainer {
   public RobotContainer() {
     // Assign default commands
     m_chassis.setDefaultCommand(new DriveWithJoystick(
-      () -> m_driveStick.getTriggerAxis(Hand.kLeft) - m_driveStick.getTriggerAxis(Hand.kRight),
+      () -> m_driveStick.getTriggerAxis(Hand.kRight) - m_driveStick.getTriggerAxis(Hand.kLeft),
       () -> -(m_driveStick.getX(Hand.kLeft)), m_chassis));
 
     // Configure the button bindings
