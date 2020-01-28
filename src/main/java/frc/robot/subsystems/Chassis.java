@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import io.github.oblarg.oblog.annotations.Log;
 
 public class Chassis extends SubsystemBase {
   /**
@@ -21,13 +22,13 @@ public class Chassis extends SubsystemBase {
    */
   private final WPI_TalonSRX m_leftFrontMotor = new WPI_TalonSRX(1);
   private final WPI_TalonSRX m_leftRearMotor = new WPI_TalonSRX(2);
-  private final WPI_TalonSRX m_RightFrontMotor = new WPI_TalonSRX(3);
-  private final WPI_TalonSRX m_RightRearMotor = new WPI_TalonSRX(4);
+  private final WPI_TalonSRX m_rightFrontMotor = new WPI_TalonSRX(3);
+  private final WPI_TalonSRX m_rightRearMotor = new WPI_TalonSRX(4);
 
   private final SpeedController m_leftMotors = 
     new SpeedControllerGroup(m_leftFrontMotor, m_leftRearMotor);
   private final SpeedController m_rightMotors = 
-    new SpeedControllerGroup(m_RightFrontMotor, m_RightRearMotor);
+    new SpeedControllerGroup(m_rightFrontMotor, m_rightRearMotor);
 
   private final DifferentialDrive m_drive = 
     new DifferentialDrive(m_leftMotors, m_rightMotors);
@@ -53,36 +54,56 @@ public class Chassis extends SubsystemBase {
     m_drive.arcadeDrive(left, right, true);
   }
 
-  // All of the following are feed-through functions providing public access to the IMU data.
+  // The following are feed-through functions providing public access to Encoder ticks from the Talon SRX's
 
+  @Log
+  public double leftDistance() {
+    return m_leftFrontMotor.getSelectedSensorPosition();
+  }
+
+  @Log
+  public double rightDistance() {
+    return m_rightFrontMotor.getSelectedSensorPosition();
+  }
+
+  // The following are feed-through functions providing public access to the IMU data.
+
+  @Log
   public double getAngle() {
     return m_imu.getAngle();
   }
 
+  @Log
   public float getPitch() {
     return m_imu.getPitch();
   }
 
+  @Log
   public float getRoll() {
     return m_imu.getRoll();
   }
 
+  @Log
   public float getYaw() {
     return m_imu.getYaw();
   }
 
+  @Log
   public float getWorldLinearAccelX() {
     return m_imu.getWorldLinearAccelX();
   }
 
+  @Log
   public float getWorldLinearAccelY() {
     return m_imu.getWorldLinearAccelY();
   }
 
+  @Log
   public float getWorldLinearAccelZ() {
     return m_imu.getWorldLinearAccelZ();
   }
 
+  @Log
   public double getRate() {
     return m_imu.getRate();
   }
