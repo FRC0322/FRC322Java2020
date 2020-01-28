@@ -9,8 +9,6 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Chassis;
-import frc.robot.Robot;
-import io.github.oblarg.oblog.Logger;
 import io.github.oblarg.oblog.annotations.Config;
 
 
