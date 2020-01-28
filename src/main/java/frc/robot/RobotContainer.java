@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
+import frc.robot.commands.BasicAutonomous;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.subsystems.Chassis;
 import frc.robot.utilities.F310Controller;
@@ -27,6 +28,7 @@ public class RobotContainer {
   
   private final F310Controller m_driveStick = new F310Controller(0);
 
+  private final BasicAutonomous m_autoCommand = new BasicAutonomous(m_chassis);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -58,6 +60,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    return null;
+    return m_autoCommand;
   }
 }
