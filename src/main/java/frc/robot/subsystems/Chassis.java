@@ -8,7 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
-
+import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class Chassis extends SubsystemBase {
   /**
    * The Chassis subsystem incorporates the sensors and actuators attached to the robots chassis.
-   * It currently only includes the four drive motors.
+   * It includes the four drive motors (two on each side) and a NavX-MXP IMU.
    */
   private final WPI_TalonSRX m_leftFrontMotor = new WPI_TalonSRX(1);
   private final WPI_TalonSRX m_leftRearMotor = new WPI_TalonSRX(2);
@@ -31,6 +31,8 @@ public class Chassis extends SubsystemBase {
 
   private final DifferentialDrive m_drive = 
     new DifferentialDrive(m_leftMotors, m_rightMotors);
+
+  private final AHRS m_imu = new AHRS();
 
   /**
   * Creates a new Chassis.
@@ -49,6 +51,40 @@ public class Chassis extends SubsystemBase {
   */
   public void drive(double left, double right) {
     m_drive.arcadeDrive(left, right, true);
+  }
+
+  // All of the following are feed-through functions providing public access to the IMU data.
+
+  public double getAngle() {
+    return m_imu.getAngle();
+  }
+
+  public float getPitch() {
+    return m_imu.getPitch();
+  }
+
+  public float getRoll() {
+    return m_imu.getRoll();
+  }
+
+  public float getYaw() {
+    return m_imu.getYaw();
+  }
+
+  public float getWorldLinearAccelX() {
+    return m_imu.getWorldLinearAccelX();
+  }
+
+  public float getWorldLinearAccelY() {
+    return m_imu.getWorldLinearAccelY();
+  }
+
+  public float getWorldLinearAccelZ() {
+    return m_imu.getWorldLinearAccelZ();
+  }
+
+  public double getRate() {
+    return m_imu.getRate();
   }
 
   @Override
