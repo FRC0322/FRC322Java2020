@@ -34,7 +34,9 @@ public class Chassis extends SubsystemBase {
     new DifferentialDrive(m_leftMotors, m_rightMotors);
 
   private final AHRS m_imu = new AHRS();
-
+  
+  // This is a constant which is the number of Encoder ticks that matches one inch of Robot travel.
+  private final int ticksPerInch = 512;
   /**
   * Creates a new Chassis.
   */
@@ -57,13 +59,23 @@ public class Chassis extends SubsystemBase {
   // The following are feed-through functions providing public access to Encoder ticks from the Talon SRX's
 
   @Log
-  public double leftDistance() {
+  public int leftDistance() {
     return m_leftFrontMotor.getSelectedSensorPosition();
   }
 
   @Log
-  public double rightDistance() {
+  public double leftDistanceIn() {
+    return this.leftDistance() / this.ticksPerInch;
+  }
+
+  @Log
+  public int rightDistance() {
     return m_rightFrontMotor.getSelectedSensorPosition();
+  }
+
+  @Log
+  public double rightDistanceIn() {
+    return this.rightDistance() / this.ticksPerInch;
   }
 
   // The following are feed-through functions providing public access to the IMU data.
