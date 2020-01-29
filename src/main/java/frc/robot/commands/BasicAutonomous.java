@@ -14,9 +14,9 @@ import io.github.oblarg.oblog.annotations.Config;
 
 public class BasicAutonomous extends CommandBase {
   private final Chassis m_chassis;
+  
   @Config
-  private double distance;
-  private double startingDistance;
+  private double heading, distance, startingDistance;
   /**
    * Creates a new BasicAutonomous.
    */
@@ -30,25 +30,27 @@ public class BasicAutonomous extends CommandBase {
   @Override
   public void initialize() {
     startingDistance = Math.min(m_chassis.leftDistanceIn(), m_chassis.rightDistanceIn());
+    heading = 0.0;
     distance = 24.0;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_chassis.drive(0.5, 0.5);
+    //m_chassis.drive(0.5, 0.5);
+    m_chassis.autoDriveStraight(heading, distance);
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    m_chassis.drive(0.0, 0.0);
+    m_chassis.stop();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if((startingDistance + 24.0) > Math.min(Math.abs(m_chassis.leftDistanceIn()),
+    if((startingDistance + distance + 6) > Math.min(Math.abs(m_chassis.leftDistanceIn()),
       Math.abs(m_chassis.rightDistanceIn())))
         return false;
     else
