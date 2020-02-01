@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.DemandType;
 import com.ctre.phoenix.motorcontrol.FollowerType;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
@@ -83,6 +84,22 @@ public class Chassis extends SubsystemBase {
     m_leftRearMotor.follow(m_leftFrontMotor, FollowerType.AuxOutput1);
     m_rightFrontMotor.follow(m_leftFrontMotor, FollowerType.AuxOutput1);
     m_rightRearMotor.follow(m_leftFrontMotor, FollowerType.AuxOutput1);
+  }
+
+  // This method sets the robot to brake when the throttle is idle.
+  public void brake() {
+    m_leftFrontMotor.setNeutralMode(NeutralMode.Brake);
+    m_leftRearMotor.setNeutralMode(NeutralMode.Brake);
+    m_rightFrontMotor.setNeutralMode(NeutralMode.Brake);
+    m_rightRearMotor.setNeutralMode(NeutralMode.Brake);
+  }
+
+  // This method sets the robot to coast when the throttle is idle.
+  public void coast() {
+    m_leftFrontMotor.setNeutralMode(NeutralMode.Coast);
+    m_leftRearMotor.setNeutralMode(NeutralMode.Coast);
+    m_rightFrontMotor.setNeutralMode(NeutralMode.Coast);
+    m_rightRearMotor.setNeutralMode(NeutralMode.Coast);
   }
 
   // This stops the robot
@@ -254,24 +271,36 @@ public class Chassis extends SubsystemBase {
   public float getDisplacementZ() {
     return m_imu.getDisplacementZ();
   }
-  
-  @Override
-  // This method will be called once per scheduler run
-  public void periodic() {
-    // Output the current encoder positions (in inches).
+
+  public void logEncoders() {
     System.out.println(leftDistanceIn());
     System.out.println(rightDistanceIn());
+  }
 
-    // Output various IMU data
-    // Gyro outputs
+  public void logGyro() {
     System.out.println(getAngle());
     System.out.println(getPitch());
     System.out.println(getRoll());
     System.out.println(getYaw());
     System.out.println(getRate());
-    // Accelerometer outputs
+  }
+
+  public void logAccel() {
     System.out.println(getWorldLinearAccelX());
     System.out.println(getWorldLinearAccelY());
     System.out.println(getWorldLinearAccelZ());
+  }
+
+  @Override
+  // This method will be called once per scheduler run
+  public void periodic() {
+    // Output the current encoder positions (in inches).
+    logEncoders();
+
+    // Output various IMU data
+    // Gyro outputs
+    //logGyro();
+    // Accelerometer outputs
+    //logAccel();
   }
 }

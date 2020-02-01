@@ -9,9 +9,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.BasicAutonomous;
+import frc.robot.commands.Brake;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.subsystems.Chassis;
 import frc.robot.utilities.F310Controller;
@@ -27,8 +28,10 @@ public class RobotContainer {
   private final Chassis m_chassis = new Chassis();
   
   private final F310Controller m_driveStick = new F310Controller(0);
+  private final JoystickButton m_brakeButton = new JoystickButton(m_driveStick, 1);
 
   private final BasicAutonomous m_autoCommand = new BasicAutonomous(m_chassis);
+  private final Brake m_brake = new Brake(m_chassis);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -41,7 +44,6 @@ public class RobotContainer {
 
     // Configure the button bindings
     configureButtonBindings();
-    
   }
 
   /**
@@ -51,6 +53,7 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    m_brakeButton.whileHeld(m_brake);
   }
 
 
