@@ -36,6 +36,18 @@ public class Limelight extends SubsystemBase {
     m_ta = m_table.getEntry("ta");
   }
 
+  public void lightDefault() {
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
+  }
+
+  public void lightOn() {
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
+  }
+
+  public void lightOff() {
+    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
