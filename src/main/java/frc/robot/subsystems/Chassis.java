@@ -114,6 +114,29 @@ public class Chassis extends SubsystemBase {
 
   // The following are feed-through functions providing public access to the IMU data.
 
+  public boolean isHeadingReliable() {
+    if (m_imu.isMagnetometerCalibrated() && !(m_imu.isMagneticDisturbance()))
+      return true;
+    else
+      return false;
+  }
+
+  @Log
+  public float getCompassHeading() {
+    if (isHeadingReliable())
+    return m_imu.getCompassHeading();
+  else
+    return 0.0f;
+  }
+
+  @Log
+  public float getHeading() {
+    if (isHeadingReliable())
+      return m_imu.getFusedHeading();
+    else
+      return 0.0f;
+  }
+
   @Log
   public double getAngle() {
     return m_imu.getAngle();
@@ -135,27 +158,120 @@ public class Chassis extends SubsystemBase {
   }
 
   @Log
+  /**
+  * Return the rate of rotation of the yaw (Z-axis) gyro, in degrees per second.
+  *<p>
+  * The rate is based on the most recent reading of the yaw gyro angle.
+  *<p>
+  * @return The current rate of change in yaw angle (in degrees per second)
+  */
+  public double getRate() {
+    return m_imu.getRate();
+  }
+
+  @Log
+  /**
+  * Returns the current linear acceleration in the X-axis (in G).
+  *<p>
+  * World linear acceleration refers to raw acceleration data, which
+  * has had the gravity component removed, and which has been rotated to
+  * the same reference frame as the current yaw value.  The resulting
+  * value represents the current acceleration in the x-axis of the
+  * body (e.g., the robot) on which the sensor is mounted.
+  *<p>
+  * @return Current world linear acceleration in the X-axis (in G).
+  */
   public float getWorldLinearAccelX() {
     return m_imu.getWorldLinearAccelX();
   }
 
   @Log
+  /**
+  * Returns the current linear acceleration in the Y-axis (in G).
+  *<p>
+  * World linear acceleration refers to raw acceleration data, which
+  * has had the gravity component removed, and which has been rotated to
+  * the same reference frame as the current yaw value.  The resulting
+  * value represents the current acceleration in the Y-axis of the
+  * body (e.g., the robot) on which the sensor is mounted.
+  *<p>
+  * @return Current world linear acceleration in the Y-axis (in G).
+  */
   public float getWorldLinearAccelY() {
     return m_imu.getWorldLinearAccelY();
   }
 
   @Log
+  /**
+  * Returns the current linear acceleration in the Z-axis (in G).
+  *<p>
+  * World linear acceleration refers to raw acceleration data, which
+  * has had the gravity component removed, and which has been rotated to
+  * the same reference frame as the current yaw value.  The resulting
+  * value represents the current acceleration in the Z-axis of the
+  * body (e.g., the robot) on which the sensor is mounted.
+  *<p>
+  * @return Current world linear acceleration in the Z-axis (in G).
+  */
   public float getWorldLinearAccelZ() {
     return m_imu.getWorldLinearAccelZ();
   }
 
-  @Log
-  public double getRate() {
-    return m_imu.getRate();
+  public boolean isMoving() {
+    return m_imu.isMoving();
   }
 
+  public boolean isRotating() {
+    return m_imu.isRotating();
+  }
+
+  @Log
+  public float getVelocityX() {
+    return m_imu.getVelocityX();
+  }
+
+  @Log
+  public float getVelocityY() {
+    return m_imu.getVelocityY();
+  }
+
+  @Log
+  public float getVelocityZ() {
+    return m_imu.getVelocityZ();
+  }
+
+  @Log
+  public float getDisplacementX() {
+    return m_imu.getDisplacementX();
+  }
+
+  @Log
+  public float getDisplacementY() {
+    return m_imu.getDisplacementY();
+  }
+
+  @Log
+  public float getDisplacementZ() {
+    return m_imu.getDisplacementZ();
+  }
+  
   @Override
+  // This method will be called once per scheduler run
   public void periodic() {
-    // This method will be called once per scheduler run
+    // Output the current encoder positions (in inches).
+    System.out.println(leftDistanceIn());
+    System.out.println(rightDistanceIn());
+
+    // Output various IMU data
+    // Gyro outputs
+    System.out.println(getAngle());
+    System.out.println(getPitch());
+    System.out.println(getRoll());
+    System.out.println(getYaw());
+    System.out.println(getRate());
+    // Accelerometer outputs
+    System.out.println(getWorldLinearAccelX());
+    System.out.println(getWorldLinearAccelY());
+    System.out.println(getWorldLinearAccelZ());
   }
 }
