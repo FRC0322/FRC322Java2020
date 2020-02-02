@@ -13,6 +13,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.BasicAutonomous;
 import frc.robot.commands.Brake;
+import frc.robot.commands.Coast;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.subsystems.Chassis;
 import frc.robot.utilities.F310Controller;
@@ -32,6 +33,7 @@ public class RobotContainer {
 
   private final BasicAutonomous m_autoCommand = new BasicAutonomous(m_chassis);
   private final Brake m_brake = new Brake(m_chassis);
+  private final Coast m_coast = new Coast(m_chassis);
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -53,8 +55,11 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    m_brakeButton.whileHeld(m_brake);
-  }
+    if (m_brakeButton.get())
+      m_brake.schedule();
+    else
+      m_brake.end(true);
+    }
 
 
   /**

@@ -53,13 +53,18 @@ public class Chassis extends SubsystemBase {
     m_leftMotors.setInverted(true);
     m_rightMotors.setInverted(true);
 
+    // Change the motors to "coast" mode
+    coast();
+
     // Setup the encoders
     m_leftFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
     m_rightFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
+    //System.out.println("Encoders Setup");
 
     // Choose whether to invert the encoders on the Talon SRX's
     m_leftFrontMotor.setSensorPhase(false);
     m_rightFrontMotor.setSensorPhase(false);
+    //System.out.println("Encoder Phasing Complete");
   }
 
   /**
@@ -116,7 +121,7 @@ public class Chassis extends SubsystemBase {
 
   @Log
   public double leftDistanceIn() {
-    return this.leftDistance() / this.ticksPerInch;
+    return leftDistance() / this.ticksPerInch;
   }
 
   @Log
@@ -126,7 +131,7 @@ public class Chassis extends SubsystemBase {
 
   @Log
   public double rightDistanceIn() {
-    return this.rightDistance() / this.ticksPerInch;
+    return rightDistance() / this.ticksPerInch;
   }
 
   // The following are feed-through functions providing public access to the IMU data.
@@ -285,6 +290,12 @@ public class Chassis extends SubsystemBase {
     System.out.println(getRate());
   }
 
+  public void logVelocity() {
+    System.out.println(getVelocityX());
+    System.out.println(getVelocityY());
+    System.out.println(getVelocityZ());
+  }
+
   public void logAccel() {
     System.out.println(getWorldLinearAccelX());
     System.out.println(getWorldLinearAccelY());
@@ -295,12 +306,24 @@ public class Chassis extends SubsystemBase {
   // This method will be called once per scheduler run
   public void periodic() {
     // Output the current encoder positions (in inches).
+    System.out.println("Encoder Outputs");
     logEncoders();
 
     // Output various IMU data
+    
     // Gyro outputs
+    //System.out.println("Gyro Outputs");
     //logGyro();
+    
     // Accelerometer outputs
+    //System.out.println("Accelerometer Outputs");
     //logAccel();
+    
+    // Velocity Outputs
+    //System.out.println("Velocity Outputs");
+    //logVelocity();
+    
+    // Add a gap between sets
+    System.out.println();
   }
 }

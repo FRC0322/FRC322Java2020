@@ -36,6 +36,10 @@ public class DriveWithJoystick extends CommandBase {
     addRequirements(m_chassis);
   }
 
+  @Override
+  public void initialize() {
+    //m_chassis.setupEncoders();
+  }
   // Called repeatedly when this Command is scheduled to run
   @Override
   public void execute() {
