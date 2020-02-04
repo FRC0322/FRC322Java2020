@@ -7,6 +7,8 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
@@ -16,9 +18,18 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-   public static final int DRIVE_LEFTFRONT = 1 ,
-    DRIVE_LEFTREAR = 2 ,
-    DRIVE_RIGHTFRONT = 3 , 
-    DRIVE_RIGHTREAR = 4,
-    TICKS_PER_INCH = 512;
+    public static final int DRIVE_LEFTFRONT = 1 ,
+        DRIVE_LEFTREAR = 2 ,
+        DRIVE_RIGHTFRONT = 3 , 
+        DRIVE_RIGHTREAR = 4,
+        TICKS_PER_INCH = 512;
+
+    public static final DriverStation DS = DriverStation.getInstance();
+
+    public static final int DRIVE_STICK = 0,
+        BRAKE_BUTTON = 1;
+
+    public static final double DEFAULT_AUTONOMOUS_DISTANCE = 24.0, 
+        DEFAULT_AUTONOMOUS_HEADING = 0.0,
+        AUTONOMOUS_DISTANCE_ERROR_FACTOR = 6.0;
 }

@@ -7,7 +7,7 @@
 
 package frc.robot.subsystems;
 
-import frc.robot.Robot;
+import frc.robot.Constants;
 import com.ctre.phoenix.CANifier;
 import com.ctre.phoenix.CANifier.LEDChannel;
 import edu.wpi.first.wpilibj.DriverStation;
@@ -39,22 +39,22 @@ public class LED extends SubsystemBase {
   }
 
   public void automaticLEDSetter() throws InterruptedException {
-   	if(Robot.DS.isDisabled())             m_blinkRate = 500;
-   	else if(Robot.DS.isAutonomous())      m_blinkRate = 100;
-   	else if(Robot.DS.isOperatorControl()) m_blinkRate = 250;
-   	else                                  m_blinkRate = 0;
+   	if(Constants.DS.isDisabled())             m_blinkRate = 500;
+   	else if(Constants.DS.isAutonomous())      m_blinkRate = 100;
+   	else if(Constants.DS.isOperatorControl()) m_blinkRate = 250;
+   	else                                      m_blinkRate = 0;
   
-    if(Robot.DS.getAlliance() == DriverStation.Alliance.Red) {
+    if(Constants.DS.getAlliance() == DriverStation.Alliance.Red) {
    		m_red = 1.0;
    		m_green = 0.0;
    		m_blue = 0.0;
    	}
-   	else if(Robot.DS.getAlliance() == DriverStation.Alliance.Blue) {
+   	else if(Constants.DS.getAlliance() == DriverStation.Alliance.Blue) {
    		m_red = 0.0;
    		m_green = 0.0;
    		m_blue = 1.0;
    	}
-   	else if(Robot.DS.getAlliance() == DriverStation.Alliance.Invalid) {
+   	else if(Constants.DS.getAlliance() == DriverStation.Alliance.Invalid) {
    		m_red = 1.0;
    		m_green = 0.0;
    		m_blue = 1.0;

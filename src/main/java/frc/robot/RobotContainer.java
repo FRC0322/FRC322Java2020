@@ -14,6 +14,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.commands.BasicAutonomous;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.subsystems.Chassis;
+import frc.robot.Constants;
 import frc.robot.utilities.F310Controller;
 
 /**
@@ -26,8 +27,8 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Chassis m_chassis = new Chassis();
   
-  private final F310Controller m_driveStick = new F310Controller(0);
-  private final JoystickButton m_brakeButton = new JoystickButton(m_driveStick, 1);
+  private final F310Controller m_driveStick = new F310Controller(Constants.DRIVE_STICK);
+  private final JoystickButton m_brakeButton = new JoystickButton(m_driveStick, Constants.BRAKE_BUTTON);
   private final BasicAutonomous m_autoCommand = new BasicAutonomous(m_chassis);
 
   /**

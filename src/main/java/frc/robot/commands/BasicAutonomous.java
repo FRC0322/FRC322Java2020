@@ -9,13 +9,14 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.Chassis;
+import frc.robot.Constants;
 import io.github.oblarg.oblog.annotations.Config;
 
 public class BasicAutonomous extends CommandBase {
   private final Chassis m_chassis;
   
   @Config
-  private double heading, distance, startingDistance;
+  private double heading, distance, startingDistance, errorFactor;
   /**
    * Creates a new BasicAutonomous.
    */
@@ -29,8 +30,9 @@ public class BasicAutonomous extends CommandBase {
   @Override
   public void initialize() {
     startingDistance = Math.min(m_chassis.leftDistanceIn(), m_chassis.rightDistanceIn());
-    heading = 0.0;
-    distance = 24.0;
+    heading = Constants.DEFAULT_AUTONOMOUS_HEADING;
+    distance = Constants.DEFAULT_AUTONOMOUS_DISTANCE;
+    errorFactor = Constants.AUTONOMOUS_DISTANCE_ERROR_FACTOR;
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -49,7 +51,7 @@ public class BasicAutonomous extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    if((startingDistance + distance + 6) > Math.min(Math.abs(m_chassis.leftDistanceIn()),
+    if((startingDistance + distance + errorFactor) > Math.min(Math.abs(m_chassis.leftDistanceIn()),
       Math.abs(m_chassis.rightDistanceIn())))
         return false;
     else
