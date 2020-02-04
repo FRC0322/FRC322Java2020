@@ -7,15 +7,17 @@
 
 package frc.robot.subsystems;
 
-import frc.robot.Constants;
 import com.ctre.phoenix.CANifier;
 import com.ctre.phoenix.CANifier.LEDChannel;
+
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 
 public class LED extends SubsystemBase {
   private final CANifier m_ledControlCANifier;
-  private double m_red, m_blue, m_green;
+  private double m_red, m_blue, m_green, m_startTime;
   private long m_blinkRate;
   /**
    * Creates a new LED.
@@ -24,18 +26,25 @@ public class LED extends SubsystemBase {
     super();
     m_ledControlCANifier = new CANifier(0);
     m_red = m_blue = m_green = 0.0;
+    m_startTime = 0.0;
     m_blinkRate = 0;
   }
 
   public void setRGB(double redIntensity, double greenIntensity, double blueIntensity, long blinkRate) throws InterruptedException {
-  	m_ledControlCANifier.setLEDOutput(redIntensity, LEDChannel.LEDChannelA);
-    m_ledControlCANifier.setLEDOutput(greenIntensity, LEDChannel.LEDChannelB);
-    m_ledControlCANifier.setLEDOutput(blueIntensity, LEDChannel.LEDChannelC);
-    Thread.sleep(blinkRate);
-    m_ledControlCANifier.setLEDOutput(0.0, LEDChannel.LEDChannelA);
-    m_ledControlCANifier.setLEDOutput(0.0, LEDChannel.LEDChannelB);
-    m_ledControlCANifier.setLEDOutput(0.0, LEDChannel.LEDChannelC);
-    Thread.sleep(blinkRate);
+    if(m_startTime == 0.0)
+      m_startTime = Timer.getFPGATimestamp();
+    else if((m_startTime * 1000) < ((m_startTime * 1000) + blinkRate)) {
+      m_ledControlCANifier.setLEDOutput(redIntensity, LEDChannel.LEDChannelA);
+      m_ledControlCANifier.setLEDOutput(greenIntensity, LEDChannel.LEDChannelB);
+      m_ledControlCANifier.setLEDOutput(blueIntensity, LEDChannel.LEDChannelC);
+    }
+    else if((m_startTime * 1000) < ((m_startTime * 1000) + (blinkRate * 2))) {
+      m_ledControlCANifier.setLEDOutput(0.0, LEDChannel.LEDChannelA);
+      m_ledControlCANifier.setLEDOutput(0.0, LEDChannel.LEDChannelB);
+      m_ledControlCANifier.setLEDOutput(0.0, LEDChannel.LEDChannelC);
+    }
+    else
+      m_startTime = 0.0;
   }
 
   public void automaticLEDSetter() throws InterruptedException {
