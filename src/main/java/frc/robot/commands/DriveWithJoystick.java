@@ -11,7 +11,7 @@ package frc.robot.commands;
 import java.util.function.DoubleSupplier;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-
+import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Chassis;
 
 /**
@@ -21,6 +21,7 @@ public class DriveWithJoystick extends CommandBase {
   private final Chassis m_chassis;
   private final DoubleSupplier m_left;
   private final DoubleSupplier m_right;
+  private final JoystickButton m_brakeButton;
 
   /**
    * Creates a new DriveWithJoystick command.
@@ -29,10 +30,11 @@ public class DriveWithJoystick extends CommandBase {
    * @param right      The control input for the right sight of the drive
    * @param drivetrain The drivetrain subsystem to drive
    */
-  public DriveWithJoystick(DoubleSupplier left, DoubleSupplier right, Chassis chassis) {
+  public DriveWithJoystick(DoubleSupplier left, DoubleSupplier right, Chassis chassis, JoystickButton brake) {
     m_chassis = chassis;
     m_left = left;
     m_right = right;
+    m_brakeButton = brake;
     addRequirements(m_chassis);
   }
 
@@ -44,6 +46,10 @@ public class DriveWithJoystick extends CommandBase {
   @Override
   public void execute() {
     m_chassis.drive(m_left.getAsDouble(), m_right.getAsDouble());
+    if (m_brakeButton.get())
+      m_chassis.brake(true);
+    else
+      m_chassis.brake(false);
   }
 
   // Make this return true when this Command no longer needs to run execute()

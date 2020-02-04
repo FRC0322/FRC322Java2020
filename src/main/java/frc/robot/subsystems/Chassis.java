@@ -19,6 +19,7 @@ import edu.wpi.first.wpilibj.SpeedController;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants;
 import io.github.oblarg.oblog.annotations.Log;
 
 public class Chassis extends SubsystemBase {
@@ -27,10 +28,11 @@ public class Chassis extends SubsystemBase {
    * It includes the four drive motors (two on each side), quadrature encoders connected directly to each
    * front motor Talon SRX, and a navX-MXP IMU.
    */
-  private final WPI_TalonSRX m_leftFrontMotor = new WPI_TalonSRX(1);
-  private final WPI_TalonSRX m_leftRearMotor = new WPI_TalonSRX(2);
-  private final WPI_TalonSRX m_rightFrontMotor = new WPI_TalonSRX(3);
-  private final WPI_TalonSRX m_rightRearMotor = new WPI_TalonSRX(4);
+  
+  private final WPI_TalonSRX m_leftFrontMotor = new WPI_TalonSRX(Constants.DRIVE_LEFTFRONT);
+  private final WPI_TalonSRX m_leftRearMotor = new WPI_TalonSRX(Constants.DRIVE_LEFTREAR);
+  private final WPI_TalonSRX m_rightFrontMotor = new WPI_TalonSRX(Constants.DRIVE_RIGHTFRONT);
+  private final WPI_TalonSRX m_rightRearMotor = new WPI_TalonSRX(Constants.DRIVE_RIGHTREAR);
 
   private final SpeedController m_leftMotors = 
     new SpeedControllerGroup(m_leftFrontMotor, m_leftRearMotor);
@@ -43,7 +45,7 @@ public class Chassis extends SubsystemBase {
   private final AHRS m_imu = new AHRS();
   
   // This is a constant which is the number of Encoder ticks that matches one inch of Robot travel.
-  private final int ticksPerInch = 512;
+  private final int ticksPerInch = Constants.TICKS_PER_INCH;
   /**
   * Creates a new Chassis.
   */
@@ -54,7 +56,7 @@ public class Chassis extends SubsystemBase {
     m_rightMotors.setInverted(true);
 
     // Change the motors to "coast" mode
-    coast();
+    coast(true);
 
     // Setup the encoders
     m_leftFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
@@ -92,24 +94,42 @@ public class Chassis extends SubsystemBase {
   }
 
   // This method sets the robot to brake when the throttle is idle.
-  public void brake() {
-    m_leftFrontMotor.setNeutralMode(NeutralMode.Brake);
-    m_leftRearMotor.setNeutralMode(NeutralMode.Brake);
-    m_rightFrontMotor.setNeutralMode(NeutralMode.Brake);
-    m_rightRearMotor.setNeutralMode(NeutralMode.Brake);
+  public void brake(boolean brake) {
+    if(brake) {
+      m_leftFrontMotor.setNeutralMode(NeutralMode.Brake);
+      m_leftRearMotor.setNeutralMode(NeutralMode.Brake);
+      m_rightFrontMotor.setNeutralMode(NeutralMode.Brake);
+      m_rightRearMotor.setNeutralMode(NeutralMode.Brake);
+    }
+    else {
+      m_leftFrontMotor.setNeutralMode(NeutralMode.Coast);
+      m_leftRearMotor.setNeutralMode(NeutralMode.Coast);
+      m_rightFrontMotor.setNeutralMode(NeutralMode.Coast);
+      m_rightRearMotor.setNeutralMode(NeutralMode.Coast);
+    }
   }
 
   // This method sets the robot to coast when the throttle is idle.
-  public void coast() {
-    m_leftFrontMotor.setNeutralMode(NeutralMode.Coast);
-    m_leftRearMotor.setNeutralMode(NeutralMode.Coast);
-    m_rightFrontMotor.setNeutralMode(NeutralMode.Coast);
-    m_rightRearMotor.setNeutralMode(NeutralMode.Coast);
+  public void coast(boolean coast) {
+    if (coast) {
+      m_leftFrontMotor.setNeutralMode(NeutralMode.Coast);
+      m_leftRearMotor.setNeutralMode(NeutralMode.Coast);
+      m_rightFrontMotor.setNeutralMode(NeutralMode.Coast);
+      m_rightRearMotor.setNeutralMode(NeutralMode.Coast);
+    
+    }
+    else {
+      m_leftFrontMotor.setNeutralMode(NeutralMode.Brake);
+      m_leftRearMotor.setNeutralMode(NeutralMode.Brake);
+      m_rightFrontMotor.setNeutralMode(NeutralMode.Brake);
+      m_rightRearMotor.setNeutralMode(NeutralMode.Brake);
+    }
   }
 
   // This stops the robot
   public void stop() {
     m_drive.arcadeDrive(0.0, 0.0);
+    brake(true);
   }
 
   // The following are feed-through functions providing public access to Encoder ticks from the Talon SRX's
