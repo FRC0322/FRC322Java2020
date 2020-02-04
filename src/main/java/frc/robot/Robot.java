@@ -7,6 +7,7 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -20,7 +21,7 @@ import io.github.oblarg.oblog.Logger;
  */
 public class Robot extends TimedRobot {
   private Command m_autonomousCommand;
-
+  public static DriverStation DS;
   private RobotContainer m_robotContainer;
 
   /**
@@ -33,6 +34,8 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
+    DS = DriverStation.getInstance();
+    
     // The first argument is the root container
     // The second argument is whether logging and config should be given separate tabs
     Logger.configureLoggingAndConfig(this, false);

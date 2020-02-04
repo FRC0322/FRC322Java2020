@@ -8,33 +8,56 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.LED;
 
-public class Coast extends CommandBase {
-  private final Chassis m_chassis;
+public class ManualLED extends CommandBase {
+  private final LED m_led; 
+  private double m_red, m_blue, m_green;
+  private long m_blinkRate;
   /**
-   * Creates a new Brake.
+   * Creates a new AutomaticLED.
    */
-   public Coast(Chassis chassis) {
+  public ManualLED(LED led, double red, double green, double blue, long blinkRate) {
+    m_led = led;
+    m_red = red;
+    m_green = green;
+    m_blue = blue;
+    m_blinkRate = blinkRate;
     // Use addRequirements() here to declare subsystem dependencies.
-    m_chassis = chassis;
-    addRequirements(m_chassis);
+    addRequirements(led);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    try {
+      m_led.setRGB(1.0, 1.0, 1.0, 0);
+    }
+    catch(Exception e) {
+      System.out.println("Something LED related has failed.");
+    }
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_chassis.coast();
+    try {
+      m_led.setRGB(m_red, m_blue, m_green, m_blinkRate);
+    }
+    catch(Exception e) {
+      System.out.println("Something LED related has failed.");
+    }
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    try {
+      m_led.setRGB(1.0, 1.0, 1.0, 0);
+    }
+    catch(Exception e) {
+      System.out.println("Something LED related has failed.");
+    }
   }
 
   // Returns true when the command should end.
