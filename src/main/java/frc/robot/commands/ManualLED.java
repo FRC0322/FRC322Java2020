@@ -12,12 +12,11 @@ import frc.robot.subsystems.LED;
 
 public class ManualLED extends CommandBase {
   private final LED m_led; 
-  private double m_red, m_blue, m_green;
-  private long m_blinkRate;
+  private double m_red, m_blue, m_green, m_blinkRate;
   /**
    * Creates a new AutomaticLED.
    */
-  public ManualLED(LED led, double red, double green, double blue, long blinkRate) {
+  public ManualLED(LED led, double red, double green, double blue, double blinkRate) {
     m_led = led;
     m_red = red;
     m_green = green;
@@ -31,7 +30,7 @@ public class ManualLED extends CommandBase {
   @Override
   public void initialize() {
     try {
-      m_led.setRGB(1.0, 1.0, 1.0, 0);
+      m_led.setRGB(1.0, 1.0, 1.0, 0.0);
     }
     catch(Exception e) {
       System.out.println("Something LED related has failed.");
@@ -53,7 +52,7 @@ public class ManualLED extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     try {
-      m_led.setRGB(1.0, 1.0, 1.0, 0);
+      m_led.setRGB(1.0, 1.0, 1.0, 0.0);
     }
     catch(Exception e) {
       System.out.println("Something LED related has failed.");

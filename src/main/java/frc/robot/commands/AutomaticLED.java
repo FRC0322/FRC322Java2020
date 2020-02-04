@@ -25,7 +25,7 @@ public class AutomaticLED extends CommandBase {
   @Override
   public void initialize() {
     try {
-      m_led.setRGB(1.0, 1.0, 1.0, 0);
+      m_led.setRGB(1.0, 1.0, 1.0, 0.0);
     }
     catch(Exception e) {
       System.out.println("Something LED related has failed.");
@@ -47,7 +47,7 @@ public class AutomaticLED extends CommandBase {
   @Override
   public void end(boolean interrupted) {
     try {
-      m_led.setRGB(1.0, 1.0, 1.0, 0);
+      m_led.setRGB(1.0, 1.0, 1.0, 0.0);
     }
     catch(Exception e) {
       System.out.println("Something LED related has failed.");
