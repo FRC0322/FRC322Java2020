@@ -29,6 +29,7 @@ public class Limelight extends SubsystemBase {
    * Creates a new Limelight.
    */
   public Limelight() {
+    super();
     // Create a network table instance for the limelight and variables for it's output.
     m_table = NetworkTableInstance.getDefault().getTable("limelight");
     m_tx = m_table.getEntry("tx");
