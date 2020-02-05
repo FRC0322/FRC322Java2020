@@ -38,10 +38,24 @@ public class RobotContainer {
     // Assign default commands
     m_chassis.setDefaultCommand(new DriveWithJoystick(
       () -> m_driveStick.getTriggerAxis(Hand.kRight) - m_driveStick.getTriggerAxis(Hand.kLeft),
-      () -> -(m_driveStick.getX(Hand.kLeft)), m_chassis, m_brakeButton));
+      () -> -(throttle(m_driveStick.getX(Hand.kLeft))), m_chassis, m_brakeButton));
 
     // Configure the button bindings
     configureButtonBindings();
+  }
+  
+  /*
+     Sets the throttle for turning at this point when the stick button 
+     is pushed left or right and the x axis.
+  */
+  private double throttle(double speed){
+    if(Math.abs(speed) <=0.50 ){
+      return speed;
+    }
+    if(speed > 0.00){
+      return 0.50;
+    }
+    return -0.50;
   }
 
   /**
