@@ -24,6 +24,8 @@ public final class Constants {
                             DRIVE_RIGHTREAR = 4,
                             TICKS_PER_INCH = 512;
 
+    public static final int FEEDER_MOTOR = 1;
+
     public static final DriverStation DS = DriverStation.getInstance();
 
     public static final int DRIVE_STICK = 0,
