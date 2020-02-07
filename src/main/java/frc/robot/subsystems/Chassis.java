@@ -20,7 +20,6 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import io.github.oblarg.oblog.annotations.Log;
 
 public class Chassis extends SubsystemBase {
   /**
@@ -43,8 +42,6 @@ public class Chassis extends SubsystemBase {
     new DifferentialDrive(m_leftMotors, m_rightMotors);
 
   private final AHRS m_imu = new AHRS();
-  
-  private final boolean log = false;
 
   // This is a constant which is the number of Encoder ticks that matches one inch of Robot travel.
   private final int ticksPerInch = Constants.TICKS_PER_INCH;
@@ -136,25 +133,21 @@ public class Chassis extends SubsystemBase {
 
   // The following are feed-through functions providing public access to Encoder ticks from the Talon SRX's
 
-  @Log
   // Raw encoder output from the left encoder
   public int leftDistance() {
     return m_leftFrontMotor.getSelectedSensorPosition();
   }
 
-  @Log
   // Raw encoder output from the right encoder
   public int rightDistance() {
     return m_rightFrontMotor.getSelectedSensorPosition();
   }
   
-  @Log
   // Encoder output from the left encoder in inches
   public double leftDistanceIn() {
     return leftDistance() / this.ticksPerInch;
   }
 
-  @Log
   // Encoder output from the right encoder in inches
   public double rightDistanceIn() {
     return rightDistance() / this.ticksPerInch;
@@ -170,7 +163,6 @@ public class Chassis extends SubsystemBase {
 
   // The following are feed-through functions providing public access to the IMU data.
 
-  @Log
   /**
    * Returns the current tilt-compensated compass heading 
    * value (in degrees, from 0 to 360) reported by the sensor.
@@ -192,7 +184,6 @@ public class Chassis extends SubsystemBase {
     return 0.0f;
   }
 
-  @Log
   /**
    * Returns the "fused" (9-axis) heading.
    *<p>
@@ -215,7 +206,6 @@ public class Chassis extends SubsystemBase {
       return 0.0f;
   }
 
-  @Log
   /**
    * Returns the total accumulated yaw angle (Z Axis, in degrees)
    * reported by the sensor.
@@ -236,7 +226,6 @@ public class Chassis extends SubsystemBase {
     return m_imu.getAngle();
   }
 
-  @Log
   /**
   * Return the rate of rotation of the yaw (Z-axis) gyro, in degrees per second.
   *<p>
@@ -248,7 +237,6 @@ public class Chassis extends SubsystemBase {
     return m_imu.getRate();
   }
 
-  @Log
   /**
    * Returns the current pitch value (in degrees, from -180 to 180)
    * reported by the sensor.  Pitch is a measure of rotation around
@@ -259,7 +247,6 @@ public class Chassis extends SubsystemBase {
     return m_imu.getPitch();
   }
 
-  @Log
   /**
    * Returns the current roll value (in degrees, from -180 to 180)
    * reported by the sensor.  Roll is a measure of rotation around
@@ -270,7 +257,6 @@ public class Chassis extends SubsystemBase {
     return m_imu.getRoll();
   }
 
-  @Log
   /**
    * Returns the current yaw value (in degrees, from -180 to 180)
    * reported by the sensor.  Yaw is a measure of rotation around
@@ -285,7 +271,6 @@ public class Chassis extends SubsystemBase {
     return m_imu.getYaw();
   }
 
-  @Log
   /**
   * Returns the current linear acceleration in the X-axis (in G).
   *<p>
@@ -301,7 +286,6 @@ public class Chassis extends SubsystemBase {
     return m_imu.getWorldLinearAccelX();
   }
 
-  @Log
   /**
   * Returns the current linear acceleration in the Y-axis (in G).
   *<p>
@@ -317,7 +301,6 @@ public class Chassis extends SubsystemBase {
     return m_imu.getWorldLinearAccelY();
   }
 
-  @Log
   /**
   * Returns the current linear acceleration in the Z-axis (in G).
   *<p>
@@ -360,7 +343,6 @@ public class Chassis extends SubsystemBase {
     return m_imu.isRotating();
   }
 
-  @Log
   /**
    * Returns the velocity (in meters/sec) of the X axis [Experimental].
    *
@@ -373,7 +355,6 @@ public class Chassis extends SubsystemBase {
     return m_imu.getVelocityX();
   }
 
-  @Log
   /**
    * Returns the velocity (in meters/sec) of the Y axis [Experimental].
    *
@@ -386,7 +367,6 @@ public class Chassis extends SubsystemBase {
     return m_imu.getVelocityY();
   }
 
-  @Log
   /**
    * Returns the velocity (in meters/sec) of the Z axis [Experimental].
    *
@@ -399,7 +379,6 @@ public class Chassis extends SubsystemBase {
     return m_imu.getVelocityZ();
   }
 
-  @Log
   /**
    * Returns the displacement (in meters) of the X axis since resetDisplacement()
    * was last invoked [Experimental].
@@ -414,7 +393,6 @@ public class Chassis extends SubsystemBase {
     return m_imu.getDisplacementX();
   }
 
-  @Log
   /**
    * Returns the displacement (in meters) of the Y axis since resetDisplacement()
    * was last invoked [Experimental].
@@ -429,7 +407,6 @@ public class Chassis extends SubsystemBase {
     return m_imu.getDisplacementY();
   }
 
-  @Log
   /**
    * Returns the displacement (in meters) of the Z axis since resetDisplacement()
    * was last invoked [Experimental].
@@ -505,7 +482,7 @@ public class Chassis extends SubsystemBase {
     System.out.println("Z Displacement: " + getDisplacementZ());
   }
 
-  private void chassisLog(boolean logging) {
+  public void chassisLog(boolean logging) {
     if(logging) {
       // Output the current encoder positions (in inches).
       System.out.println("Encoder Outputs");
@@ -541,6 +518,5 @@ public class Chassis extends SubsystemBase {
   @Override
   // This method will be called once per scheduler run
   public void periodic() {
-    chassisLog(log);
   }
 }

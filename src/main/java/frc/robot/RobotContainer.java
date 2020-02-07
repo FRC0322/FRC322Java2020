@@ -16,6 +16,7 @@ import frc.robot.commands.BasicAutonomous;
 import frc.robot.commands.DriveWithJoystick;
 import frc.robot.subsystems.Chassis;
 import frc.robot.utilities.F310Controller;
+import frc.robot.utilities.RumblePad2;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -28,7 +29,11 @@ public class RobotContainer {
   private final Chassis m_chassis = new Chassis();
   
   private final F310Controller m_driveStick = new F310Controller(Constants.DRIVE_STICK);
+  private final F310Controller m_manipulatorStick = new F310Controller(Constants.MANIPULATOR_STICK);
+  private final RumblePad2 m_debuggerStick = new RumblePad2(Constants.DEBUGGER_STICK);
   private final JoystickButton m_brakeButton = new JoystickButton(m_driveStick, Constants.BRAKE_BUTTON);
+  private final JoystickButton m_logButton = new JoystickButton(m_driveStick, Constants.LOG_BUTTON);
+  //private final JoystickButton m_logButton = new JoystickButton(m_debuggerStick, Constants.LOG_BUTTON);
   private final BasicAutonomous m_autoCommand = new BasicAutonomous(m_chassis);
 
   /**
@@ -38,7 +43,12 @@ public class RobotContainer {
     // Assign default commands
     m_chassis.setDefaultCommand(new DriveWithJoystick(
       () -> m_driveStick.getTriggerAxis(Hand.kRight) - m_driveStick.getTriggerAxis(Hand.kLeft),
-      () -> -(m_driveStick.getX(Hand.kLeft)), m_chassis, m_brakeButton));
+      () -> -(m_driveStick.getX(Hand.kLeft)), m_chassis, m_brakeButton, m_logButton));
+
+    // Default command for debugging purposes
+    //m_chassis.setDefaultCommand(new DriveWithJoystick(
+    //  () -> -(m_debuggerStick.getY(Hand.kRight), () -> -(m_debuggerStick.getX(Hand.kRight)),
+    //  m_chassis, m_brakeButton, m_logButton)));
 
     // Configure the button bindings
     configureButtonBindings();
@@ -52,7 +62,6 @@ public class RobotContainer {
    */
   private void configureButtonBindings() {
     }
-
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

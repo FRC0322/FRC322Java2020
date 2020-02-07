@@ -21,7 +21,7 @@ public class DriveWithJoystick extends CommandBase {
   private final Chassis m_chassis;
   private final DoubleSupplier m_left;
   private final DoubleSupplier m_right;
-  private final JoystickButton m_brakeButton;
+  private final JoystickButton m_brakeButton, m_logButton;
 
   /**
    * Creates a new DriveWithJoystick command.
@@ -30,11 +30,12 @@ public class DriveWithJoystick extends CommandBase {
    * @param right      The control input for the right sight of the drive
    * @param drivetrain The drivetrain subsystem to drive
    */
-  public DriveWithJoystick(DoubleSupplier left, DoubleSupplier right, Chassis chassis, JoystickButton brake) {
+  public DriveWithJoystick(DoubleSupplier left, DoubleSupplier right, Chassis chassis, JoystickButton brake, JoystickButton log) {
     m_chassis = chassis;
     m_left = left;
     m_right = right;
     m_brakeButton = brake;
+    m_logButton = log;
     addRequirements(m_chassis);
   }
 
@@ -50,6 +51,10 @@ public class DriveWithJoystick extends CommandBase {
       m_chassis.brake(true);
     else
       m_chassis.brake(false);
+    if (m_logButton.get())
+      m_chassis.chassisLog(true);
+    else
+      m_chassis.chassisLog(false);
   }
 
   // Make this return true when this Command no longer needs to run execute()

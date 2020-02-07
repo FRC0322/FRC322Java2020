@@ -18,18 +18,21 @@ import edu.wpi.first.wpilibj.DriverStation;
  * constants are needed, to reduce verbosity.
  */
 public final class Constants {
-    public static final int DRIVE_LEFTFRONT = 1 ,
-        DRIVE_LEFTREAR = 2 ,
-        DRIVE_RIGHTFRONT = 3 , 
-        DRIVE_RIGHTREAR = 4,
-        TICKS_PER_INCH = 512;
+    public static final int DRIVE_LEFTFRONT = 1,
+                            DRIVE_LEFTREAR = 2,
+                            DRIVE_RIGHTFRONT = 3, 
+                            DRIVE_RIGHTREAR = 4,
+                            TICKS_PER_INCH = 512;
 
     public static final DriverStation DS = DriverStation.getInstance();
 
     public static final int DRIVE_STICK = 0,
-        BRAKE_BUTTON = 1;
+                            MANIPULATOR_STICK = 1,
+                            DEBUGGER_STICK = 2,
+                            BRAKE_BUTTON = 1,
+                            LOG_BUTTON = 8;
 
-    public static final double DEFAULT_AUTONOMOUS_DISTANCE = 24.0, 
-        DEFAULT_AUTONOMOUS_HEADING = 0.0,
-        AUTONOMOUS_DISTANCE_ERROR_FACTOR = 6.0;
+    public static final double  DEFAULT_AUTONOMOUS_DISTANCE = 24.0, 
+                                DEFAULT_AUTONOMOUS_HEADING = 0.0,
+                                AUTONOMOUS_DISTANCE_ERROR_FACTOR = 6.0;
 }
