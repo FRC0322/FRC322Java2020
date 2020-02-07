@@ -30,12 +30,13 @@ public class DriveWithJoystick extends CommandBase {
    * @param right      The control input for the right sight of the drive
    * @param drivetrain The drivetrain subsystem to drive
    */
-  public DriveWithJoystick(DoubleSupplier left, DoubleSupplier right, Chassis chassis, JoystickButton brake, JoystickButton log) {
+  public DriveWithJoystick(DoubleSupplier left, DoubleSupplier right, Chassis chassis,
+                            JoystickButton brake, JoystickButton logButton) {
     m_chassis = chassis;
     m_left = left;
     m_right = right;
     m_brakeButton = brake;
-    m_logButton = log;
+    m_logButton = logButton;
     addRequirements(m_chassis);
   }
 

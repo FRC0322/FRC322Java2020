@@ -14,7 +14,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.BasicAutonomous;
 import frc.robot.commands.DriveWithJoystick;
+import frc.robot.commands.RunFeeder;
+import frc.robot.commands.RunShooter;
 import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.Shooter;
 import frc.robot.utilities.F310Controller;
 import frc.robot.utilities.RumblePad2;
 
@@ -27,6 +31,8 @@ import frc.robot.utilities.RumblePad2;
 public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Chassis m_chassis = new Chassis();
+  private final Feeder m_feeder = new Feeder();
+  private final Shooter m_shooter = new Shooter();
   
   private final F310Controller m_driveStick = new F310Controller(Constants.DRIVE_STICK);
   private final F310Controller m_manipulatorStick = new F310Controller(Constants.MANIPULATOR_STICK);
@@ -34,6 +40,11 @@ public class RobotContainer {
   private final JoystickButton m_brakeButton = new JoystickButton(m_driveStick, Constants.BRAKE_BUTTON);
   private final JoystickButton m_logButton = new JoystickButton(m_driveStick, Constants.LOG_BUTTON);
   //private final JoystickButton m_logButton = new JoystickButton(m_debuggerStick, Constants.LOG_BUTTON);
+  private final JoystickButton m_feederButton = new JoystickButton(m_manipulatorStick, Constants.FEEDER_BUTTON);
+  private final JoystickButton m_feederReverseButton = new JoystickButton(m_manipulatorStick, Constants.FEEDER_REVERSE_BUTTON);
+  private final JoystickButton m_shooterButton = new JoystickButton(m_manipulatorStick, Constants.SHOOTER_BUTTON);
+  private final JoystickButton m_shooterReverseButton = new JoystickButton(m_manipulatorStick, Constants.SHOOTER_REVERSE_BUTTON);
+  private final JoystickButton m_manipulatorLogButton = new JoystickButton(m_driveStick, Constants.LOG_BUTTON);
   private final BasicAutonomous m_autoCommand = new BasicAutonomous(m_chassis);
 
   /**
@@ -44,6 +55,12 @@ public class RobotContainer {
     m_chassis.setDefaultCommand(new DriveWithJoystick(
       () -> m_driveStick.getTriggerAxis(Hand.kRight) - m_driveStick.getTriggerAxis(Hand.kLeft),
       () -> -(m_driveStick.getX(Hand.kLeft)), m_chassis, m_brakeButton, m_logButton));
+
+    m_feeder.setDefaultCommand(new RunFeeder(m_feeder, m_manipulatorStick.getY(Hand.kLeft),
+      m_manipulatorLogButton));
+
+    m_shooter.setDefaultCommand(new RunShooter(m_shooter, m_manipulatorStick.getY(Hand.kLeft),
+      m_manipulatorLogButton));
 
     // Default command for debugging purposes
     //m_chassis.setDefaultCommand(new DriveWithJoystick(
@@ -61,7 +78,22 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    }
+    /**
+     * This block will make the feeder and shooter run on button presses rather than by joystick axis.
+     * We need to figure out how fast we want the motors running first though.
+     *  m_feederButton.toggleWhenActive(new RunFeeder(m_feeder, Constants.FEEDER_SPEED,
+     *    m_manipulatorLogButton), true);
+     *
+     *  m_feederReverseButton.toggleWhenActive(new RunFeeder(m_feeder, Constants.FEEDER_REVERSE_SPEED,
+     *    m_manipulatorLogButton), true);
+     *
+     *  m_shooterButton.toggleWhenActive(new RunShooter(m_shooter, Constants.SHOOTER_SPEED,
+     *    m_manipulatorLogButton), true); 
+     *
+     *  m_shooterReverseButton.toggleWhenActive(new RunShooter(m_shooter, Constants.SHOOTER_REVERSE_SPEED,
+     *    m_manipulatorLogButton), true); 
+     */
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.

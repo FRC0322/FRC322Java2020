@@ -16,16 +16,16 @@ public class F310Controller extends GenericHID {
    * Represents a digital button on an F310Controller.
    */
   private enum Button {
-    kBumperLeft(5),
-    kBumperRight(6),
-    kStickLeft(9),
-    kStickRight(10),
     kA(1),
     kB(2),
     kX(3),
     kY(4),
+    kBumperLeft(5),
+    kBumperRight(6),
     kBack(7),
-    kStart(8);
+    kStart(8),
+    kStickLeft(9),
+    kStickRight(10);
 
     //@SuppressWarnings("MemberName")
     private int value;
