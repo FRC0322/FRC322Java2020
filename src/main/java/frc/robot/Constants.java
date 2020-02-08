@@ -44,7 +44,10 @@ public final class Constants {
                             FEEDER_BUTTON = 1,
                             SHOOTER_BUTTON = 3,
                             FEEDER_REVERSE_BUTTON = 2,
-                            SHOOTER_REVERSE_BUTTON = 4;
+                            SHOOTER_REVERSE_BUTTON = 4,
+                            LED_ON_BUTTON = 5,
+                            LED_OFF_BUTTON = 6,
+                            LED_DEFAULT_BUTTON = 8;
     public static final double  FEEDER_SPEED = 0.5,
                                 FEEDER_REVERSE_SPEED = -(0.5),
                                 SHOOTER_SPEED = 0.5,

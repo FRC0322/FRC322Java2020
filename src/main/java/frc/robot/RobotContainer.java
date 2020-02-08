@@ -12,12 +12,18 @@ import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.commands.AutomaticLED;
 import frc.robot.commands.BasicAutonomous;
 import frc.robot.commands.DriveWithJoystick;
+import frc.robot.commands.LimelightLEDDefault;
+import frc.robot.commands.LimelightLEDOff;
+import frc.robot.commands.LimelightLEDOn;
 import frc.robot.commands.RunFeeder;
 import frc.robot.commands.RunShooter;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Feeder;
+import frc.robot.subsystems.LED;
+import frc.robot.subsystems.Limelight;
 import frc.robot.subsystems.Shooter;
 import frc.robot.utilities.F310Controller;
 import frc.robot.utilities.RumblePad2;
@@ -32,11 +38,14 @@ public class RobotContainer {
   // The robot's subsystems and commands are defined here...
   private final Chassis m_chassis = new Chassis();
   private final Feeder m_feeder = new Feeder();
+  private final LED m_led = new LED();
   private final Shooter m_shooter = new Shooter();
+  private final Limelight m_limelight = new Limelight();
   
   private final F310Controller m_driveStick = new F310Controller(Constants.DRIVE_STICK);
   private final F310Controller m_manipulatorStick = new F310Controller(Constants.MANIPULATOR_STICK);
   private final RumblePad2 m_debuggerStick = new RumblePad2(Constants.DEBUGGER_STICK);
+  
   private final JoystickButton m_brakeButton = new JoystickButton(m_driveStick, Constants.BRAKE_BUTTON);
   private final JoystickButton m_logButton = new JoystickButton(m_driveStick, Constants.LOG_BUTTON);
   //private final JoystickButton m_logButton = new JoystickButton(m_debuggerStick, Constants.LOG_BUTTON);
@@ -45,6 +54,10 @@ public class RobotContainer {
   private final JoystickButton m_shooterButton = new JoystickButton(m_manipulatorStick, Constants.SHOOTER_BUTTON);
   private final JoystickButton m_shooterReverseButton = new JoystickButton(m_manipulatorStick, Constants.SHOOTER_REVERSE_BUTTON);
   private final JoystickButton m_manipulatorLogButton = new JoystickButton(m_driveStick, Constants.LOG_BUTTON);
+  private final JoystickButton m_LEDOnButton = new JoystickButton(m_manipulatorStick, Constants.LED_ON_BUTTON);
+  private final JoystickButton m_LEDOffButton = new JoystickButton(m_manipulatorStick, Constants.LED_OFF_BUTTON);
+  private final JoystickButton m_LEDDefaultButton = new JoystickButton(m_manipulatorStick, Constants.LED_DEFAULT_BUTTON);
+  
   private final BasicAutonomous m_autoCommand = new BasicAutonomous(m_chassis);
 
   /**
@@ -55,17 +68,21 @@ public class RobotContainer {
     m_chassis.setDefaultCommand(new DriveWithJoystick(
       () -> m_driveStick.getTriggerAxis(Hand.kRight) - m_driveStick.getTriggerAxis(Hand.kLeft),
       () -> -(m_driveStick.getX(Hand.kLeft)), m_chassis, m_brakeButton, m_logButton));
-
-    m_feeder.setDefaultCommand(new RunFeeder(m_feeder, m_manipulatorStick.getY(Hand.kLeft),
-      m_manipulatorLogButton));
-
-    m_shooter.setDefaultCommand(new RunShooter(m_shooter, m_manipulatorStick.getY(Hand.kRight),
-      m_manipulatorLogButton));
-
+  
     // Default command for debugging purposes
     //m_chassis.setDefaultCommand(new DriveWithJoystick(
     //  () -> -(m_debuggerStick.getY(Hand.kRight), () -> -(m_debuggerStick.getX(Hand.kRight)),
     //  m_chassis, m_brakeButton, m_logButton)));
+
+    m_feeder.setDefaultCommand(new RunFeeder(m_feeder, m_manipulatorStick.getY(Hand.kLeft),
+      m_manipulatorLogButton));
+
+    m_led.setDefaultCommand(new AutomaticLED(m_led));
+
+    m_shooter.setDefaultCommand(new RunShooter(m_shooter, m_manipulatorStick.getY(Hand.kRight),
+      m_manipulatorLogButton));
+
+    m_limelight.setDefaultCommand(new LimelightLEDOff(m_limelight));
 
     // Configure the button bindings
     configureButtonBindings();
@@ -78,6 +95,10 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    m_LEDDefaultButton.whenPressed(new LimelightLEDDefault(m_limelight));
+    m_LEDOffButton.whenPressed(new LimelightLEDOff(m_limelight));
+    m_LEDOnButton.whenPressed(new LimelightLEDOn(m_limelight));
+
     /**
      * This block will make the feeder and shooter run on button presses rather than by joystick axis.
      * We need to figure out how fast we want the motors running first though.
