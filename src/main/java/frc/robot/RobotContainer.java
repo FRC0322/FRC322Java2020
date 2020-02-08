@@ -59,7 +59,7 @@ public class RobotContainer {
     m_feeder.setDefaultCommand(new RunFeeder(m_feeder, m_manipulatorStick.getY(Hand.kLeft),
       m_manipulatorLogButton));
 
-    m_shooter.setDefaultCommand(new RunShooter(m_shooter, m_manipulatorStick.getY(Hand.kLeft),
+    m_shooter.setDefaultCommand(new RunShooter(m_shooter, m_manipulatorStick.getY(Hand.kRight),
       m_manipulatorLogButton));
 
     // Default command for debugging purposes
