@@ -12,7 +12,6 @@ import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import io.github.oblarg.oblog.annotations.Log;
 
 public class Limelight extends SubsystemBase {
     /**
@@ -23,7 +22,6 @@ public class Limelight extends SubsystemBase {
   private NetworkTableEntry m_ty;
   private NetworkTableEntry m_ta;
   
-  @Log
   private double x,y,area;
   /**
    * Creates a new Limelight.
@@ -37,16 +35,39 @@ public class Limelight extends SubsystemBase {
     m_ta = m_table.getEntry("ta");
   }
 
-  public void lightDefault() {
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(0);
-  }
-
-  public void lightOn() {
-    NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(3);
-  }
-
-  public void lightOff() {
+  public void setLightMode(int mode) {
+    if (mode >= 0 && mode <= 3)
+      NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(mode);
+    else
     NetworkTableInstance.getDefault().getTable("limelight").getEntry("ledMode").setNumber(1);
+  }
+
+  public void setCamMode(int mode) {
+    if (mode == 0) 
+      NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(mode);
+    else
+      NetworkTableInstance.getDefault().getTable("limelight").getEntry("camMode").setNumber(1);
+  }
+
+  public void setPipeline(int pipe) {
+    if (pipe >= 0 && pipe <= 9)
+      NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(pipe);
+    else
+      NetworkTableInstance.getDefault().getTable("limelight").getEntry("pipeline").setNumber(0);
+  }
+  
+  public void setStream(int stream) {
+    if (stream >= 0 && stream <= 2)
+      NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(stream);
+    else
+      NetworkTableInstance.getDefault().getTable("limelight").getEntry("stream").setNumber(0);
+  }
+
+  public void setSnapshot(int snap) {
+    if (snap == 1)
+      NetworkTableInstance.getDefault().getTable("limelight").getEntry("snapshot").setNumber(snap);
+    else
+      NetworkTableInstance.getDefault().getTable("limelight").getEntry("snapshot").setNumber(0);
   }
 
   @Override
