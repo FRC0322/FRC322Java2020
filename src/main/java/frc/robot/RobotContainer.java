@@ -95,8 +95,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    //m_visionModeButton.whileActiveOnce(new LimelightModeControl(m_limelight, 0));
-    //m_driverModeButton.whileActiveOnce(new LimelightModeControl(m_limelight, 1));
+    m_visionModeButton.whileActiveOnce(new LimelightModeControl(m_limelight, 0));
+    m_driverModeButton.whileActiveOnce(new LimelightModeControl(m_limelight, 1));
 
     m_LEDDefaultButton.whileActiveOnce(new LimelightLEDControl(m_limelight, 0));
     m_LEDOffButton.whileActiveOnce(new LimelightLEDControl(m_limelight, 1));
