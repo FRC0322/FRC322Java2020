@@ -33,6 +33,12 @@ public class Limelight extends SubsystemBase {
     m_tx = m_table.getEntry("tx");
     m_ty = m_table.getEntry("ty");
     m_ta = m_table.getEntry("ta");
+
+    // Set the camera to Driver Mode
+    setCamMode(1);
+
+    // Turn off the lights
+    setLightMode(1);
   }
 
   public void setLightMode(int mode) {
