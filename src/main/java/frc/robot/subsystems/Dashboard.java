@@ -7,15 +7,11 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.cscore.HttpCamera;
-import edu.wpi.cscore.HttpCamera.HttpCameraKind;
-import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Dashboard extends SubsystemBase {
-  private HttpCamera limelightFeed;
   private Limelight m_limelight;
   private ShuffleboardTab driverShuffleboardTab;
   private ShuffleboardTab autonomousShuffleboardTab;
@@ -24,8 +20,6 @@ public class Dashboard extends SubsystemBase {
    * Creates a new Dashboard.
    */
   public Dashboard() {
-    limelightFeed = new HttpCamera("limelight", "http://10.3.22.11:5800/stream.mjpg", HttpCameraKind.kMJPGStreamer);
-    CameraServer.getInstance().startAutomaticCapture(limelightFeed);
     driverShuffleboardTab = Shuffleboard.getTab("Driver");
     autonomousShuffleboardTab = Shuffleboard.getTab("Autonomous");
     debuggerShuffleboardTab = Shuffleboard.getTab("Debugger");

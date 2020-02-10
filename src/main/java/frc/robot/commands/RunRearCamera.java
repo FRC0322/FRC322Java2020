@@ -8,34 +8,29 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.subsystems.Dashboard;
+import frc.robot.subsystems.RearCamera;
 
-public class DashboardUpdater extends CommandBase {
-  private final Dashboard m_dashboard;
+public class RunRearCamera extends CommandBase {
+  private final RearCamera m_rearCamera;
   /**
-   * Creates a new DashboardUpdater.
+   * Creates a new RunRearCamera.
    */
-  public DashboardUpdater(Dashboard dashboard) {
-    m_dashboard = dashboard;
+  public RunRearCamera(RearCamera rearCamera) {
+    m_rearCamera = rearCamera;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_dashboard);
+    addRequirements(m_rearCamera);
   }
 
   // Called when the command is initially scheduled.
   @Override
   public void initialize() {
+    m_rearCamera.setResolution(320, 180);
+    m_rearCamera.setFPS(15);
   }
 
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (Constants.DS.isAutonomous())
-      m_dashboard.autonomousTab();
-    else if (Constants.DS.isOperatorControl())
-      m_dashboard.driverTab();
-    else
-      m_dashboard.debuggerTab();
   }
 
   // Called once the command ends or is interrupted.

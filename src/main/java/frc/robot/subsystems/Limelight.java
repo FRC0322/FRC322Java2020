@@ -7,22 +7,19 @@
 
 package frc.robot.subsystems;
 
-import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.cscore.HttpCamera;
+import edu.wpi.cscore.HttpCamera.HttpCameraKind;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Limelight extends SubsystemBase {
     /**
    * The Limelight subsystem incorporates the Limelight 2+ camera.
    */
-  private NetworkTable m_table = NetworkTableInstance.getDefault().getTable("limelight");
-  private NetworkTableEntry m_tx;
-  private NetworkTableEntry m_ty;
-  private NetworkTableEntry m_ta;
-  
-  private double x,y,area;
+  private HttpCamera limelightFeed;  
+
   /**
    * Creates a new Limelight.
    */
@@ -32,7 +29,11 @@ public class Limelight extends SubsystemBase {
     setCameraMode(CameraMode.eDriver);
 
     // Turn off the lights
-    setLedMode(LightMode.eOff);
+	setLedMode(LightMode.eOff);
+	
+	// Activate a CameraServer for the Limelight
+	limelightFeed = new HttpCamera("limelight", "http://10.3.22.11:5800/stream.mjpg", HttpCameraKind.kMJPGStreamer);
+    CameraServer.getInstance().startAutomaticCapture(limelightFeed);
   }
 
 	private NetworkTableInstance table = null;
