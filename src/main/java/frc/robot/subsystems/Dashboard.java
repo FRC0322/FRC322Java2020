@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Dashboard extends SubsystemBase {
   private HttpCamera limelightFeed;
+  private Limelight m_limelight;
   private ShuffleboardTab driverShuffleboardTab;
   private ShuffleboardTab autonomousShuffleboardTab;
   private ShuffleboardTab debuggerShuffleboardTab;
@@ -39,12 +40,20 @@ public class Dashboard extends SubsystemBase {
       Shuffleboard.selectTab("Debugger");
   }
 
-  public void driverTab() {}
+  public void driverTab() {
+    driverShuffleboardTab.addNumber("Limelight Tx", () -> m_limelight.getTx());
+    driverShuffleboardTab.addNumber("Limelight Ty", () -> m_limelight.getTy());
+    driverShuffleboardTab.addNumber("Limelight Ta", () -> m_limelight.getTa());
+  }
 
   public void autonomousTab() {}
 
-  public void debuggerTab() {}
-  
+  public void debuggerTab() {
+    driverShuffleboardTab.addNumber("Limelight Tx", () -> m_limelight.getTx());
+    driverShuffleboardTab.addNumber("Limelight Ty", () -> m_limelight.getTy());
+    driverShuffleboardTab.addNumber("Limelight Ta", () -> m_limelight.getTa());
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
