@@ -22,12 +22,14 @@ import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.LimelightCameraModeControl;
 import frc.robot.commands.LimelightLightModeControl;
 import frc.robot.commands.RunFeeder;
+import frc.robot.commands.RunRearCamera;
 import frc.robot.commands.RunShooter;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Dashboard;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.LED;
 import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.RearCamera;
 import frc.robot.subsystems.Shooter;
 import frc.robot.subsystems.Limelight.CameraMode;
 import frc.robot.subsystems.Limelight.LightMode;
@@ -49,8 +51,9 @@ public class RobotContainer {
   private final Dashboard m_dashboard = new Dashboard();
   private final Feeder m_feeder = new Feeder();
   private final LED m_led = new LED();
-  private final Shooter m_shooter = new Shooter();
   private final Limelight m_limelight = new Limelight();
+  private final RearCamera m_rearCamera = new RearCamera();
+  private final Shooter m_shooter = new Shooter();
   
   private final F310Controller m_driveStick = new F310Controller(Constants.DRIVE_STICK);
   private final F310Controller m_manipulatorStick = new F310Controller(Constants.MANIPULATOR_STICK);
@@ -86,11 +89,13 @@ public class RobotContainer {
     //  m_chassis, m_brakeButton, m_logButton)));
 
     m_dashboard.setDefaultCommand(new DashboardUpdater(m_dashboard));
-    
+
     m_feeder.setDefaultCommand(new RunFeeder(m_feeder, m_manipulatorStick.getY(Hand.kLeft),
       m_manipulatorLogButton));
 
     m_led.setDefaultCommand(new AutomaticLED(m_led));
+
+    m_rearCamera.setDefaultCommand(new RunRearCamera(m_rearCamera));
 
     m_shooter.setDefaultCommand(new RunShooter(m_shooter, m_manipulatorStick.getY(Hand.kRight),
       m_manipulatorLogButton));
