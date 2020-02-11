@@ -53,6 +53,10 @@ public class ColorSensor extends SubsystemBase {
     m_colorMatcher.addColorMatch(kYellowTarget);
   }
 
+  public String getColorString() {
+    return m_colorString;
+  }
+
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
