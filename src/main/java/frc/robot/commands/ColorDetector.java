@@ -31,10 +31,10 @@ public class ColorDetector extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    if (m_color == m_colorSensor.getColorString())
-      System.out.println("match");
+    if (m_color.charAt(0) == m_colorSensor.getColorString().charAt(0))
+      ;//System.out.println("match");
     else
-      System.out.println(m_color);
+      ;//System.out.println(m_color);
   }
 
   // Called once the command ends or is interrupted.

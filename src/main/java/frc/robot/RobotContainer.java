@@ -16,6 +16,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutomaticLED;
 import frc.robot.commands.BasicAutonomous;
+import frc.robot.commands.ColorDetector;
 import frc.robot.commands.DashboardUpdater;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.DriveWithJoystick;
@@ -25,6 +26,7 @@ import frc.robot.commands.RunFeeder;
 import frc.robot.commands.RunRearCamera;
 import frc.robot.commands.RunShooter;
 import frc.robot.subsystems.Chassis;
+import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Dashboard;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.LED;
@@ -48,6 +50,7 @@ public class RobotContainer {
   SendableChooser<String> autonomousChooser = new SendableChooser<>();
 
   private final Chassis m_chassis = new Chassis();
+  private final ColorSensor m_colorSensor = new ColorSensor();
   private final Dashboard m_dashboard = new Dashboard();
   private final Feeder m_feeder = new Feeder();
   private final LED m_led = new LED();
@@ -74,6 +77,8 @@ public class RobotContainer {
   private final JoystickButton m_LEDOffButton = new JoystickButton(m_manipulatorStick, Constants.LED_OFF_BUTTON);
   private final JoystickButton m_LEDDefaultButton = new JoystickButton(m_manipulatorStick, Constants.LED_DEFAULT_BUTTON);
 
+  private String color;
+
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
    */
@@ -87,6 +92,8 @@ public class RobotContainer {
     //m_chassis.setDefaultCommand(new DriveWithJoystick(
     //  () -> -(m_debuggerStick.getY(Hand.kRight), () -> -(m_debuggerStick.getX(Hand.kRight)),
     //  m_chassis, m_brakeButton, m_logButton)));
+
+    m_colorSensor.setDefaultCommand(new ColorDetector(m_colorSensor, Constants.DS.getGameSpecificMessage()));
 
     m_dashboard.setDefaultCommand(new DashboardUpdater(m_dashboard, m_limelightCamera));
 
