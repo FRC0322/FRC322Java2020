@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Dashboard;
 import frc.robot.subsystems.LimelightCamera;
-import frc.robot.utilities.Limelight;
 
 public class DashboardUpdater extends CommandBase {
   private final Dashboard m_dashboard;

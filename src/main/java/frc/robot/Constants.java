@@ -21,6 +21,22 @@ public final class Constants {
     // Robot.java
     public static final DriverStation DS = DriverStation.getInstance();
 
+    // ColorSensor.java
+    // These are predetermined defaults.
+    // We need to recalibrate these for ourselves.
+    public static final double  RED_R = 0.561,
+                                RED_G = 0.232,
+                                RED_B = 0.114,
+                                GREEN_R = 0.197,
+                                GREEN_G = 0.561,
+                                GREEN_B = 0.240,
+                                BLUE_R = 0.143,
+                                BLUE_G = 0.427,
+                                BLUE_B = 0.429,
+                                YELLOW_R = 0.361,
+                                YELLOW_G = 0.524,
+                                YELLOW_B = 0.113;
+
     // Chassis.java
     public static final int DRIVE_LEFTFRONT = 1,
                             DRIVE_LEFTREAR = 2,

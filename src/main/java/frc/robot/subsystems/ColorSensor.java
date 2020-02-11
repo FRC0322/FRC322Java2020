@@ -7,13 +7,14 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.ColorMatch;
+import com.revrobotics.ColorMatchResult;
+import com.revrobotics.ColorSensorV3;
+
 import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-
-import com.revrobotics.ColorSensorV3;
-import com.revrobotics.ColorMatchResult;
-import com.revrobotics.ColorMatch;
+import frc.robot.Constants;
 
 public class ColorSensor extends SubsystemBase {
   /**
@@ -37,19 +38,19 @@ public class ColorSensor extends SubsystemBase {
    */
   private final ColorMatch m_colorMatcher = new ColorMatch();
 
-  private final Color kBlueTarget = ColorMatch.makeColor(0.143, 0.427, 0.429);
-  private final Color kGreenTarget = ColorMatch.makeColor(0.197, 0.561, 0.240);
-  private final Color kRedTarget = ColorMatch.makeColor(0.561, 0.232, 0.114);
-  private final Color kYellowTarget = ColorMatch.makeColor(0.361, 0.524, 0.113);
+  private final Color kRedTarget = ColorMatch.makeColor(Constants.RED_R, Constants.RED_G, Constants.RED_B);
+  private final Color kGreenTarget = ColorMatch.makeColor(Constants.GREEN_R, Constants.GREEN_G, Constants.GREEN_B);
+  private final Color kBlueTarget = ColorMatch.makeColor(Constants.BLUE_R, Constants.BLUE_G, Constants.BLUE_B);
+  private final Color kYellowTarget = ColorMatch.makeColor(Constants.YELLOW_R, Constants.YELLOW_G, Constants.YELLOW_B);
 
   private String m_colorString;
   /**
    * Creates a new ColorSensor.
    */
   public ColorSensor() {
-    m_colorMatcher.addColorMatch(kBlueTarget);
-    m_colorMatcher.addColorMatch(kGreenTarget);
     m_colorMatcher.addColorMatch(kRedTarget);
+    m_colorMatcher.addColorMatch(kGreenTarget);
+    m_colorMatcher.addColorMatch(kBlueTarget);
     m_colorMatcher.addColorMatch(kYellowTarget);
   }
 
@@ -67,12 +68,12 @@ public class ColorSensor extends SubsystemBase {
      */
     ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
 
-    if (match.color == kBlueTarget) 
-      m_colorString = "Blue";
-    else if (match.color == kRedTarget)
+    if (match.color == kRedTarget) 
       m_colorString = "Red";
     else if (match.color == kGreenTarget)
       m_colorString = "Green";
+    else if (match.color == kBlueTarget)
+      m_colorString = "Blue";
     else if (match.color == kYellowTarget)
       m_colorString = "Yellow";
     else
