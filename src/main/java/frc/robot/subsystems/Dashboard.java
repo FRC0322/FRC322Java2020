@@ -12,7 +12,6 @@ import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class Dashboard extends SubsystemBase {
-  private Limelight m_limelight;
   private ShuffleboardTab driverShuffleboardTab;
   private ShuffleboardTab autonomousShuffleboardTab;
   private ShuffleboardTab debuggerShuffleboardTab;
@@ -34,18 +33,16 @@ public class Dashboard extends SubsystemBase {
       Shuffleboard.selectTab("Debugger");
   }
 
-  public void driverTab() {
-    driverShuffleboardTab.addNumber("Limelight Tx", () -> m_limelight.getTx());
-    driverShuffleboardTab.addNumber("Limelight Ty", () -> m_limelight.getTy());
-    driverShuffleboardTab.addNumber("Limelight Ta", () -> m_limelight.getTa());
+  public ShuffleboardTab getDriverTab() {
+    return driverShuffleboardTab;
   }
 
-  public void autonomousTab() {}
+  public ShuffleboardTab getAutonomousTab() {
+    return autonomousShuffleboardTab;
+  }
 
-  public void debuggerTab() {
-    driverShuffleboardTab.addNumber("Limelight Tx", () -> m_limelight.getTx());
-    driverShuffleboardTab.addNumber("Limelight Ty", () -> m_limelight.getTy());
-    driverShuffleboardTab.addNumber("Limelight Ta", () -> m_limelight.getTa());
+  public ShuffleboardTab getDebuggerTab() {
+    return debuggerShuffleboardTab;
   }
 
   @Override

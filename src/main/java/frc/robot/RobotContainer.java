@@ -88,7 +88,7 @@ public class RobotContainer {
     //  () -> -(m_debuggerStick.getY(Hand.kRight), () -> -(m_debuggerStick.getX(Hand.kRight)),
     //  m_chassis, m_brakeButton, m_logButton)));
 
-    m_dashboard.setDefaultCommand(new DashboardUpdater(m_dashboard));
+    m_dashboard.setDefaultCommand(new DashboardUpdater(m_dashboard, m_limelight));
 
     m_feeder.setDefaultCommand(new RunFeeder(m_feeder, m_manipulatorStick.getY(Hand.kLeft),
       m_manipulatorLogButton));
@@ -105,13 +105,13 @@ public class RobotContainer {
     autonomousChooser.addOption("Basic Autonomous", "Basic Autonomous");
     SmartDashboard.putData("Auto mode", autonomousChooser);
     switch (autonomousChooser.getSelected()) {
-      case "Do Nothing":  m_autoCommand = new DoNothing();
+      case "Do Nothing":        m_autoCommand = new DoNothing();
       break;
 
-      case "Basic Autonomous": m_autoCommand = new BasicAutonomous(m_chassis);
+      case "Basic Autonomous":  m_autoCommand = new BasicAutonomous(m_chassis);
       break;
 
-      default:            m_autoCommand = new DoNothing();
+      default:                  m_autoCommand = new DoNothing();
       break;
     }
     
