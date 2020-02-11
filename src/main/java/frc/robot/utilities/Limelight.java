@@ -10,6 +10,10 @@ import edu.wpi.first.networktables.NetworkTableInstance;
  * Wrapper class for getting and setting Limelight NetworkTable values.
  * 
  * @author Dan Waxman
+ * @author Corey Applegate
+ * 
+ * Modified for WPIlib 2020
+ * @author Raa'Shaun Hunter
  */
 public class Limelight {
 	private static NetworkTableInstance table = null;
@@ -17,6 +21,7 @@ public class Limelight {
 	/**
 	 * Light modes for Limelight.
 	 * 
+     * @author Corey Applegate
 	 */
 	public enum LightMode {
 		kpipeLine(0),   //0	use the LED Mode set in the current pipeline
@@ -54,6 +59,7 @@ public class Limelight {
 	/**
 	 * Camera modes for Limelight.
 	 * 
+     * @author Corey Applegate
 	 */
 	public enum CameraMode {
 		kvision(0),
@@ -86,6 +92,11 @@ public class Limelight {
         }
     }
     
+    /**
+	 * Stream modes for Limelight.
+	 * 
+     * @author Corey Applegate
+	 */
     public enum StreamType {
         kStandard(0),
         kPiPMain(1),
@@ -119,6 +130,11 @@ public class Limelight {
 
     }
 
+    /**
+	 * Snapshot modes for Limelight.
+	 * 
+     * @author Corey Applegate
+	 */
     public enum Snapshot {
 
         kon(1),
@@ -150,7 +166,12 @@ public class Limelight {
           return name();
         }
     }
-      
+     
+    /**
+	 * Advanced Target modes for Limelight.
+	 * 
+     * @author Corey Applegate
+	 */
     public enum  Advanced_Target {
 
         kone(0),
@@ -185,6 +206,11 @@ public class Limelight {
       
     }
     
+    /**
+	 * Advanced Crosshair modes for Limelight.
+	 * 
+     * @author Corey Applegate
+	 */
     public enum Advanced_Crosshair {
 
         kone(0),
