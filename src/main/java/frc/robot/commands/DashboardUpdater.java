@@ -11,20 +11,21 @@ import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Dashboard;
-import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.LimelightCamera;
+import frc.robot.utilities.Limelight;
 
 public class DashboardUpdater extends CommandBase {
   private final Dashboard m_dashboard;
-  private final Limelight m_limelight;
+  private final LimelightCamera m_limelightCamera;
   /**
    * Creates a new DashboardUpdater.
    */
-  public DashboardUpdater(Dashboard dashboard, Limelight limelight) {
+  public DashboardUpdater(Dashboard dashboard, LimelightCamera limelightCamera) {
     m_dashboard = dashboard;
-    m_limelight = limelight;
+    m_limelightCamera = limelightCamera;
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(m_dashboard);
-    addRequirements(m_limelight);
+    addRequirements(m_limelightCamera);
   }
 
   // Called when the command is initially scheduled.
@@ -36,21 +37,21 @@ public class DashboardUpdater extends CommandBase {
   @Override
   public void execute() {
     if (Constants.DS.isAutonomous()) {
-      m_dashboard.getAutonomousTab().addNumber("Limelight Tx", () -> m_limelight.getTx());
-      m_dashboard.getAutonomousTab().addNumber("Limelight Ty", () -> m_limelight.getTy());
-      m_dashboard.getAutonomousTab().addNumber("Limelight Ta", () -> m_limelight.getTa());
+      m_dashboard.getAutonomousTab().addNumber("Limelight Tx", () -> m_limelightCamera.getLimelight().getTx());
+      m_dashboard.getAutonomousTab().addNumber("Limelight Ty", () -> m_limelightCamera.getLimelight().getTy());
+      m_dashboard.getAutonomousTab().addNumber("Limelight Ta", () -> m_limelightCamera.getLimelight().getTa());
       Shuffleboard.selectTab("Autonomous");
     }
     else if (Constants.DS.isOperatorControl()) {
-      m_dashboard.getDriverTab().addNumber("Limelight Tx", () -> m_limelight.getTx());
-      m_dashboard.getDriverTab().addNumber("Limelight Ty", () -> m_limelight.getTy());
-      m_dashboard.getDriverTab().addNumber("Limelight Ta", () -> m_limelight.getTa());
+      m_dashboard.getDriverTab().addNumber("Limelight Tx", () -> m_limelightCamera.getLimelight().getTa());
+      m_dashboard.getDriverTab().addNumber("Limelight Ty", () -> m_limelightCamera.getLimelight().getTa());
+      m_dashboard.getDriverTab().addNumber("Limelight Ta", () -> m_limelightCamera.getLimelight().getTa());
       Shuffleboard.selectTab("Driver");
     }
     else {
-      m_dashboard.getDebuggerTab().addNumber("Limelight Tx", () -> m_limelight.getTx());
-      m_dashboard.getDebuggerTab().addNumber("Limelight Ty", () -> m_limelight.getTy());
-      m_dashboard.getDebuggerTab().addNumber("Limelight Ta", () -> m_limelight.getTa());
+      m_dashboard.getDebuggerTab().addNumber("Limelight Tx", () -> m_limelightCamera.getLimelight().getTa());
+      m_dashboard.getDebuggerTab().addNumber("Limelight Ty", () -> m_limelightCamera.getLimelight().getTa());
+      m_dashboard.getDebuggerTab().addNumber("Limelight Ta", () -> m_limelightCamera.getLimelight().getTa());
       Shuffleboard.selectTab("Debugger");
     }
   }

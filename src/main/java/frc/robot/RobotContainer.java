@@ -9,9 +9,9 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
+import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutomaticLED;
@@ -28,12 +28,13 @@ import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Dashboard;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.LED;
-import frc.robot.subsystems.Limelight;
+import frc.robot.subsystems.LimelightCamera;
 import frc.robot.subsystems.RearCamera;
 import frc.robot.subsystems.Shooter;
-import frc.robot.subsystems.Limelight.CameraMode;
-import frc.robot.subsystems.Limelight.LightMode;
 import frc.robot.utilities.F310Controller;
+import frc.robot.utilities.Limelight;
+import frc.robot.utilities.Limelight.CameraMode;
+import frc.robot.utilities.Limelight.LightMode;
 import frc.robot.utilities.RumblePad2;
 
 /**
@@ -51,7 +52,7 @@ public class RobotContainer {
   private final Dashboard m_dashboard = new Dashboard();
   private final Feeder m_feeder = new Feeder();
   private final LED m_led = new LED();
-  private final Limelight m_limelight = new Limelight();
+  private final LimelightCamera m_limelightCamera = new LimelightCamera();
   private final RearCamera m_rearCamera = new RearCamera();
   private final Shooter m_shooter = new Shooter();
   
@@ -88,7 +89,7 @@ public class RobotContainer {
     //  () -> -(m_debuggerStick.getY(Hand.kRight), () -> -(m_debuggerStick.getX(Hand.kRight)),
     //  m_chassis, m_brakeButton, m_logButton)));
 
-    m_dashboard.setDefaultCommand(new DashboardUpdater(m_dashboard, m_limelight));
+    m_dashboard.setDefaultCommand(new DashboardUpdater(m_dashboard, m_limelightCamera));
 
     m_feeder.setDefaultCommand(new RunFeeder(m_feeder, m_manipulatorStick.getY(Hand.kLeft),
       m_manipulatorLogButton));
@@ -126,13 +127,19 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    m_visionModeButton.whileActiveOnce(new LimelightCameraModeControl(m_limelight, CameraMode.eVision));
-    m_driverModeButton.whileActiveOnce(new LimelightCameraModeControl(m_limelight, CameraMode.eDriver));
+    m_visionModeButton.whileActiveOnce(new LimelightCameraModeControl(m_limelightCamera,
+      CameraMode.kvision));
+    m_driverModeButton.whileActiveOnce(new LimelightCameraModeControl(m_limelightCamera,
+      CameraMode.kdriver));
 
-    m_LEDDefaultButton.whileActiveOnce(new LimelightLightModeControl(m_limelight, LightMode.eDefault));
-    m_LEDOffButton.whileActiveOnce(new LimelightLightModeControl(m_limelight, LightMode.eOff));
-    m_LEDBlinkButton.whileActiveOnce(new LimelightLightModeControl(m_limelight, LightMode.eBlink));
-    m_LEDOnButton.whileActiveOnce(new LimelightLightModeControl(m_limelight, LightMode.eOn));
+    m_LEDDefaultButton.whileActiveOnce(new LimelightLightModeControl(m_limelightCamera,
+      LightMode.kpipeLine));
+    m_LEDOffButton.whileActiveOnce(new LimelightLightModeControl(m_limelightCamera,
+      LightMode.kforceOff));
+    m_LEDBlinkButton.whileActiveOnce(new LimelightLightModeControl(m_limelightCamera,
+      LightMode.kforceBlink));
+    m_LEDOnButton.whileActiveOnce(new LimelightLightModeControl(m_limelightCamera,
+      LightMode.kforceOn));
 
     /**
      * This block will make the feeder and shooter run on button presses rather than by joystick axis.

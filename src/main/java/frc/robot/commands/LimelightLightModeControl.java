@@ -8,21 +8,20 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.subsystems.Limelight;
-import frc.robot.subsystems.Limelight.CameraMode;
-import frc.robot.subsystems.Limelight.LightMode;
+import frc.robot.subsystems.LimelightCamera;
+import frc.robot.utilities.Limelight.LightMode;
 
 public class LimelightLightModeControl extends CommandBase {
-  private final Limelight m_limelight;
+  private final LimelightCamera m_limelightCamera;
   private final LightMode m_lightMode;
   /**
    * Creates a new LimelightLightModeControl.
    */
-  public LimelightLightModeControl(Limelight limelight, LightMode lightMode) {
-    m_limelight = limelight;
+  public LimelightLightModeControl(LimelightCamera limelightCamera, LightMode lightMode) {
+    m_limelightCamera = limelightCamera;
     m_lightMode = lightMode;
     // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_limelight);
+    addRequirements(m_limelightCamera);
   }
 
   // Called when the command is initially scheduled.
@@ -33,7 +32,7 @@ public class LimelightLightModeControl extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    m_limelight.setLedMode(m_lightMode);
+    m_limelightCamera.getLimelight().setLedMode(m_lightMode);
   }
 
   // Called once the command ends or is interrupted.
