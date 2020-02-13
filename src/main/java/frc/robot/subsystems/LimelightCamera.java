@@ -16,36 +16,36 @@ import frc.robot.utilities.Limelight.CameraMode;
 import frc.robot.utilities.Limelight.LightMode;
 
 public class LimelightCamera extends SubsystemBase {
-    /**
-   * The Limelight subsystem incorporates the Limelight 2+ camera.
-   */
-  private Limelight m_limelight;
-  private HttpCamera limelightFeed;  
+	/**
+	 * The Limelight subsystem incorporates the Limelight 2+ camera.
+	 */
+	private Limelight m_limelight;
+	private HttpCamera limelightFeed;
 
-  /**
-   * Creates a new Limelight.
-   */
-  public LimelightCamera() {
-	super();
-	m_limelight = new Limelight();
-	
-	// Set the camera to Driver Mode
-    m_limelight.setCameraMode(CameraMode.kdriver);
+	/**
+	 * Creates a new Limelight.
+	 */
+	public LimelightCamera() {
+		super();
+		m_limelight = new Limelight();
 
-    // Turn off the lights
-	m_limelight.setLedMode(LightMode.kforceOff);
-	
-	// Activate a CameraServer for the Limelight
-	limelightFeed = new HttpCamera("limelight", "http://10.3.22.11:5800/stream.mjpg", HttpCameraKind.kMJPGStreamer);
-    CameraServer.getInstance().startAutomaticCapture(limelightFeed);
-  }
+		// Set the camera to Driver Mode
+		m_limelight.setCameraMode(CameraMode.kdriver);
 
-  public Limelight getLimelight() {
-	  return m_limelight;
-  }
+		// Turn off the lights
+		m_limelight.setLedMode(LightMode.kforceOff);
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+		// Activate a CameraServer for the Limelight
+		limelightFeed = new HttpCamera("limelight", "http://10.3.22.11:5800/stream.mjpg", HttpCameraKind.kMJPGStreamer);
+		CameraServer.getInstance().startAutomaticCapture(limelightFeed);
+	}
+
+	public Limelight getLimelight() {
+		return m_limelight;
+	}
+
+	@Override
+	public void periodic() {
+		// This method will be called once per scheduler run
+	}
 }

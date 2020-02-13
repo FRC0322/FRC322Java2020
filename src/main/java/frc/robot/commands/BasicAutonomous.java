@@ -13,48 +13,48 @@ import frc.robot.subsystems.Chassis;
 import io.github.oblarg.oblog.annotations.Config;
 
 public class BasicAutonomous extends CommandBase {
-  private final Chassis m_chassis;
-  
-  @Config
-  private double heading, distance, startingDistance, errorFactor;
-  /**
-   * Creates a new BasicAutonomous.
-   */
-  public BasicAutonomous(Chassis chassis) {
-    m_chassis = chassis;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_chassis);
-  }
+	private final Chassis m_chassis;
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    startingDistance = Math.min(m_chassis.leftDistanceIn(), m_chassis.rightDistanceIn());
-    heading = Constants.DEFAULT_AUTONOMOUS_HEADING;
-    distance = Constants.DEFAULT_AUTONOMOUS_DISTANCE;
-    errorFactor = Constants.AUTONOMOUS_DISTANCE_ERROR_FACTOR;
-  }
+	@Config
+	private double heading, distance, startingDistance, errorFactor;
+	/**
+	 * Creates a new BasicAutonomous.
+	 */
+	public BasicAutonomous(Chassis chassis) {
+		m_chassis = chassis;
+		// Use addRequirements() here to declare subsystem dependencies.
+		addRequirements(m_chassis);
+	}
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    //m_chassis.drive(0.5, 0.5);
-    m_chassis.autoDriveStraight(heading, distance);
-  }
+	// Called when the command is initially scheduled.
+	@Override
+	public void initialize() {
+		startingDistance = Math.min(m_chassis.leftDistanceIn(), m_chassis.rightDistanceIn());
+		heading = Constants.DEFAULT_AUTONOMOUS_HEADING;
+		distance = Constants.DEFAULT_AUTONOMOUS_DISTANCE;
+		errorFactor = Constants.AUTONOMOUS_DISTANCE_ERROR_FACTOR;
+	}
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    m_chassis.stop();
-  }
+	// Called every time the scheduler runs while the command is scheduled.
+	@Override
+	public void execute() {
+		//m_chassis.drive(0.5, 0.5);
+		m_chassis.autoDriveStraight(heading, distance);
+	}
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    if((startingDistance + distance + errorFactor) > Math.min(Math.abs(m_chassis.leftDistanceIn()),
-      Math.abs(m_chassis.rightDistanceIn())))
-        return false;
-    else
-      return true;
-  }
+	// Called once the command ends or is interrupted.
+	@Override
+	public void end(boolean interrupted) {
+		m_chassis.stop();
+	}
+
+	// Returns true when the command should end.
+	@Override
+	public boolean isFinished() {
+		if((startingDistance + distance + errorFactor) > Math.min(Math.abs(m_chassis.leftDistanceIn()),
+									  Math.abs(m_chassis.rightDistanceIn())))
+			return false;
+		else
+			return true;
+	}
 }

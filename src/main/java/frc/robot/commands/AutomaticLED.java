@@ -11,52 +11,52 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.LED;
 
 public class AutomaticLED extends CommandBase {
-  private final LED m_led;
-  /**
-   * Creates a new AutomaticLED.
-   */
-  public AutomaticLED(LED led) {
-    m_led = led;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(led);
-  }
+	private final LED m_led;
+	/**
+	 * Creates a new AutomaticLED.
+	 */
+	public AutomaticLED(LED led) {
+		m_led = led;
+		// Use addRequirements() here to declare subsystem dependencies.
+		addRequirements(led);
+	}
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    try {
-      m_led.setRGB(1.0, 1.0, 1.0, 0.0);
-    }
-    catch(Exception e) {
-      System.out.println("Something LED related has failed.");
-    }
-  }
+	// Called when the command is initially scheduled.
+	@Override
+	public void initialize() {
+		try {
+			m_led.setRGB(1.0, 1.0, 1.0, 0.0);
+		}
+		catch(Exception e) {
+			System.out.println("Something LED related has failed.");
+		}
+	}
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-    try {
-      m_led.automaticLEDSetter();
-    }
-    catch(Exception e) {
-      System.out.println("Something LED related has failed.");
-    }
-  }
+	// Called every time the scheduler runs while the command is scheduled.
+	@Override
+	public void execute() {
+		try {
+			m_led.automaticLEDSetter();
+		}
+		catch(Exception e) {
+			System.out.println("Something LED related has failed.");
+		}
+	}
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-    try {
-      m_led.setRGB(1.0, 1.0, 1.0, 0.0);
-    }
-    catch(Exception e) {
-      System.out.println("Something LED related has failed.");
-    }
-  }
+	// Called once the command ends or is interrupted.
+	@Override
+	public void end(boolean interrupted) {
+		try {
+			m_led.setRGB(1.0, 1.0, 1.0, 0.0);
+		}
+		catch(Exception e) {
+			System.out.println("Something LED related has failed.");
+		}
+	}
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+	// Returns true when the command should end.
+	@Override
+	public boolean isFinished() {
+		return false;
+	}
 }

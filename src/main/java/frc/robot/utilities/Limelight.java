@@ -8,10 +8,10 @@ import edu.wpi.first.networktables.NetworkTableInstance;
 
 /**
  * Wrapper class for getting and setting Limelight NetworkTable values.
- * 
+ *
  * @author Dan Waxman
  * @author Corey Applegate
- * 
+ *
  * Modified for WPIlib 2020
  * @author Raa'Shaun Hunter
  */
@@ -20,233 +20,233 @@ public class Limelight {
 
 	/**
 	 * Light modes for Limelight.
-	 * 
-     * @author Corey Applegate
+	 *
+	 * @author Corey Applegate
 	 */
 	public enum LightMode {
-		kpipeLine(0),   //0	use the LED Mode set in the current pipeline
-        kforceOff(1),   //1	force off
-        kforceBlink(2), //2	force blink
-        kforceOn(3);    //3	force on 
+		kpipeLine(0),	//0	use the LED Mode set in the current pipeline
+		kforceOff(1),	//1	force off
+		kforceBlink(2),	//2	force blink
+		kforceOn(3);	//3	force on
 
-        private static final Map<Integer, LightMode> MY_MAP = new HashMap<Integer, LightMode>();
-        
-        static {
-            for (LightMode LedMode : values()) {
-            MY_MAP.put(LedMode.getValue(), LedMode);
-            }
-        }
-        
-        private int value;
+		private static final Map<Integer, LightMode> MY_MAP = new HashMap<Integer, LightMode>();
 
-        private LightMode(int value) {
-            this.value = value;
-        }
+		static {
+			for (LightMode LedMode : values()) {
+				MY_MAP.put(LedMode.getValue(), LedMode);
+			}
+		}
 
-        public int getValue() {
-            return value;
-        }
+		private int value;
 
-        public static LightMode getByValue(int value) {
-            return MY_MAP.get(value);
-        }
+		private LightMode(int value) {
+			this.value = value;
+		}
 
-        public String toString() {
-            return name();
-        }
+		public int getValue() {
+			return value;
+		}
+
+		public static LightMode getByValue(int value) {
+			return MY_MAP.get(value);
+		}
+
+		public String toString() {
+			return name();
+		}
 	}
 
 	/**
 	 * Camera modes for Limelight.
-	 * 
-     * @author Corey Applegate
+	 *
+	 * @author Corey Applegate
 	 */
 	public enum CameraMode {
 		kvision(0),
-        kdriver(1);
-    
-        private static final Map<Integer, CameraMode> MY_MAP = new HashMap<Integer, CameraMode>();
-  
-        static {
-            for (CameraMode CameraMode : values()) {
-            MY_MAP.put(CameraMode.getValue(), CameraMode);
-            }
-        }
-        
-        private int value;
+		kdriver(1);
 
-        private CameraMode(int value) {
-            this.value = value;
-        }
+		private static final Map<Integer, CameraMode> MY_MAP = new HashMap<Integer, CameraMode>();
 
-        public int getValue() {
-            return value;
-        }
+		static {
+			for (CameraMode CameraMode : values()) {
+				MY_MAP.put(CameraMode.getValue(), CameraMode);
+			}
+		}
 
-        public static CameraMode getByValue(int value) {
-            return MY_MAP.get(value);
-        }
+		private int value;
 
-        public String toString() {
-            return name();
-        }
-    }
-    
-    /**
+		private CameraMode(int value) {
+			this.value = value;
+		}
+
+		public int getValue() {
+			return value;
+		}
+
+		public static CameraMode getByValue(int value) {
+			return MY_MAP.get(value);
+		}
+
+		public String toString() {
+			return name();
+		}
+	}
+
+	/**
 	 * Stream modes for Limelight.
-	 * 
-     * @author Corey Applegate
+	 *
+	 * @author Corey Applegate
 	 */
-    public enum StreamType {
-        kStandard(0),
-        kPiPMain(1),
-        kPiPSecondary(2);
-    
-        private static final Map<Integer,  StreamType> MY_MAP = new HashMap<Integer,  StreamType>();
-        
-        static {
-            for ( StreamType  StreamType : values()) {
-            MY_MAP.put( StreamType.getValue(),  StreamType);
-            }
-        }
-        
-        private int value;
+	public enum StreamType {
+		kStandard(0),
+		kPiPMain(1),
+		kPiPSecondary(2);
 
-        private  StreamType(int value) {
-            this.value = value;
-        }
+		private static final Map<Integer,  StreamType> MY_MAP = new HashMap<Integer,  StreamType>();
 
-        public int getValue() {
-            return value;
-        }
+		static {
+			for ( StreamType StreamType : values()) {
+				MY_MAP.put( StreamType.getValue(),  StreamType);
+			}
+		}
 
-        public static StreamType getByValue(int value) {
-            return MY_MAP.get(value);
-        }
+		private int value;
 
-        public String toString() {
-            return name();
-        }
+		private StreamType(int value) {
+			this.value = value;
+		}
 
-    }
+		public int getValue() {
+			return value;
+		}
 
-    /**
+		public static StreamType getByValue(int value) {
+			return MY_MAP.get(value);
+		}
+
+		public String toString() {
+			return name();
+		}
+
+	}
+
+	/**
 	 * Snapshot modes for Limelight.
-	 * 
-     * @author Corey Applegate
+	 *
+	 * @author Corey Applegate
 	 */
-    public enum Snapshot {
+	public enum Snapshot {
 
-        kon(1),
-        koff(0);
-      
-        private static final Map<Integer,  Snapshot> MY_MAP = new HashMap<Integer,  Snapshot>();
-        
-        static {
-          for ( Snapshot  Snapshot : values()) {
-            MY_MAP.put( Snapshot.getValue(),  Snapshot);
-          }
-        }
-        
-        private int value;
-      
-        private  Snapshot(int value) {
-          this.value = value;
-        }
-      
-        public int getValue() {
-          return value;
-        }
-      
-        public static  Snapshot getByValue(int value) {
-          return MY_MAP.get(value);
-        }
-      
-        public String toString() {
-          return name();
-        }
-    }
-     
-    /**
+		kon(1),
+		koff(0);
+
+		private static final Map<Integer,  Snapshot> MY_MAP = new HashMap<Integer,  Snapshot>();
+
+		static {
+			for ( Snapshot Snapshot : values()) {
+				MY_MAP.put( Snapshot.getValue(),  Snapshot);
+			}
+		}
+
+		private int value;
+
+		private Snapshot(int value) {
+			this.value = value;
+		}
+
+		public int getValue() {
+			return value;
+		}
+
+		public static Snapshot getByValue(int value) {
+			return MY_MAP.get(value);
+		}
+
+		public String toString() {
+			return name();
+		}
+	}
+
+	/**
 	 * Advanced Target modes for Limelight.
-	 * 
-     * @author Corey Applegate
+	 *
+	 * @author Corey Applegate
 	 */
-    public enum  Advanced_Target {
+	public enum  Advanced_Target {
 
-        kone(0),
-        ktwo(1),
-        kthree(2);
-      
-        private static final Map<Integer,  Advanced_Target> MY_MAP = new HashMap<Integer,  Advanced_Target>();
-        
-        static {
-          for ( Advanced_Target  Advanced_Target : values()) {
-            MY_MAP.put( Advanced_Target.getValue(),  Advanced_Target);
-          }
-        }
-        
-        private int value;
-      
-        private  Advanced_Target(int value) {
-          this.value = value;
-        }
-      
-        public int getValue() {
-          return value;
-        }
-      
-        public static  Advanced_Target getByValue(int value) {
-          return MY_MAP.get(value);
-        }
-      
-        public String toString() {
-          return name();
-        }
-      
-    }
-    
-    /**
+		kone(0),
+		ktwo(1),
+		kthree(2);
+
+		private static final Map<Integer,  Advanced_Target> MY_MAP = new HashMap<Integer,  Advanced_Target>();
+
+		static {
+			for ( Advanced_Target Advanced_Target : values()) {
+				MY_MAP.put( Advanced_Target.getValue(),  Advanced_Target);
+			}
+		}
+
+		private int value;
+
+		private Advanced_Target(int value) {
+			this.value = value;
+		}
+
+		public int getValue() {
+			return value;
+		}
+
+		public static Advanced_Target getByValue(int value) {
+			return MY_MAP.get(value);
+		}
+
+		public String toString() {
+			return name();
+		}
+
+	}
+
+	/**
 	 * Advanced Crosshair modes for Limelight.
-	 * 
-     * @author Corey Applegate
+	 *
+	 * @author Corey Applegate
 	 */
-    public enum Advanced_Crosshair {
+	public enum Advanced_Crosshair {
 
-        kone(0),
-        ktwo(1);
-      
-        private static final Map<Integer,  Advanced_Crosshair> MY_MAP = new HashMap<Integer,  Advanced_Crosshair>();
-        
-        static {
-          for ( Advanced_Crosshair  Advanced_Crosshair : values()) {
-            MY_MAP.put( Advanced_Crosshair.getValue(),  Advanced_Crosshair);
-          }
-        }
-        
-        private int value;
-      
-        private  Advanced_Crosshair(int value) {
-          this.value = value;
-        }
-      
-        public int getValue() {
-          return value;
-        }
-      
-        public static  Advanced_Crosshair getByValue(int value) {
-          return MY_MAP.get(value);
-        }
-      
-        public String toString() {
-          return name();
-        }
-      
-    }
+		kone(0),
+		ktwo(1);
+
+		private static final Map<Integer,  Advanced_Crosshair> MY_MAP = new HashMap<Integer,  Advanced_Crosshair>();
+
+		static {
+			for ( Advanced_Crosshair Advanced_Crosshair : values()) {
+				MY_MAP.put( Advanced_Crosshair.getValue(),  Advanced_Crosshair);
+			}
+		}
+
+		private int value;
+
+		private Advanced_Crosshair(int value) {
+			this.value = value;
+		}
+
+		public int getValue() {
+			return value;
+		}
+
+		public static Advanced_Crosshair getByValue(int value) {
+			return MY_MAP.get(value);
+		}
+
+		public String toString() {
+			return name();
+		}
+
+	}
 
 	/**
 	 * Gets whether a target is detected by the Limelight.
-	 * 
+	 *
 	 * @return true if a target is detected, false otherwise.
 	 */
 	public boolean isTarget() {
@@ -255,7 +255,7 @@ public class Limelight {
 
 	/**
 	 * Horizontal offset from crosshair to target (-27 degrees to 27 degrees).
-	 * 
+	 *
 	 * @return tx as reported by the Limelight.
 	 */
 	public double getTx() {
@@ -264,7 +264,7 @@ public class Limelight {
 
 	/**
 	 * Vertical offset from crosshair to target (-20.5 degrees to 20.5 degrees).
-	 * 
+	 *
 	 * @return ty as reported by the Limelight.
 	 */
 	public double getTy() {
@@ -273,7 +273,7 @@ public class Limelight {
 
 	/**
 	 * Area that the detected target takes up in total camera FOV (0% to 100%).
-	 * 
+	 *
 	 * @return Area of target.
 	 */
 	public double getTa() {
@@ -282,7 +282,7 @@ public class Limelight {
 
 	/**
 	 * Gets target skew or rotation (-90 degrees to 0 degrees).
-	 * 
+	 *
 	 * @return Target skew.
 	 */
 	public double getTs() {
@@ -291,7 +291,7 @@ public class Limelight {
 
 	/**
 	 * Gets target latency (ms).
-	 * 
+	 *
 	 * @return Target latency.
 	 */
 	public double getTl() {
@@ -300,7 +300,7 @@ public class Limelight {
 
 	/**
 	 * Sets LED mode of Limelight.
-	 * 
+	 *
 	 * @param mode
 	 *            Light mode for Limelight.
 	 */
@@ -310,7 +310,7 @@ public class Limelight {
 
 	/**
 	 * Sets camera mode for Limelight.
-	 * 
+	 *
 	 * @param mode
 	 *            Camera mode for Limelight.
 	 */
@@ -320,7 +320,7 @@ public class Limelight {
 
 	/**
 	 * Sets pipeline number (0-9 value).
-	 * 
+	 *
 	 * @param number
 	 *            Pipeline number (0-9).
 	 */
@@ -330,7 +330,7 @@ public class Limelight {
 
 	/**
 	 * Helper method to get an entry from the Limelight NetworkTable.
-	 * 
+	 *
 	 * @param key
 	 *            Key for entry.
 	 * @return NetworkTableEntry of given entry.

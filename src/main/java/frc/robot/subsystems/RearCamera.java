@@ -12,25 +12,25 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
 public class RearCamera extends SubsystemBase {
-  private static UsbCamera rearCameraServer;
-  /**
-   * Creates a new RearCamera.
-   */
-  public RearCamera() {
-    //Setup Camera
-    rearCameraServer = CameraServer.getInstance().startAutomaticCapture();
-  }
+	private static UsbCamera rearCameraServer;
+	/**
+	 * Creates a new RearCamera.
+	 */
+	public RearCamera() {
+		//Setup Camera
+		rearCameraServer = CameraServer.getInstance().startAutomaticCapture();
+	}
 
-  public void setResolution(int width, int height) {
-    rearCameraServer.setResolution(width, height);
-  }
+	public void setResolution(int width, int height) {
+		rearCameraServer.setResolution(width, height);
+	}
 
-  public void setFPS(int fps) {
-    rearCameraServer.setFPS(fps);
-  }
+	public void setFPS(int fps) {
+		rearCameraServer.setFPS(fps);
+	}
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+	@Override
+	public void periodic() {
+		// This method will be called once per scheduler run
+	}
 }

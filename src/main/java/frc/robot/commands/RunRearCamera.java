@@ -11,36 +11,36 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.subsystems.RearCamera;
 
 public class RunRearCamera extends CommandBase {
-  private final RearCamera m_rearCamera;
-  /**
-   * Creates a new RunRearCamera.
-   */
-  public RunRearCamera(RearCamera rearCamera) {
-    m_rearCamera = rearCamera;
-    // Use addRequirements() here to declare subsystem dependencies.
-    addRequirements(m_rearCamera);
-  }
+	private final RearCamera m_rearCamera;
+	/**
+	 * Creates a new RunRearCamera.
+	 */
+	public RunRearCamera(RearCamera rearCamera) {
+		m_rearCamera = rearCamera;
+		// Use addRequirements() here to declare subsystem dependencies.
+		addRequirements(m_rearCamera);
+	}
 
-  // Called when the command is initially scheduled.
-  @Override
-  public void initialize() {
-    m_rearCamera.setResolution(320, 180);
-    m_rearCamera.setFPS(15);
-  }
+	// Called when the command is initially scheduled.
+	@Override
+	public void initialize() {
+		m_rearCamera.setResolution(320, 180);
+		m_rearCamera.setFPS(15);
+	}
 
-  // Called every time the scheduler runs while the command is scheduled.
-  @Override
-  public void execute() {
-  }
+	// Called every time the scheduler runs while the command is scheduled.
+	@Override
+	public void execute() {
+	}
 
-  // Called once the command ends or is interrupted.
-  @Override
-  public void end(boolean interrupted) {
-  }
+	// Called once the command ends or is interrupted.
+	@Override
+	public void end(boolean interrupted) {
+	}
 
-  // Returns true when the command should end.
-  @Override
-  public boolean isFinished() {
-    return false;
-  }
+	// Returns true when the command should end.
+	@Override
+	public boolean isFinished() {
+		return false;
+	}
 }
