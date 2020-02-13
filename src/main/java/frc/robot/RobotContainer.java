@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.commands.AutomaticLED;
@@ -49,11 +49,12 @@ public class RobotContainer {
 // The robot's subsystems and commands are defined here...
 	@Config.Command(name = "Autonomous Command", tabName = "Debugger")
 	Command m_autoCommand;
+	@Config(name = "Autonomous Chooser", tabName = "Autonomous")
 	SendableChooser<String> autonomousChooser = new SendableChooser<>();
 
 	private final Chassis m_chassis = new Chassis();
 	private final ColorSensor m_colorSensor = new ColorSensor();
-	private final Dashboard m_dashboard = new Dashboard();
+	public final Dashboard m_dashboard = new Dashboard();
 	private final Feeder m_feeder = new Feeder();
 	private final LED m_led = new LED();
 	private final LimelightCamera m_limelightCamera = new LimelightCamera();
@@ -107,10 +108,10 @@ public class RobotContainer {
 		m_shooter.setDefaultCommand(new RunShooter(m_shooter, m_manipulatorStick.getY(Hand.kRight),
 							   m_manipulatorLogButton));
 
-		// Add commands to Autonomous Sendable Chooser
+		// Add commands to Autonomous SendableChooser
 		autonomousChooser.setDefaultOption("Do Nothing", "Do Nothing");
 		autonomousChooser.addOption("Basic Autonomous", "Basic Autonomous");
-		SmartDashboard.putData("Auto mode", autonomousChooser);
+		//m_dashboard.getAutonomousTab().add("Auto mode", autonomousChooser);
 		switch (autonomousChooser.getSelected()) {
 		case "Do Nothing":        m_autoCommand = new DoNothing();
 			break;

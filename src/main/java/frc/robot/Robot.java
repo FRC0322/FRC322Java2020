@@ -10,6 +10,7 @@ package frc.robot;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
+import frc.robot.subsystems.Dashboard.Tab;
 import io.github.oblarg.oblog.Logger;
 
 /**
@@ -30,8 +31,8 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		// Instantiate our RobotContainer.  This will perform all our button bindings, and put our
 		// autonomous chooser on the dashboard.
-    m_robotContainer = new RobotContainer();
-    
+		m_robotContainer = new RobotContainer();
+
 		// Create the Oblog Logger
 		Logger.configureLoggingAndConfig(this, false);
 	}
@@ -77,6 +78,8 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.schedule();
 		}
+
+		m_robotContainer.m_dashboard.setTab(Tab.kAutonomous);
 	}
 
 	/**
@@ -95,6 +98,7 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+		m_robotContainer.m_dashboard.setTab(Tab.kDriver);
 	}
 
 	/**
@@ -108,6 +112,7 @@ public class Robot extends TimedRobot {
 	public void testInit() {
 		// Cancels all running commands at the start of test mode.
 		CommandScheduler.getInstance().cancelAll();
+		m_robotContainer.m_dashboard.setTab(Tab.kDebugger);
 	}
 
 	/**

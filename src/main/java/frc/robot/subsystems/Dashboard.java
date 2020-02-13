@@ -7,6 +7,9 @@
 
 package frc.robot.subsystems;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -24,12 +27,44 @@ public class Dashboard extends SubsystemBase {
 		debuggerShuffleboardTab = Shuffleboard.getTab("Debugger");
 	}
 
-	public void setTab(int tab) {
-		if (tab == 0)
+	public enum Tab {
+		kDriver(0),
+		kAutonomous(1),
+		kDebugger(2);
+
+		private static final Map<Integer, Tab> MY_MAP = new HashMap<Integer, Tab>();
+
+		static {
+			for (Tab tab : values()) {
+				MY_MAP.put(tab.getValue(), tab);
+			}
+		}
+
+		private int value;
+
+		private Tab(int value) {
+			this.value = value;
+		}
+
+		public int getValue() {
+			return value;
+		}
+
+		public static Tab getByValue(int value) {
+			return MY_MAP.get(value);
+		}
+
+		public String toString() {
+			return name();
+		}
+	}
+
+	public void setTab(Tab tab) {
+		if (tab == Tab.kDriver)
 			Shuffleboard.selectTab("Driver");
-		else if (tab == 1)
+		else if (tab == Tab.kAutonomous)
 			Shuffleboard.selectTab("Autonomous");
-		else if (tab == 2)
+		else if (tab == Tab.kDebugger)
 			Shuffleboard.selectTab("Debugger");
 	}
 
