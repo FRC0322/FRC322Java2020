@@ -40,7 +40,7 @@ public class Chassis extends SubsystemBase implements Loggable {
 	private final SpeedController m_rightMotors =
 		new SpeedControllerGroup(m_rightFrontMotor, m_rightRearMotor);
 
-	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Auton")
+	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Autonomous")
 	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Driver")
 	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Debugger")
 	private final DifferentialDrive m_drive =
