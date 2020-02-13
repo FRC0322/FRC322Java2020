@@ -66,7 +66,8 @@ public final class Constants {
 				LED_ON_BUTTON = 5,
 				LED_OFF_BUTTON = 6,
 				LED_BLINK_BUTTON = 7,
-				LED_DEFAULT_BUTTON = 8;
+				LED_DEFAULT_BUTTON = 8,
+				CAMERASERVER_FEEDS = 2;
 	public static final double FEEDER_SPEED = 0.5,
 				   FEEDER_REVERSE_SPEED = -(0.5),
 				   SHOOTER_SPEED = 0.5,

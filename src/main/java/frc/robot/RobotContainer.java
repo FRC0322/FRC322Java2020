@@ -36,8 +36,8 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.utilities.F310Controller;
 import frc.robot.utilities.Limelight.CameraMode;
 import frc.robot.utilities.Limelight.LightMode;
+import io.github.oblarg.oblog.annotations.Config;
 import frc.robot.utilities.RumblePad2;
-import io.github.oblarg.oblog.Logger;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -47,6 +47,7 @@ import io.github.oblarg.oblog.Logger;
  */
 public class RobotContainer {
 // The robot's subsystems and commands are defined here...
+	@Config.Command(name = "Autonomous Command", tabName = "Debugger")
 	Command m_autoCommand;
 	SendableChooser<String> autonomousChooser = new SendableChooser<>();
 
@@ -78,8 +79,6 @@ public class RobotContainer {
 	private final JoystickButton m_LEDOffButton = new JoystickButton(m_manipulatorStick, Constants.LED_OFF_BUTTON);
 	private final JoystickButton m_LEDDefaultButton = new JoystickButton(m_manipulatorStick, Constants.LED_DEFAULT_BUTTON);
 
-	private String color;
-
 /**
  * The container for the robot.  Contains subsystems, OI devices, and commands.
  */
@@ -96,7 +95,7 @@ public class RobotContainer {
 
 		m_colorSensor.setDefaultCommand(new ColorDetector(m_colorSensor, Constants.DS.getGameSpecificMessage()));
 
-		m_dashboard.setDefaultCommand(new DashboardUpdater(m_dashboard, m_limelightCamera));
+		m_dashboard.setDefaultCommand(new DashboardUpdater(m_dashboard));
 
 		m_feeder.setDefaultCommand(new RunFeeder(m_feeder, m_manipulatorStick.getY(Hand.kLeft),
 							 m_manipulatorLogButton));
@@ -122,9 +121,6 @@ public class RobotContainer {
 		default:                  m_autoCommand = new DoNothing();
 			break;
 		}
-
-		// Create the Oblog Logger
-		Logger.configureLoggingAndConfig(this, false);
 
 		// Configure the button bindings
 		configureButtonBindings();

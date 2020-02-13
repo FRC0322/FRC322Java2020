@@ -9,18 +9,20 @@ package frc.robot.subsystems;
 
 import edu.wpi.cscore.HttpCamera;
 import edu.wpi.cscore.HttpCamera.HttpCameraKind;
-import edu.wpi.first.cameraserver.CameraServer;
+//import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utilities.Limelight;
 import frc.robot.utilities.Limelight.CameraMode;
 import frc.robot.utilities.Limelight.LightMode;
+import io.github.oblarg.oblog.Loggable;
+import io.github.oblarg.oblog.annotations.Log;
 
-public class LimelightCamera extends SubsystemBase {
+public class LimelightCamera extends SubsystemBase implements Loggable {
 	/**
 	 * The Limelight subsystem incorporates the Limelight 2+ camera.
 	 */
-	private Limelight m_limelight;
-	private HttpCamera limelightFeed;
+	private final Limelight m_limelight;
+	private final HttpCamera m_limelightFeed;
 
 	/**
 	 * Creates a new Limelight.
@@ -35,13 +37,48 @@ public class LimelightCamera extends SubsystemBase {
 		// Turn off the lights
 		m_limelight.setLedMode(LightMode.kforceOff);
 
-		// Activate a CameraServer for the Limelight
-		limelightFeed = new HttpCamera("limelight", "http://10.3.22.11:5800/stream.mjpg", HttpCameraKind.kMJPGStreamer);
-		CameraServer.getInstance().startAutomaticCapture(limelightFeed);
+		// Activate an HttpCamera for the Limelight
+		m_limelightFeed = new HttpCamera("limelight", "http://10.3.22.11:5800/stream.mjpg", HttpCameraKind.kMJPGStreamer);
+		//CameraServer.getInstance().startAutomaticCapture(m_limelightFeed);
 	}
 
+	/**
+	 * This method exists to pass the Limelight object to other classes.
+	 * @return Returns a Limelight object.
+	 */
 	public Limelight getLimelight() {
 		return m_limelight;
+	}
+
+	@Log.Dial(min = -30.0, max = 30.0, name = "Limelight TX", tabName = "Autonomous")
+	@Log.Dial(min = -30.0, max = 30.0, name = "Limelight TX", tabName = "Driver")
+	@Log.Dial(min = -30.0, max = 30.0, name = "Limelight TX", tabName = "Debugger")
+	private double getTX() {
+		return m_limelight.getTx();
+	}
+
+	@Log.Dial(min = -21.0, max = 21.0, name = "Limelight TX", tabName = "Autonomous")
+	@Log.Dial(min = -21.0, max = 21.0, name = "Limelight TX", tabName = "Driver")
+	@Log.Dial(min = -21.0, max = 21.0, name = "Limelight TX", tabName = "Debugger")
+	private double getTY() {
+		return m_limelight.getTy();
+	}
+
+	@Log.Dial(min = 0.0, max = 100.0, name = "Limelight TX", tabName = "Autonomous")
+	@Log.Dial(min = 0.0, max = 100.0, name = "Limelight TX", tabName = "Driver")
+	@Log.Dial(min = 0.0, max = 100.0, name = "Limelight TX", tabName = "Debugger")
+	private double getTA() {
+		return m_limelight.getTa();
+	}
+
+	/**
+	 * This method returns the Limelight HttpCamera feed.
+	 * @return Returns an HttpCamera feed.
+	 */
+	@Log.CameraStream(name = "Limelight Camera", tabName = "Driver")
+	@Log.CameraStream(name = "Limelight Camera", tabName = "Debugger")
+	public HttpCamera getLimelightFeed() {
+		return m_limelightFeed;
 	}
 
 	@Override

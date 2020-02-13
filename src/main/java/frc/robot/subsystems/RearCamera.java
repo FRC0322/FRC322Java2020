@@ -10,6 +10,7 @@ package frc.robot.subsystems;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import io.github.oblarg.oblog.annotations.Log;
 
 public class RearCamera extends SubsystemBase {
 	private static UsbCamera rearCameraServer;
@@ -23,6 +24,17 @@ public class RearCamera extends SubsystemBase {
 
 	public void setResolution(int width, int height) {
 		rearCameraServer.setResolution(width, height);
+	}
+
+
+	/**
+	 * This method returns the Limelight HttpCamera feed.
+	 * @return Returns a UsbCamera feed.
+	 */
+	@Log.CameraStream(name = "Rear Camera", tabName = "Driver")
+	@Log.CameraStream(name = "Rear Camera", tabName = "Debugger")
+	public UsbCamera getCameraFeed() {
+		return rearCameraServer;
 	}
 
 	public void setFPS(int fps) {
