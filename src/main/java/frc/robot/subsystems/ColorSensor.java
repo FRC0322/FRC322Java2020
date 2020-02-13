@@ -59,7 +59,10 @@ public class ColorSensor extends SubsystemBase implements Loggable {
 	@Log.ToString(name = "Detected Color", tabName = "Driver")
 	@Log.ToString(name = "Detected Color", tabName = "Debugger")
 	public String getColorString() {
-		return m_colorString;
+		if (m_colorString != null)
+			return m_colorString;
+		else
+			return "none";
 	}
 
 	@Override

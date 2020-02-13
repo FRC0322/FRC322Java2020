@@ -13,12 +13,17 @@ import frc.robot.subsystems.ColorSensor;
 public class ColorDetector extends CommandBase {
 	private ColorSensor m_colorSensor;
 	private String m_color;
+	private boolean m_match;
 	/**
 	 * Creates a new ColorDetector.
 	 */
 	public ColorDetector(ColorSensor colorSensor, String color) {
 		m_colorSensor = colorSensor;
-		m_color = color;
+		if (color != null)
+			m_color = color;
+		else
+			m_color = "none";
+
 		// Use addRequirements() here to declare subsystem dependencies.
 		addRequirements(m_colorSensor);
 	}
@@ -31,10 +36,12 @@ public class ColorDetector extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		if (m_color.charAt(0) == m_colorSensor.getColorString().charAt(0))
-			;	//System.out.println("match");
-		else
-			;	//System.out.println(m_color);
+		/**
+		 * if (m_color.charAt(0) == m_colorSensor.getColorString().charAt(0))
+		 * 	m_match = true;
+		 * else
+		 * 	m_match = false;
+		 */
 	}
 
 	// Called once the command ends or is interrupted.
