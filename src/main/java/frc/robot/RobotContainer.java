@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-import frc.robot.commands.AutomaticLED;
+//import frc.robot.commands.AutomaticLED;
 import frc.robot.commands.BasicAutonomous;
 import frc.robot.commands.ColorDetector;
 import frc.robot.commands.DashboardUpdater;
@@ -29,7 +29,7 @@ import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Dashboard;
 import frc.robot.subsystems.Feeder;
-import frc.robot.subsystems.LED;
+//import frc.robot.subsystems.LED;
 import frc.robot.subsystems.LimelightCamera;
 import frc.robot.subsystems.RearCamera;
 import frc.robot.subsystems.Shooter;
@@ -56,22 +56,22 @@ public class RobotContainer {
 	private final ColorSensor m_colorSensor = new ColorSensor();
 	public final Dashboard m_dashboard = new Dashboard();
 	private final Feeder m_feeder = new Feeder();
-	private final LED m_led = new LED();
+	//private final LED m_led = new LED();
 	private final LimelightCamera m_limelightCamera = new LimelightCamera();
 	private final RearCamera m_rearCamera = new RearCamera();
 	private final Shooter m_shooter = new Shooter();
 
 	private final F310Controller m_driveStick = new F310Controller(Constants.DRIVE_STICK);
 	private final F310Controller m_manipulatorStick = new F310Controller(Constants.MANIPULATOR_STICK);
-	private final RumblePad2 m_debuggerStick = new RumblePad2(Constants.DEBUGGER_STICK);
+	//private final RumblePad2 m_debuggerStick = new RumblePad2(Constants.DEBUGGER_STICK);
 
 	private final JoystickButton m_brakeButton = new JoystickButton(m_driveStick, Constants.BRAKE_BUTTON);
 	private final JoystickButton m_logButton = new JoystickButton(m_driveStick, Constants.LOG_BUTTON);
-//private final JoystickButton m_logButton = new JoystickButton(m_debuggerStick, Constants.LOG_BUTTON);
-	private final JoystickButton m_feederButton = new JoystickButton(m_manipulatorStick, Constants.FEEDER_BUTTON);
-	private final JoystickButton m_feederReverseButton = new JoystickButton(m_manipulatorStick, Constants.FEEDER_REVERSE_BUTTON);
-	private final JoystickButton m_shooterButton = new JoystickButton(m_manipulatorStick, Constants.SHOOTER_BUTTON);
-	private final JoystickButton m_shooterReverseButton = new JoystickButton(m_manipulatorStick, Constants.SHOOTER_REVERSE_BUTTON);
+	//private final JoystickButton m_logButton = new JoystickButton(m_debuggerStick, Constants.LOG_BUTTON);
+	//private final JoystickButton m_feederButton = new JoystickButton(m_manipulatorStick, Constants.FEEDER_BUTTON);
+	//private final JoystickButton m_feederReverseButton = new JoystickButton(m_manipulatorStick, Constants.FEEDER_REVERSE_BUTTON);
+	//private final JoystickButton m_shooterButton = new JoystickButton(m_manipulatorStick, Constants.SHOOTER_BUTTON);
+	//private final JoystickButton m_shooterReverseButton = new JoystickButton(m_manipulatorStick, Constants.SHOOTER_REVERSE_BUTTON);
 	private final JoystickButton m_manipulatorLogButton = new JoystickButton(m_driveStick, Constants.LOG_BUTTON);
 	private final JoystickButton m_visionModeButton = new JoystickButton(m_driveStick, Constants.VISION_MODE_BUTTON);
 	private final JoystickButton m_driverModeButton = new JoystickButton(m_driveStick, Constants.DRIVER_MODE_BUTTON);
@@ -101,7 +101,7 @@ public class RobotContainer {
 		m_feeder.setDefaultCommand(new RunFeeder(m_feeder, m_manipulatorStick.getY(Hand.kLeft),
 							 m_manipulatorLogButton));
 
-		m_led.setDefaultCommand(new AutomaticLED(m_led));
+		//m_led.setDefaultCommand(new AutomaticLED(m_led));
 
 		m_rearCamera.setDefaultCommand(new RunRearCamera(m_rearCamera));
 
