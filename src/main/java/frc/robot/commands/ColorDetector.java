@@ -33,12 +33,13 @@ public class ColorDetector extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		if (Constants.DS.getGameSpecificMessage() != null && Constants.DS.getGameSpecificMessage() != "") {
+		if ((Constants.DS.getGameSpecificMessage() != null && Constants.DS.getGameSpecificMessage() != "")
+		    && (m_colorSensor.getColorString() != null && m_colorSensor.getColorString() != "")) {
 			m_detectedColor = Constants.DS.getGameSpecificMessage();
-			if (m_detectedColor.charAt(0) == m_colorSensor.getColorString().charAt(0))
-				m_match = true;
-			else
-				m_match = false;
+			//if (m_detectedColor.charAt(0) == m_colorSensor.getColorString().charAt(0))
+			//	m_match = true;
+			//else
+			//	m_match = false;
 		}
 		else
 			m_detectedColor = "unknown";

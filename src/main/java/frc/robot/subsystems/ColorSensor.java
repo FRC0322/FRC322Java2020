@@ -45,7 +45,7 @@ public class ColorSensor extends SubsystemBase implements Loggable {
 	private final Color kBlueTarget = ColorMatch.makeColor(Constants.BLUE_R, Constants.BLUE_G, Constants.BLUE_B);
 	private final Color kYellowTarget = ColorMatch.makeColor(Constants.YELLOW_R, Constants.YELLOW_G, Constants.YELLOW_B);
 
-	private String m_colorString;
+	private String m_colorString = "";
 	/**
 	 * Creates a new ColorSensor.
 	 */
