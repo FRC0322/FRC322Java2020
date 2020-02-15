@@ -94,7 +94,7 @@ public class RobotContainer {
 		//  () -> -(m_debuggerStick.getY(Hand.kRight), () -> -(m_debuggerStick.getX(Hand.kRight)),
 		//  m_chassis, m_brakeButton, m_logButton)));
 
-		m_colorSensor.setDefaultCommand(new ColorDetector(m_colorSensor, Constants.DS.getGameSpecificMessage()));
+		m_colorSensor.setDefaultCommand(new ColorDetector(m_colorSensor));
 
 		m_dashboard.setDefaultCommand(new DashboardUpdater(m_dashboard));
 

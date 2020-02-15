@@ -8,21 +8,18 @@
 package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.subsystems.ColorSensor;
 
 public class ColorDetector extends CommandBase {
 	private ColorSensor m_colorSensor;
-	private String m_color;
+	private String m_detectedColor;
 	private boolean m_match;
 	/**
 	 * Creates a new ColorDetector.
 	 */
-	public ColorDetector(ColorSensor colorSensor, String color) {
+	public ColorDetector(ColorSensor colorSensor) {
 		m_colorSensor = colorSensor;
-		if (color != null)
-			m_color = color;
-		else
-			m_color = "none";
 
 		// Use addRequirements() here to declare subsystem dependencies.
 		addRequirements(m_colorSensor);
@@ -36,12 +33,15 @@ public class ColorDetector extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		/**
-		 * if (m_color.charAt(0) == m_colorSensor.getColorString().charAt(0))
-		 * 	m_match = true;
-		 * else
-		 * 	m_match = false;
-		 */
+		if (Constants.DS.getGameSpecificMessage() != null && Constants.DS.getGameSpecificMessage() != "") {
+			m_detectedColor = Constants.DS.getGameSpecificMessage();
+			if (m_detectedColor.charAt(0) == m_colorSensor.getColorString().charAt(0))
+				m_match = true;
+			else
+				m_match = false;
+		}
+		else
+			m_detectedColor = "unknown";
 	}
 
 	// Called once the command ends or is interrupted.
