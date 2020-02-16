@@ -69,14 +69,12 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		m_robotContainer.m_dashboard.setTab(Tab.kAutonomous);
 		m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
-		// schedule the autonomous command (example)
-		if (m_autonomousCommand != null) {
+		// schedule the autonomous command
+		if (m_autonomousCommand != null)
 			m_autonomousCommand.schedule();
-		}
-
-		m_robotContainer.m_dashboard.setTab(Tab.kAutonomous);
 	}
 
 	/**
@@ -88,14 +86,13 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
+		m_robotContainer.m_dashboard.setTab(Tab.kDriver);
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
 		// this line or comment it out.
-		if (m_autonomousCommand != null) {
+		if (m_autonomousCommand != null)
 			m_autonomousCommand.cancel();
-		}
-		m_robotContainer.m_dashboard.setTab(Tab.kDriver);
 	}
 
 	/**
