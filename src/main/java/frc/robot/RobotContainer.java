@@ -38,7 +38,7 @@ import frc.robot.utilities.Limelight.CameraMode;
 import frc.robot.utilities.Limelight.LightMode;
 import io.github.oblarg.oblog.Logger;
 import io.github.oblarg.oblog.annotations.Config;
-import frc.robot.utilities.RumblePad2;
+//import frc.robot.utilities.RumblePad2;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -48,19 +48,20 @@ import frc.robot.utilities.RumblePad2;
  */
 public class RobotContainer {
 // The robot's subsystems and commands are defined here...
-	@Config.Command(name = "Autonomous Command", tabName = "Debugger")
+	//@Config.Command(name = "Autonomous Command", tabName = "Debugger")
 	Command m_autoCommand;
-	@Config(name = "Autonomous Chooser", tabName = "Autonomous")
+	@Config(name = "Autonomous Chooser", tabName = "Autonomous", width = 8, height = 4,
+		rowIndex = 12, columnIndex = 4)
 	SendableChooser<String> autonomousChooser = new SendableChooser<>();
 
-	private final Chassis m_chassis = new Chassis();
-	private final ColorSensor m_colorSensor = new ColorSensor();
-	public final Dashboard m_dashboard = new Dashboard();
-	private final Feeder m_feeder = new Feeder();
-	//private final LED m_led = new LED();
-	private final LimelightCamera m_limelightCamera = new LimelightCamera();
-	private final RearCamera m_rearCamera = new RearCamera();
-	private final Shooter m_shooter = new Shooter();
+	private static final Chassis m_chassis = new Chassis();
+	private static final ColorSensor m_colorSensor = new ColorSensor();
+	public static final Dashboard m_dashboard = new Dashboard();
+	private static final Feeder m_feeder = new Feeder();
+	//private static final LED m_led = new LED();
+	private static final LimelightCamera m_limelightCamera = new LimelightCamera();
+	private static final RearCamera m_rearCamera = new RearCamera();
+	private static final Shooter m_shooter = new Shooter();
 
 	private final F310Controller m_driveStick = new F310Controller(Constants.DRIVE_STICK);
 	private final F310Controller m_manipulatorStick = new F310Controller(Constants.MANIPULATOR_STICK);
@@ -81,9 +82,9 @@ public class RobotContainer {
 	private final JoystickButton m_LEDOffButton = new JoystickButton(m_manipulatorStick, Constants.LED_OFF_BUTTON);
 	private final JoystickButton m_LEDDefaultButton = new JoystickButton(m_manipulatorStick, Constants.LED_DEFAULT_BUTTON);
 
-/**
- * The container for the robot.  Contains subsystems, OI devices, and commands.
- */
+	/**
+	 * The container for the robot.  Contains subsystems, OI devices, and commands.
+	 */
 	public RobotContainer() {
 		// Assign default commands
 		m_chassis.setDefaultCommand(new DriveWithJoystick(
@@ -131,12 +132,12 @@ public class RobotContainer {
 		configureButtonBindings();
 	}
 
-/**
- * Use this method to define your button->command mappings.  Buttons can be created by
- * instantiating a {@link GenericHID} or one of its subclasses ({@link
- * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
- * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
- */
+	/**
+	 * Use this method to define your button->command mappings.  Buttons can be created by
+	 * instantiating a {@link GenericHID} or one of its subclasses ({@link
+	 * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
+	 * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+	 */
 	private void configureButtonBindings() {
 		m_visionModeButton.whileActiveOnce(new LimelightCameraModeControl(m_limelightCamera,
 										  CameraMode.kvision));
@@ -169,11 +170,11 @@ public class RobotContainer {
 		 */
 	}
 
-/**
- * Use this to pass the autonomous command to the main {@link Robot} class.
- *
- * @return the command to run in autonomous
- */
+	/**
+	 * Use this to pass the autonomous command to the main {@link Robot} class.
+	 *
+	 * @return the command to run in autonomous
+	 */
 	public Command getAutonomousCommand() {
 		return m_autoCommand;
 	}
