@@ -12,9 +12,6 @@ import edu.wpi.first.networktables.NetworkTableInstance;
  * @author Dan Waxman
  * @author Corey Applegate
  *
- * Certain methods
- * @author Gabriel McMillan
- *
  * Modified for WPIlib 2020
  * @author Raa'Shaun Hunter
  */
@@ -329,56 +326,6 @@ public class Limelight {
 	 */
 	public void setPipeline(int number) {
 		getValue("pipeline").setNumber(number);
-	}
-
-	/**
-	 * getCameraTranslation() - Results of a 3D position solution
-	 *
-	 * @return 6 numbers: Translation (x,y,y) Rotation(pitch,yaw,roll)
-	 * @author Gabriel McMillan
-	 */
-	public double getCameraTranslation() {
-		return getValue("camtran").getDouble(0);
-	}
-
-	/**
-	 * get() - monitor any value needed outside of currently provided.
-	 *
-	 * @param key to pull
-	 * @return value of key
-	 *
-	 * @author Gabriel McMillan
-	 */
-	public double get(String entry) {
-		return getValue(entry).getDouble(0);
-	}
-
-	/**
-	 * set() - Set any value outside what is currently provided with the Limelight
-	 *
-	 * @return False if the table key already exists with a different type
-	 * @param key to set, and value to set.
-	 *
-	 * @author Gabriel McMillan
-	 */
-	public boolean set(String entry, Double value) {
-		return getValue(entry).setNumber(value);
-	}
-
-	/**
-	 * getDist() - calculates approximate distance from a fixed angled limelight to
-	 * the target.
-	 *
-	 * @param targetHeight= target height in meters, limelightHeight = height of limelight from the ground in meters, limelightAngle =
-	 *           angle in degrees of the limelight on the robot.
-	 * @return approx distance in meters
-	 *
-	 * @author Gabriel McMillan
-	 */
-	public double getDist(double targetHeight, double limelightHeight, double limelightAngle) {
-		double a2 = getTy();
-		double currentDist = (Math.abs(targetHeight - limelightHeight) / Math.tan(limelightAngle + a2));
-		return currentDist;
 	}
 
 	/**
