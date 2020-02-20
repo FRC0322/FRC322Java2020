@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Dashboard.Tab;
-import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.Logger;
 
 /**
@@ -20,9 +19,9 @@ import io.github.oblarg.oblog.Logger;
  * the package after creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot implements Loggable {
+public class Robot extends TimedRobot {
 	private Command m_autonomousCommand;
-	private RobotContainer m_robotContainer;
+	private static RobotContainer m_robotContainer;
 
 	/**
 	 * This function is run when the robot is first started up and should be used for any
@@ -33,9 +32,6 @@ public class Robot extends TimedRobot implements Loggable {
 		// Instantiate our RobotContainer.  This will perform all our button bindings, and put our
 		// autonomous chooser on the dashboard.
 		m_robotContainer = new RobotContainer();
-
-		// Create the Oblog Logger
-		//Logger.configureLoggingAndConfig(this, false);
 	}
 
 	/**
@@ -73,7 +69,7 @@ public class Robot extends TimedRobot implements Loggable {
 	 */
 	@Override
 	public void autonomousInit() {
-		m_robotContainer.getDashboard().setTab(Tab.kAutonomous);
+		RobotContainer.m_dashboard.setTab(Tab.kAutonomous);
 		m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
 		// schedule the autonomous command
@@ -90,7 +86,7 @@ public class Robot extends TimedRobot implements Loggable {
 
 	@Override
 	public void teleopInit() {
-		m_robotContainer.getDashboard().setTab(Tab.kDriver);
+		RobotContainer.m_dashboard.setTab(Tab.kDriver);
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
@@ -110,7 +106,7 @@ public class Robot extends TimedRobot implements Loggable {
 	public void testInit() {
 		// Cancels all running commands at the start of test mode.
 		CommandScheduler.getInstance().cancelAll();
-		m_robotContainer.getDashboard().setTab(Tab.kDebugger);
+		RobotContainer.m_dashboard.setTab(Tab.kDebugger);
 	}
 
 	/**
@@ -120,7 +116,7 @@ public class Robot extends TimedRobot implements Loggable {
 	public void testPeriodic() {
 	}
 
-	public RobotContainer getRobotContainer() {
+	public static RobotContainer getRobotContainer() {
 		return m_robotContainer;
 	}
 }

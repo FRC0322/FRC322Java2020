@@ -36,9 +36,8 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.utilities.F310Controller;
 import frc.robot.utilities.Limelight.CameraMode;
 import frc.robot.utilities.Limelight.LightMode;
-//import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.Logger;
-//import io.github.oblarg.oblog.annotations.Config;
+import io.github.oblarg.oblog.annotations.Config;
 //import frc.robot.utilities.RumblePad2;
 
 /**
@@ -48,21 +47,21 @@ import io.github.oblarg.oblog.Logger;
  * (including subsystems, commands, and button mappings) should be declared here.
  */
 public class RobotContainer {
-	// The robot's subsystems and commands are defined here...
+// The robot's subsystems and commands are defined here...
 	//@Config.Command(name = "Autonomous Command", tabName = "Debugger")
 	Command m_autoCommand;
-	//@Config(name = "Autonomous Chooser", tabName = "Autonomous", width = 8, height = 4,
-	//	rowIndex = 12, columnIndex = 4)
+	@Config(name = "Autonomous Chooser", tabName = "Autonomous", width = 8, height = 4,
+		rowIndex = 12, columnIndex = 4)
 	SendableChooser<String> autonomousChooser = new SendableChooser<>();
 
-	private final Chassis m_chassis = new Chassis();
-	private final ColorSensor m_colorSensor = new ColorSensor();
-	private final Dashboard m_dashboard = new Dashboard();
-	private final Feeder m_feeder = new Feeder();
-	//private final LED m_led = new LED();
-	private final LimelightCamera m_limelightCamera = new LimelightCamera();
-	private final RearCamera m_rearCamera = new RearCamera();
-	private final Shooter m_shooter = new Shooter();
+	private static final Chassis m_chassis = new Chassis();
+	private static final ColorSensor m_colorSensor = new ColorSensor();
+	public static final Dashboard m_dashboard = new Dashboard();
+	private static final Feeder m_feeder = new Feeder();
+	//private static final LED m_led = new LED();
+	private static final LimelightCamera m_limelightCamera = new LimelightCamera();
+	private static final RearCamera m_rearCamera = new RearCamera();
+	private static final Shooter m_shooter = new Shooter();
 
 	private final F310Controller m_driveStick = new F310Controller(Constants.DRIVE_STICK);
 	private final F310Controller m_manipulatorStick = new F310Controller(Constants.MANIPULATOR_STICK);
@@ -169,10 +168,6 @@ public class RobotContainer {
 		 *  m_shooterReverseButton.toggleWhenActive(new RunShooter(m_shooter, Constants.SHOOTER_REVERSE_SPEED,
 		 *    m_manipulatorLogButton), true);
 		 */
-	}
-
-	public Dashboard getDashboard() {
-		return m_dashboard;
 	}
 
 	/**
