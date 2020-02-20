@@ -35,16 +35,17 @@ public class Chassis extends SubsystemBase implements Loggable {
 	private final WPI_TalonSRX m_rightFrontMotor = new WPI_TalonSRX(Constants.DRIVE_RIGHTFRONT);
 	private final WPI_TalonSRX m_rightRearMotor = new WPI_TalonSRX(Constants.DRIVE_RIGHTREAR);
 
-	private final SpeedController m_leftMotors = new SpeedControllerGroup(m_leftFrontMotor, m_leftRearMotor);
-	private final SpeedController m_rightMotors = new SpeedControllerGroup(m_rightFrontMotor, m_rightRearMotor);
+	private final SpeedController m_leftMotors =
+		new SpeedControllerGroup(m_leftFrontMotor, m_leftRearMotor);
+	private final SpeedController m_rightMotors =
+		new SpeedControllerGroup(m_rightFrontMotor, m_rightRearMotor);
 
 	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Autonomous")
 	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Driver")
 	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Debugger")
-	private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
+	private final DifferentialDrive m_drive =
+		new DifferentialDrive(m_leftMotors, m_rightMotors);
 
-	@Log.Gyro(name = "navXMXP", tabName = "Driver")
-	@Log.Gyro(name = "navXMXP", tabName = "Debugger")
 	private final AHRS m_imu = new AHRS();
 
 	// This is a constant which is the number of Encoder ticks that matches one inch of Robot travel.
@@ -229,8 +230,8 @@ public class Chassis extends SubsystemBase implements Loggable {
 	 * has recently rotated less than the Compass Noise Bandwidth (~2 degrees).
 	 * @return Fused Heading in Degrees (range 0-360)
 	 */
-	@Log.Dial(name = "navX", min = 0.0, max = 360.0, tabName = "Driver")
-	@Log.Dial(name = "navX", min = 0.0, max = 360.0, tabName = "Debugger")
+	@Log.Gyro(name = "navX", tabName = "Driver")
+	@Log.Gyro(name = "navX", tabName = "Debugger")
 	public float getHeading() {
 		if (isHeadingReliable() && !isCalibrating())
 			return m_imu.getFusedHeading();

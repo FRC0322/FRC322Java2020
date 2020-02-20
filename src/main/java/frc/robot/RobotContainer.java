@@ -36,7 +36,6 @@ import frc.robot.subsystems.Shooter;
 import frc.robot.utilities.F310Controller;
 import frc.robot.utilities.Limelight.CameraMode;
 import frc.robot.utilities.Limelight.LightMode;
-import io.github.oblarg.oblog.Logger;
 import io.github.oblarg.oblog.annotations.Config;
 import frc.robot.utilities.RumblePad2;
 
@@ -123,9 +122,6 @@ public class RobotContainer {
 		default:                  m_autoCommand = new DoNothing();
 			break;
 		}
-
-		// Create the Oblog Logger
-		Logger.configureLoggingAndConfig(this, false);
 
 		// Configure the button bindings
 		configureButtonBindings();
