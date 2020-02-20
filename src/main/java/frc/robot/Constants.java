@@ -47,6 +47,12 @@ public final class Constants {
 	// Feeder.java
 	public static final int FEEDER_MOTOR = 5;
 
+	//Limelight
+	public static final double OUTER_TARGET_HEIGHT = 82.25,
+				   INNER_TARGET_HEIGHT = 98.25,
+				   LOWER_TARGET_HEIGHT = 24.0,
+				   LIMELIGHT_HEIGHT = 0.0,
+				   LIMELIGHT_ANGLE = 0.0;
 	// Shooter.java
 	public static final int LEFT_SHOOTER_MOTOR = 6;
 	public static final int RIGHT_SHOOTER_MOTOR = 7;

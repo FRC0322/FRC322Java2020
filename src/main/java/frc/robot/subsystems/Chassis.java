@@ -37,18 +37,24 @@ public class Chassis extends SubsystemBase {
 	private final SpeedController m_leftMotors = new SpeedControllerGroup(m_leftFrontMotor, m_leftRearMotor);
 	private final SpeedController m_rightMotors = new SpeedControllerGroup(m_rightFrontMotor, m_rightRearMotor);
 
-	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Driver", rowIndex = 0, columnIndex = 12)
-	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Debugger", rowIndex = 0, columnIndex = 12)
+	//@Log.DifferentialDrive(name = "Robot Drive", tabName = "Driver", rowIndex = 0, columnIndex = 12)
+	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Driver")
+	//@Log.DifferentialDrive(name = "Robot Drive", tabName = "Debugger", rowIndex = 0, columnIndex = 12)
+	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Debugger")
 	private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
-	@Log.ThreeAxisAccelerometer(name = "navX-Accelerometer", tabName = "Driver",
-				    width = 8, height = 4, columnIndex = 0, rowIndex = 32)
-	@Log.ThreeAxisAccelerometer(name = "navX-Accelerometer", tabName = "Debugger",
-				    columnIndex = 0, rowIndex = 32)
-	@Log.Gyro(name = "navX-Gyro", tabName = "Driver", startingAngle = 0.0,
-		  columnIndex = 24, rowIndex = 0)
-	@Log.Gyro(name = "navX-Gyro", tabName = "Debugger", startingAngle = 0.0,
-		  columnIndex = 24, rowIndex = 0)
+	//@Log.ThreeAxisAccelerometer(name = "navX-Accelerometer", tabName = "Driver",
+	//				width = 8, height = 4, columnIndex = 0, rowIndex = 32)
+	@Log.ThreeAxisAccelerometer(name = "navX-Accelerometer", tabName = "Driver")
+	//@Log.ThreeAxisAccelerometer(name = "navX-Accelerometer", tabName = "Debugger",
+	//			    columnIndex = 0, rowIndex = 32)
+	@Log.ThreeAxisAccelerometer(name = "navX-Accelerometer", tabName = "Debugger")
+	//@Log.Gyro(name = "navX-Gyro", tabName = "Driver", startingAngle = 0.0,
+	//	  columnIndex = 24, rowIndex = 0)
+	@Log.Gyro(name = "navX-Gyro", tabName = "Driver", startingAngle = 0.0)
+	//@Log.Gyro(name = "navX-Gyro", tabName = "Debugger", startingAngle = 0.0,
+	//	  columnIndex = 24, rowIndex = 0)
+	@Log.Gyro(name = "navX-Gyro", tabName = "Debugger", startingAngle = 0.0)
 	private final AHRS m_imu = new AHRS();
 
 	// This is a constant which is the number of Encoder ticks that matches one inch of Robot travel.

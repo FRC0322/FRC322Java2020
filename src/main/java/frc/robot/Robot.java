@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.Dashboard.Tab;
+import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.Logger;
 
 /**
@@ -19,9 +20,9 @@ import io.github.oblarg.oblog.Logger;
  * the package after creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends TimedRobot implements Loggable {
 	private Command m_autonomousCommand;
-	private static RobotContainer m_robotContainer;
+	private RobotContainer m_robotContainer;
 
 	/**
 	 * This function is run when the robot is first started up and should be used for any
@@ -32,6 +33,9 @@ public class Robot extends TimedRobot {
 		// Instantiate our RobotContainer.  This will perform all our button bindings, and put our
 		// autonomous chooser on the dashboard.
 		m_robotContainer = new RobotContainer();
+
+		// Create the Oblog Logger
+		//Logger.configureLoggingAndConfig(this, false);
 	}
 
 	/**
@@ -69,7 +73,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
-		RobotContainer.m_dashboard.setTab(Tab.kAutonomous);
+		m_robotContainer.getDashboard().setTab(Tab.kAutonomous);
 		m_autonomousCommand = m_robotContainer.getAutonomousCommand();
 
 		// schedule the autonomous command
@@ -86,7 +90,7 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-		RobotContainer.m_dashboard.setTab(Tab.kDriver);
+		m_robotContainer.getDashboard().setTab(Tab.kDriver);
 		// This makes sure that the autonomous stops running when
 		// teleop starts running. If you want the autonomous to
 		// continue until interrupted by another command, remove
@@ -106,7 +110,7 @@ public class Robot extends TimedRobot {
 	public void testInit() {
 		// Cancels all running commands at the start of test mode.
 		CommandScheduler.getInstance().cancelAll();
-		RobotContainer.m_dashboard.setTab(Tab.kDebugger);
+		m_robotContainer.getDashboard().setTab(Tab.kDebugger);
 	}
 
 	/**
@@ -116,7 +120,7 @@ public class Robot extends TimedRobot {
 	public void testPeriodic() {
 	}
 
-	public static RobotContainer getRobotContainer() {
+	public RobotContainer getRobotContainer() {
 		return m_robotContainer;
 	}
 }
