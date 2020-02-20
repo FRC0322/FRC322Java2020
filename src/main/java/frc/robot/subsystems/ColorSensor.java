@@ -15,9 +15,10 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
 
-public class ColorSensor extends SubsystemBase {
+public class ColorSensor extends SubsystemBase implements Loggable {
 	/**
 	 * Change the I2C port below to match the connection of your color sensor
 	 */
@@ -55,8 +56,8 @@ public class ColorSensor extends SubsystemBase {
 		m_colorMatcher.addColorMatch(kYellowTarget);
 	}
 
-	@Log.ToString(name = "Detected Color", tabName = "Driver", columnIndex = 8, rowIndex = 8)
-	@Log.ToString(name = "Detected Color", tabName = "Debugger", columnIndex = 8, rowIndex = 8)
+	@Log.ToString(name = "Detected Color", tabName = "Driver")
+	@Log.ToString(name = "Detected Color", tabName = "Debugger")
 	public String getColorString() {
 		if (m_colorString != null)
 			return m_colorString;

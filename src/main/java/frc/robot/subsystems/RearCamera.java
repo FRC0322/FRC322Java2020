@@ -10,9 +10,10 @@ package frc.robot.subsystems;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
 
-public class RearCamera extends SubsystemBase {
+public class RearCamera extends SubsystemBase implements Loggable {
 	private static UsbCamera rearCameraServer;
 	/**
 	 * Creates a new RearCamera.
@@ -31,10 +32,8 @@ public class RearCamera extends SubsystemBase {
 	 * This method returns the Limelight HttpCamera feed.
 	 * @return Returns a UsbCamera feed.
 	 */
-	@Log.CameraStream(name = "Rear Camera", tabName = "Driver",
-			  showControls = false, showCrosshairs = true, rowIndex = 8, columnIndex = 24)
-	@Log.CameraStream(name = "Rear Camera", tabName = "Debugger",
-			  showControls = true, showCrosshairs = true, rowIndex = 8, columnIndex = 24)
+	@Log.CameraStream(name = "Rear Camera", tabName = "Driver")
+	@Log.CameraStream(name = "Rear Camera", tabName = "Debugger")
 	public UsbCamera getCameraFeed() {
 		return rearCameraServer;
 	}

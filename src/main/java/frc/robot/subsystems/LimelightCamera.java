@@ -14,9 +14,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utilities.Limelight;
 import frc.robot.utilities.Limelight.CameraMode;
 import frc.robot.utilities.Limelight.LightMode;
+import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
 
-public class LimelightCamera extends SubsystemBase {
+public class LimelightCamera extends SubsystemBase implements Loggable {
 	/**
 	 * The Limelight subsystem incorporates the Limelight 2+ camera.
 	 */
@@ -37,7 +38,7 @@ public class LimelightCamera extends SubsystemBase {
 		m_limelight.setLedMode(LightMode.kforceOff);
 
 		// Activate an HttpCamera for the Limelight
-		m_limelightFeed = new HttpCamera("Limelight Camera", "http://10.3.22.11:5800/stream.mjpg", HttpCameraKind.kMJPGStreamer);
+		m_limelightFeed = new HttpCamera("limelight", "http://10.3.22.11:5800/stream.mjpg", HttpCameraKind.kMJPGStreamer);
 		//CameraServer.getInstance().startAutomaticCapture(m_limelightFeed);
 	}
 
@@ -49,32 +50,23 @@ public class LimelightCamera extends SubsystemBase {
 		return m_limelight;
 	}
 
-	@Log.Dial(min = -30.0, max = 30.0, name = "Limelight TX", tabName = "Autonomous",
-		  rowIndex = 0, columnIndex = 32)
-	@Log.Dial(min = -30.0, max = 30.0, name = "Limelight TX", tabName = "Driver",
-		  rowIndex = 32, columnIndex = 4)
-	@Log.Dial(min = -30.0, max = 30.0, name = "Limelight TX", tabName = "Debugger",
-		  rowIndex = 0, columnIndex = 32)
+	@Log.Dial(min = -30.0, max = 30.0, name = "Limelight TX", tabName = "Autonomous")
+	@Log.Dial(min = -30.0, max = 30.0, name = "Limelight TX", tabName = "Driver")
+	@Log.Dial(min = -30.0, max = 30.0, name = "Limelight TX", tabName = "Debugger")
 	private double getTX() {
 		return m_limelight.getTx();
 	}
 
-	@Log.Dial(min = -21.0, max = 21.0, name = "Limelight TY", tabName = "Autonomous",
-		  rowIndex = 4, columnIndex = 32)
-	@Log.Dial(min = -21.0, max = 21.0, name = "Limelight TY", tabName = "Driver",
-		  rowIndex = 32, columnIndex = 8)
-	@Log.Dial(min = -21.0, max = 21.0, name = "Limelight TY", tabName = "Debugger",
-		  rowIndex = 4, columnIndex = 32)
+	@Log.Dial(min = -21.0, max = 21.0, name = "Limelight TY", tabName = "Autonomous")
+	@Log.Dial(min = -21.0, max = 21.0, name = "Limelight TY", tabName = "Driver")
+	@Log.Dial(min = -21.0, max = 21.0, name = "Limelight TY", tabName = "Debugger")
 	private double getTY() {
 		return m_limelight.getTy();
 	}
 
-	@Log.Dial(min = 0.0, max = 100.0, name = "Limelight TA", tabName = "Autonomous",
-		  rowIndex = 0, columnIndex = 36)
-	@Log.Dial(min = 0.0, max = 100.0, name = "Limelight TA", tabName = "Driver",
-		  rowIndex = 0, columnIndex = 32)
-	@Log.Dial(min = 0.0, max = 100.0, name = "Limelight TA", tabName = "Debugger",
-		  rowIndex = 0, columnIndex = 36)
+	@Log.Dial(min = 0.0, max = 100.0, name = "Limelight TA", tabName = "Autonomous")
+	@Log.Dial(min = 0.0, max = 100.0, name = "Limelight TA", tabName = "Driver")
+	@Log.Dial(min = 0.0, max = 100.0, name = "Limelight TA", tabName = "Debugger")
 	private double getTA() {
 		return m_limelight.getTa();
 	}
@@ -83,10 +75,8 @@ public class LimelightCamera extends SubsystemBase {
 	 * This method returns the Limelight HttpCamera feed.
 	 * @return Returns an HttpCamera feed.
 	 */
-	@Log.CameraStream(name = "Limelight Camera", tabName = "Driver",
-			  showControls = false, showCrosshairs = false, rowIndex = 8, columnIndex = 12)
-	@Log.CameraStream(name = "Limelight Camera", tabName = "Debugger",
-			  showControls = false, showCrosshairs = false, rowIndex = 8, columnIndex = 12)
+	@Log.CameraStream(name = "Limelight Camera", tabName = "Driver")
+	@Log.CameraStream(name = "Limelight Camera", tabName = "Debugger")
 	public HttpCamera getLimelightFeed() {
 		return m_limelightFeed;
 	}
