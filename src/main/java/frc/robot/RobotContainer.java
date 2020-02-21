@@ -38,7 +38,7 @@ import frc.robot.utilities.Limelight.CameraMode;
 import frc.robot.utilities.Limelight.LightMode;
 import io.github.oblarg.oblog.Logger;
 import io.github.oblarg.oblog.annotations.Config;
-import frc.robot.utilities.RumblePad2;
+//import frc.robot.utilities.RumblePad2;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -48,7 +48,7 @@ import frc.robot.utilities.RumblePad2;
  */
 public class RobotContainer {
 // The robot's subsystems and commands are defined here...
-	@Config.Command(name = "Autonomous Command", tabName = "Debugger")
+	//@Config.Command(name = "Autonomous Command", tabName = "Debugger")
 	Command m_autoCommand;
 	@Config(name = "Autonomous Chooser", tabName = "Autonomous")
 	SendableChooser<String> autonomousChooser = new SendableChooser<>();

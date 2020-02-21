@@ -20,10 +20,9 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
-import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
 
-public class Chassis extends SubsystemBase implements Loggable {
+public class Chassis extends SubsystemBase {
 /**
  * The Chassis subsystem incorporates the sensors and actuators attached to the robots chassis.
  * It includes the four drive motors (two on each side), quadrature encoders connected directly to each
@@ -38,13 +37,18 @@ public class Chassis extends SubsystemBase implements Loggable {
 	private final SpeedController m_leftMotors = new SpeedControllerGroup(m_leftFrontMotor, m_leftRearMotor);
 	private final SpeedController m_rightMotors = new SpeedControllerGroup(m_rightFrontMotor, m_rightRearMotor);
 
-	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Autonomous")
-	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Driver")
-	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Debugger")
+	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Driver", rowIndex = 0, columnIndex = 12)
+	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Debugger", rowIndex = 0, columnIndex = 12)
 	private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
-	@Log.Gyro(name = "navXMXP", tabName = "Driver")
-	@Log.Gyro(name = "navXMXP", tabName = "Debugger")
+	@Log.ThreeAxisAccelerometer(name = "navX-Accelerometer", tabName = "Driver",
+				    width = 8, height = 4, columnIndex = 0, rowIndex = 32)
+	@Log.ThreeAxisAccelerometer(name = "navX-Accelerometer", tabName = "Debugger",
+				    columnIndex = 0, rowIndex = 32)
+	@Log.Gyro(name = "navX-Gyro", tabName = "Driver", startingAngle = 0.0,
+		  columnIndex = 24, rowIndex = 0)
+	@Log.Gyro(name = "navX-Gyro", tabName = "Debugger", startingAngle = 0.0,
+		  columnIndex = 24, rowIndex = 0)
 	private final AHRS m_imu = new AHRS();
 
 	// This is a constant which is the number of Encoder ticks that matches one inch of Robot travel.
@@ -148,22 +152,26 @@ public class Chassis extends SubsystemBase implements Loggable {
 	}
 
 	// Encoder output from the left encoder in inches
-	@Log.NumberBar(name = "Left Encoder", min = -32767, center = 0,max = 32768, tabName = "Driver")
-	@Log.NumberBar(name = "Left Encoder", min = -32767, center = 0,max = 32768, tabName = "Debugger")
+	@Log.NumberBar(name = "Left Encoder", min = -32768, center = 0,max = 32767,
+		       tabName = "Driver", width = 8, columnIndex = 0, rowIndex = 4)
+	@Log.NumberBar(name = "Left Encoder", min = -32768, center = 0,max = 32767,
+		       tabName = "Debugger", width = 8, columnIndex = 0, rowIndex = 4)
 	public double leftDistanceIn() {
 		return leftDistance() / this.ticksPerInch;
 	}
 
 	// Encoder output from the right encoder in inches
-	@Log.NumberBar(name = "Right Encoder", min = -32767, center = 0,max = 32768, tabName = "Driver")
-	@Log.NumberBar(name = "Right Encoder", min = -32767, center = 0,max = 32768, tabName = "Debugger")
+	@Log.NumberBar(name = "Right Encoder", min = -32768, center = 0,max = 32767,
+		       tabName = "Driver", width = 8, columnIndex = 0, rowIndex = 4)
+	@Log.NumberBar(name = "Right Encoder", min = -32768, center = 0,max = 32767,
+		       tabName = "Debugger", width = 8, columnIndex = 0, rowIndex = 4)
 	public double rightDistanceIn() {
 		return rightDistance() / this.ticksPerInch;
 	}
 
 	// This method checks for magnetic heading reliability.
-	@Log.BooleanBox(name = "Reliable Heading", tabName = "Debugger")
-	@Log.BooleanBox(name = "Reliable Heading", tabName = "Driver")
+	@Log.BooleanBox(name = "Reliable Heading", tabName = "Driver", columnIndex = 8, rowIndex = 8)
+	@Log.BooleanBox(name = "Reliable Heading", tabName = "Debugger", columnIndex = 8, rowIndex = 8)
 	public boolean isHeadingReliable() {
 		if (m_imu.isMagnetometerCalibrated() && !(m_imu.isMagneticDisturbance()))
 			return true;
@@ -229,8 +237,8 @@ public class Chassis extends SubsystemBase implements Loggable {
 	 * has recently rotated less than the Compass Noise Bandwidth (~2 degrees).
 	 * @return Fused Heading in Degrees (range 0-360)
 	 */
-	@Log.Dial(name = "navX", min = 0.0, max = 360.0, tabName = "Driver")
-	@Log.Dial(name = "navX", min = 0.0, max = 360.0, tabName = "Debugger")
+	//@Log.Dial(name = "navX", min = 0.0, max = 360.0, tabName = "Driver")
+	//@Log.Dial(name = "navX", min = 0.0, max = 360.0, tabName = "Debugger")
 	public float getHeading() {
 		if (isHeadingReliable() && !isCalibrating())
 			return m_imu.getFusedHeading();
@@ -314,8 +322,8 @@ public class Chassis extends SubsystemBase implements Loggable {
 	 *<p>
 	 * @return Current world linear acceleration in the X-axis (in G).
 	 */
-	@Log.NumberBar(name = "X Acceleration", min = -2.0, center = 1.0, max = 2.0, tabName = "Driver")
-	@Log.NumberBar(name = "X Acceleration", min = -2.0, center = 1.0, max = 2.0, tabName = "Debugger")
+	//@Log.NumberBar(name = "X Acceleration", min = -2.0, center = 1.0, max = 2.0, tabName = "Driver")
+	//@Log.NumberBar(name = "X Acceleration", min = -2.0, center = 1.0, max = 2.0, tabName = "Debugger")
 	public float getWorldLinearAccelX() {
 		return m_imu.getWorldLinearAccelX();
 	}
@@ -331,8 +339,8 @@ public class Chassis extends SubsystemBase implements Loggable {
 	 *<p>
 	 * @return Current world linear acceleration in the Y-axis (in G).
 	 */
-	@Log.NumberBar(name = "Y Acceleration", min = -2.0, center = 1.0, max = 2.0, tabName = "Driver")
-	@Log.NumberBar(name = "Y Acceleration", min = -2.0, center = 1.0, max = 2.0, tabName = "Debugger")
+	//@Log.NumberBar(name = "Y Acceleration", min = -2.0, center = 1.0, max = 2.0, tabName = "Driver")
+	//@Log.NumberBar(name = "Y Acceleration", min = -2.0, center = 1.0, max = 2.0, tabName = "Debugger")
 	public float getWorldLinearAccelY() {
 		return m_imu.getWorldLinearAccelY();
 	}
@@ -348,8 +356,8 @@ public class Chassis extends SubsystemBase implements Loggable {
 	 *<p>
 	 * @return Current world linear acceleration in the Z-axis (in G).
 	 */
-	@Log.NumberBar(name = "Z Acceleration", min = -2.0, center = 1.0, max = 2.0, tabName = "Driver")
-	@Log.NumberBar(name = "Z Acceleration", min = -2.0, center = 1.0, max = 2.0, tabName = "Debugger")
+	//@Log.NumberBar(name = "Z Acceleration", min = -2.0, center = 1.0, max = 2.0, tabName = "Driver")
+	//@Log.NumberBar(name = "Z Acceleration", min = -2.0, center = 1.0, max = 2.0, tabName = "Debugger")
 	public float getWorldLinearAccelZ() {
 		return m_imu.getWorldLinearAccelZ();
 	}
