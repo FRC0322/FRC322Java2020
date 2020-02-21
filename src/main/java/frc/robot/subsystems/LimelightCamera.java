@@ -57,16 +57,16 @@ public class LimelightCamera extends SubsystemBase implements Loggable {
 		return m_limelight.getTx();
 	}
 
-	@Log.Dial(min = -21.0, max = 21.0, name = "Limelight TX", tabName = "Autonomous")
-	@Log.Dial(min = -21.0, max = 21.0, name = "Limelight TX", tabName = "Driver")
-	@Log.Dial(min = -21.0, max = 21.0, name = "Limelight TX", tabName = "Debugger")
+	@Log.Dial(min = -21.0, max = 21.0, name = "Limelight TY", tabName = "Autonomous")
+	@Log.Dial(min = -21.0, max = 21.0, name = "Limelight TY", tabName = "Driver")
+	@Log.Dial(min = -21.0, max = 21.0, name = "Limelight TY", tabName = "Debugger")
 	private double getTY() {
 		return m_limelight.getTy();
 	}
 
-	@Log.Dial(min = 0.0, max = 100.0, name = "Limelight TX", tabName = "Autonomous")
-	@Log.Dial(min = 0.0, max = 100.0, name = "Limelight TX", tabName = "Driver")
-	@Log.Dial(min = 0.0, max = 100.0, name = "Limelight TX", tabName = "Debugger")
+	@Log.Dial(min = 0.0, max = 100.0, name = "Limelight TA", tabName = "Autonomous")
+	@Log.Dial(min = 0.0, max = 100.0, name = "Limelight TA", tabName = "Driver")
+	@Log.Dial(min = 0.0, max = 100.0, name = "Limelight TA", tabName = "Debugger")
 	private double getTA() {
 		return m_limelight.getTa();
 	}
