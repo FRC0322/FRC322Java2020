@@ -55,7 +55,7 @@ public class RobotContainer {
 
 	private final Chassis m_chassis = new Chassis();
 	private final ColorSensor m_colorSensor = new ColorSensor();
-	public final Dashboard m_dashboard = new Dashboard();
+	private final Dashboard m_dashboard = new Dashboard();
 	private final Feeder m_feeder = new Feeder();
 	//private final LED m_led = new LED();
 	private final LimelightCamera m_limelightCamera = new LimelightCamera();
@@ -169,11 +169,15 @@ public class RobotContainer {
 		 */
 	}
 
-/**
- * Use this to pass the autonomous command to the main {@link Robot} class.
- *
- * @return the command to run in autonomous
- */
+	public Dashboard getDashboard() {
+		return m_dashboard;
+	}
+
+	/**
+	 * Use this to pass the autonomous command to the main {@link Robot} class.
+	 *
+	 * @return the command to run in autonomous
+	 */
 	public Command getAutonomousCommand() {
 		return m_autoCommand;
 	}
