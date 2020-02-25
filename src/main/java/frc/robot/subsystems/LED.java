@@ -29,7 +29,7 @@ public class LED extends SubsystemBase {
 		m_blinkRate = 0;
 	}
 
-	public void setRGB(double redIntensity, double greenIntensity, double blueIntensity, double blinkRate) throws InterruptedException {
+	public void setRGB(double redIntensity, double greenIntensity, double blueIntensity, double blinkRate) {
 		if(blinkRate <= 0.1) {
 			m_ledControlCANifier.setLEDOutput(redIntensity, LEDChannel.LEDChannelA);
 			m_ledControlCANifier.setLEDOutput(greenIntensity, LEDChannel.LEDChannelB);
@@ -51,10 +51,10 @@ public class LED extends SubsystemBase {
 			m_startTime = 0.0;
 	}
 
-	public void automaticLEDSetter() throws InterruptedException {
-		if(Constants.DS.isDisabled()) m_blinkRate = 0.5;
-		else if(Constants.DS.isAutonomous()) m_blinkRate = 0.1;
-		else if(Constants.DS.isOperatorControl()) m_blinkRate = 0.25;
+	public void automaticLEDSetter() {
+		if(Constants.DS.isDisabled()) m_blinkRate = 0.0;
+		else if(Constants.DS.isAutonomous()) m_blinkRate = 0.25;
+		else if(Constants.DS.isOperatorControl()) m_blinkRate = 0.5;
 		else m_blinkRate = 0.0;
 
 		if(Constants.DS.getAlliance() == DriverStation.Alliance.Red) {

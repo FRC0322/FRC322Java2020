@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
-//import frc.robot.commands.AutomaticLED;
+import frc.robot.commands.AutomaticLED;
 import frc.robot.commands.BasicAutonomous;
 import frc.robot.commands.ColorDetector;
 import frc.robot.commands.DashboardUpdater;
@@ -29,7 +29,7 @@ import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Dashboard;
 import frc.robot.subsystems.Feeder;
-//import frc.robot.subsystems.LED;
+import frc.robot.subsystems.LED;
 import frc.robot.subsystems.LimelightCamera;
 import frc.robot.subsystems.RearCamera;
 import frc.robot.subsystems.Shooter;
@@ -48,7 +48,6 @@ import io.github.oblarg.oblog.annotations.Config;
  */
 public class RobotContainer {
 // The robot's subsystems and commands are defined here...
-	//@Config.Command(name = "Autonomous Command", tabName = "Debugger")
 	Command m_autoCommand;
 	@Config(name = "Autonomous Chooser", tabName = "Autonomous")
 	SendableChooser<String> autonomousChooser = new SendableChooser<>();
@@ -57,7 +56,7 @@ public class RobotContainer {
 	private final ColorSensor m_colorSensor = new ColorSensor();
 	private final Dashboard m_dashboard = new Dashboard();
 	private final Feeder m_feeder = new Feeder();
-	//private final LED m_led = new LED();
+	private final LED m_led = new LED();
 	private final LimelightCamera m_limelightCamera = new LimelightCamera();
 	private final RearCamera m_rearCamera = new RearCamera();
 	private final Shooter m_shooter = new Shooter();
@@ -102,7 +101,7 @@ public class RobotContainer {
 		m_feeder.setDefaultCommand(new RunFeeder(m_feeder, m_manipulatorStick.getY(Hand.kLeft),
 							 m_manipulatorLogButton));
 
-		//m_led.setDefaultCommand(new AutomaticLED(m_led));
+		m_led.setDefaultCommand(new AutomaticLED(m_led));
 
 		m_rearCamera.setDefaultCommand(new RunRearCamera(m_rearCamera));
 
