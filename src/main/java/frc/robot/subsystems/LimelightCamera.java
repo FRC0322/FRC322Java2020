@@ -13,9 +13,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.utilities.Limelight;
 import frc.robot.utilities.Limelight.CameraMode;
 import frc.robot.utilities.Limelight.LightMode;
+import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
 
-public class LimelightCamera extends SubsystemBase {
+public class LimelightCamera extends SubsystemBase implements Loggable {
 	/**
 	 * The Limelight subsystem incorporates the Limelight 2+ camera.
 	 */

@@ -20,9 +20,10 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
 
-public class Chassis extends SubsystemBase {
+public class Chassis extends SubsystemBase implements Loggable {
 /**
  * The Chassis subsystem incorporates the sensors and actuators attached to the robots chassis.
  * It includes the four drive motors (two on each side), quadrature encoders connected directly to each

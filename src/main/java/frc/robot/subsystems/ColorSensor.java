@@ -15,9 +15,10 @@ import edu.wpi.first.wpilibj.I2C;
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
+import io.github.oblarg.oblog.Loggable;
 import io.github.oblarg.oblog.annotations.Log;
 
-public class ColorSensor extends SubsystemBase {
+public class ColorSensor extends SubsystemBase implements Loggable {
 	/**
 	 * Change the I2C port below to match the connection of your color sensor
 	 */
