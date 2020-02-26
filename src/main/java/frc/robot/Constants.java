@@ -21,6 +21,16 @@ public final class Constants {
 	// Robot.java
 	public static final DriverStation DS = DriverStation.getInstance();
 
+	// AddressableLEDs.java
+	public static final int ADDRESSABLE_LED_PORT = 1,
+				ADDRESSABLE_LED_LENGTH = 60;
+
+	// AutomaticLED.java
+	public static final double AUTONOMOUS_BLINK_RATE = 0.25,
+				   TELOP_BLINK_RATE = 0.5,
+				   DISABLED_BLINK_RATE = 0.0,
+				   DEFAULT_BLINK_RATE = 2.5;
+
 	// ColorSensor.java
 	// These are predetermined defaults.
 	// We need to recalibrate these for ourselves.

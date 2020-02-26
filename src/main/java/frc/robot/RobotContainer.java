@@ -25,6 +25,7 @@ import frc.robot.commands.LimelightLightModeControl;
 import frc.robot.commands.RunFeeder;
 import frc.robot.commands.RunRearCamera;
 import frc.robot.commands.RunShooter;
+import frc.robot.subsystems.AddressableLEDs;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Dashboard;
@@ -57,6 +58,7 @@ public class RobotContainer {
 	private final Dashboard m_dashboard = new Dashboard();
 	private final Feeder m_feeder = new Feeder();
 	private final LED m_led = new LED();
+	private final AddressableLEDs m_AddressableLEDs = new AddressableLEDs();
 	private final LimelightCamera m_limelightCamera = new LimelightCamera();
 	private final RearCamera m_rearCamera = new RearCamera();
 	private final Shooter m_shooter = new Shooter();
@@ -66,6 +68,7 @@ public class RobotContainer {
 	//private final RumblePad2 m_debuggerStick = new RumblePad2(Constants.DEBUGGER_STICK);
 
 	private final JoystickButton m_brakeButton = new JoystickButton(m_driveStick, Constants.BRAKE_BUTTON);
+	//private final JoystickButton m_brakeButton = new JoystickButton(m_debuggerStick, Constants.BRAKE_BUTTON);
 	private final JoystickButton m_logButton = new JoystickButton(m_driveStick, Constants.LOG_BUTTON);
 	//private final JoystickButton m_logButton = new JoystickButton(m_debuggerStick, Constants.LOG_BUTTON);
 	//private final JoystickButton m_feederButton = new JoystickButton(m_manipulatorStick, Constants.FEEDER_BUTTON);
@@ -91,8 +94,8 @@ public class RobotContainer {
 
 		// Default command for debugging purposes
 		//m_chassis.setDefaultCommand(new DriveWithJoystick(
-		//  () -> -(m_debuggerStick.getY(Hand.kRight), () -> -(m_debuggerStick.getX(Hand.kRight)),
-		//  m_chassis, m_brakeButton, m_logButton)));
+		//				    ()->- m_debuggerStick.getY(Hand.kRight), ()->- m_debuggerStick.getX(Hand.kRight),
+		//					   m_chassis, m_brakeButton, m_logButton));
 
 		m_colorSensor.setDefaultCommand(new ColorDetector(m_colorSensor));
 
@@ -101,7 +104,7 @@ public class RobotContainer {
 		m_feeder.setDefaultCommand(new RunFeeder(m_feeder, m_manipulatorStick.getY(Hand.kLeft),
 							 m_manipulatorLogButton));
 
-		m_led.setDefaultCommand(new AutomaticLED(m_led));
+		m_led.setDefaultCommand(new AutomaticLED(m_led, m_AddressableLEDs));
 
 		m_rearCamera.setDefaultCommand(new RunRearCamera(m_rearCamera));
 

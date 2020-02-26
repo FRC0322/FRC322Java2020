@@ -7,51 +7,50 @@
 
 package frc.robot.commands;
 
+import edu.wpi.first.wpilibj.util.Color;
+import edu.wpi.first.wpilibj.util.Color8Bit;
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
+import frc.robot.subsystems.AddressableLEDs;
 import frc.robot.subsystems.LED;
 
 public class AutomaticLED extends CommandBase {
 	private final LED m_led;
+	private final AddressableLEDs m_addressableLEDs;
 	/**
 	 * Creates a new AutomaticLED.
 	 */
-	public AutomaticLED(LED led) {
+	public AutomaticLED(LED led, AddressableLEDs addressableLEDs) {
 		m_led = led;
+		m_addressableLEDs = addressableLEDs;
 		// Use addRequirements() here to declare subsystem dependencies.
-		addRequirements(led);
+		addRequirements(m_led);
+		addRequirements(m_addressableLEDs);
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		try {
-			m_led.setRGB(1.0, 1.0, 1.0, 0.0);
-		}
-		catch(Exception e) {
-			System.out.println("Something LED related has failed.");
-		}
+		m_led.setRGB(Color.kWhite.red / 255, Color.kWhite.green /
+			     255, Color.kWhite.blue / 255, Constants.DEFAULT_BLINK_RATE);
+		for(var i = 0; i < m_addressableLEDs.getLength(); i++)
+			m_addressableLEDs.setLED(i, Color.kWhite);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		try {
-			m_led.automaticLEDSetter();
-		}
-		catch(Exception e) {
-			System.out.println("Something LED related has failed.");
-		}
+		m_led.automaticLEDSetter();
+		m_addressableLEDs.automaticLEDSetter();
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		try {
-			m_led.setRGB(1.0, 1.0, 1.0, 0.0);
-		}
-		catch(Exception e) {
-			System.out.println("Something LED related has failed.");
-		}
+		m_led.setRGB(Color.kWhite.red / 255, Color.kWhite.green /
+			     255, Color.kWhite.blue / 255, Constants.DEFAULT_BLINK_RATE);
+		for(var i = 0; i < m_addressableLEDs.getLength(); i++)
+			m_addressableLEDs.setLED(i, Color.kWhite);
 	}
 
 	// Returns true when the command should end.

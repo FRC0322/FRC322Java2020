@@ -12,6 +12,7 @@ import com.ctre.phoenix.CANifier.LEDChannel;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
@@ -52,30 +53,30 @@ public class LED extends SubsystemBase {
 	}
 
 	public void automaticLEDSetter() {
-		if(Constants.DS.isDisabled()) m_blinkRate = 0.0;
-		else if(Constants.DS.isAutonomous()) m_blinkRate = 0.25;
-		else if(Constants.DS.isOperatorControl()) m_blinkRate = 0.5;
+		if(Constants.DS.isDisabled()) m_blinkRate = Constants.DISABLED_BLINK_RATE;
+		else if(Constants.DS.isAutonomous()) m_blinkRate = Constants.AUTONOMOUS_BLINK_RATE;
+		else if(Constants.DS.isOperatorControl()) m_blinkRate = Constants.TELOP_BLINK_RATE;
 		else m_blinkRate = 0.0;
 
 		if(Constants.DS.getAlliance() == DriverStation.Alliance.Red) {
-			m_red = 1.0;
-			m_green = 0.0;
-			m_blue = 0.0;
+			m_red = Color.kFirstRed.red;
+			m_green = Color.kFirstRed.green;
+			m_blue = Color.kFirstRed.blue;
 		}
 		else if(Constants.DS.getAlliance() == DriverStation.Alliance.Blue) {
-			m_red = 0.0;
-			m_green = 0.0;
-			m_blue = 1.0;
+			m_red = Color.kFirstBlue.red;
+			m_green = Color.kFirstBlue.green;
+			m_blue = Color.kFirstBlue.blue;
 		}
 		else if(Constants.DS.getAlliance() == DriverStation.Alliance.Invalid) {
-			m_red = 1.0;
-			m_green = 0.0;
-			m_blue = 1.0;
+			m_red = Color.kGreen.red;
+			m_green = Color.kGreen.green;
+			m_blue = Color.kGreen.blue;
 		}
 		else {
-			m_red = 0.0;
-			m_green = 1.0;
-			m_blue = 0.0;
+			m_red = Color.kDarkMagenta.red;
+			m_green = Color.kDarkMagenta.green;
+			m_blue = Color.kDarkMagenta.blue;
 		}
 
 		setRGB(m_red, m_green, m_blue, m_blinkRate);
