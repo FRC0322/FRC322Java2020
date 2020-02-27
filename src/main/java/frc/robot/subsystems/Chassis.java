@@ -38,18 +38,18 @@ public class Chassis extends SubsystemBase implements Loggable {
 	private final SpeedController m_leftMotors = new SpeedControllerGroup(m_leftFrontMotor, m_leftRearMotor);
 	private final SpeedController m_rightMotors = new SpeedControllerGroup(m_rightFrontMotor, m_rightRearMotor);
 
-	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Driver", columnIndex = 12, rowIndex = 0)
-	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Debugger", columnIndex = 12, rowIndex = 0)
+	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Driver", columnIndex = 3, rowIndex = 0)
+	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Debugger", columnIndex = 3, rowIndex = 0)
 	private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
 	@Log.ThreeAxisAccelerometer(name = "navX-Accelerometer", tabName = "Driver",
-				    width = 8, height = 4, columnIndex = 0, rowIndex = 32)
+				    width = 2, height = 1, columnIndex = 0, rowIndex = 8)
 	@Log.ThreeAxisAccelerometer(name = "navX-Accelerometer", tabName = "Debugger",
-				    columnIndex = 0, rowIndex = 32)
+				    columnIndex = 0, rowIndex = 8)
 	@Log.Gyro(name = "navX-Gyro", tabName = "Driver", startingAngle = 0.0,
-		  columnIndex = 24, rowIndex = 0)
+		  columnIndex = 3, rowIndex = 0)
 	@Log.Gyro(name = "navX-Gyro", tabName = "Debugger", startingAngle = 0.0,
-		  columnIndex = 24, rowIndex = 0)
+		  columnIndex = 3, rowIndex = 0)
 	private final AHRS m_imu = new AHRS();
 
 	/**
@@ -152,25 +152,25 @@ public class Chassis extends SubsystemBase implements Loggable {
 
 	// Encoder output from the left encoder in inches
 	@Log.NumberBar(name = "Left Encoder", min = -32768, center = 0,max = 32767,
-		       tabName = "Driver", width = 8, columnIndex = 0, rowIndex = 4)
+		       tabName = "Driver", width = 2, columnIndex = 0, rowIndex = 1)
 	@Log.NumberBar(name = "Left Encoder", min = -32768, center = 0,max = 32767,
-		       tabName = "Debugger", width = 8, columnIndex = 0, rowIndex = 4)
+		       tabName = "Debugger", width = 2, columnIndex = 0, rowIndex = 1)
 	public double leftDistanceIn() {
 		return leftDistance() / Constants.TICKS_PER_INCH;
 	}
 
 	// Encoder output from the right encoder in inches
 	@Log.NumberBar(name = "Right Encoder", min = -32768, center = 0,max = 32767,
-		       tabName = "Driver", width = 8, columnIndex = 0, rowIndex = 4)
+		       tabName = "Driver", width = 2, columnIndex = 0, rowIndex = 2)
 	@Log.NumberBar(name = "Right Encoder", min = -32768, center = 0,max = 32767,
-		       tabName = "Debugger", width = 8, columnIndex = 0, rowIndex = 4)
+		       tabName = "Debugger", width = 2, columnIndex = 0, rowIndex = 2)
 	public double rightDistanceIn() {
 		return rightDistance() / Constants.TICKS_PER_INCH;
 	}
 
 	// This method checks for magnetic heading reliability.
-	@Log.BooleanBox(name = "Reliable Heading", tabName = "Driver", columnIndex = 8, rowIndex = 8)
-	@Log.BooleanBox(name = "Reliable Heading", tabName = "Debugger", columnIndex = 8, rowIndex = 8)
+	@Log.BooleanBox(name = "Reliable Heading", tabName = "Driver", columnIndex = 2, rowIndex = 2)
+	@Log.BooleanBox(name = "Reliable Heading", tabName = "Debugger", columnIndex = 2, rowIndex = 2)
 	public boolean isHeadingReliable() {
 		if (m_imu.isMagnetometerCalibrated() && !(m_imu.isMagneticDisturbance()))
 			return true;

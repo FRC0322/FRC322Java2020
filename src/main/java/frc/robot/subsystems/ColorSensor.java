@@ -57,8 +57,8 @@ public class ColorSensor extends SubsystemBase implements Loggable {
 		m_colorMatcher.addColorMatch(kYellowTarget);
 	}
 
-	@Log.ToString(name = "Detected Color", tabName = "Driver", columnIndex = 8, rowIndex = 8)
-	@Log.ToString(name = "Detected Color", tabName = "Debugger", columnIndex = 8, rowIndex = 8)
+	@Log.ToString(name = "Detected Color", tabName = "Driver", columnIndex = 2, rowIndex = 2)
+	@Log.ToString(name = "Detected Color", tabName = "Debugger", columnIndex = 2, rowIndex = 2)
 	public Color getDetectedColor() {
 		return m_colorSensor.getColor();
 	}

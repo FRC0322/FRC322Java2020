@@ -50,31 +50,31 @@ public class LimelightCamera extends SubsystemBase implements Loggable {
 	}
 
 	@Log.Dial(min = -30.0, max = 30.0, name = "Limelight TX", tabName = "Autonomous",
-		  columnIndex = 32, rowIndex = 0)
+		  columnIndex = 8, rowIndex = 0)
 	@Log.Dial(min = -30.0, max = 30.0, name = "Limelight TX", tabName = "Driver",
-		  columnIndex = 4, rowIndex = 32)
+		  columnIndex = 1, rowIndex = 8)
 	@Log.Dial(min = -30.0, max = 30.0, name = "Limelight TX", tabName = "Debugger",
-		  columnIndex = 32, rowIndex = 0)
+		  columnIndex = 8, rowIndex = 0)
 	private double getTX() {
 		return m_limelight.getTX();
 	}
 
 	@Log.Dial(min = -21.0, max = 21.0, name = "Limelight TY", tabName = "Autonomous",
-		  columnIndex = 32, rowIndex = 4)
+		  columnIndex = 8, rowIndex = 1)
 	@Log.Dial(min = -21.0, max = 21.0, name = "Limelight TY", tabName = "Driver",
-		  columnIndex = 8, rowIndex = 32)
+		  columnIndex = 2, rowIndex = 8)
 	@Log.Dial(min = -21.0, max = 21.0, name = "Limelight TY", tabName = "Debugger",
-		  columnIndex = 32, rowIndex = 4)
+		  columnIndex = 8, rowIndex = 1)
 	private double getTY() {
 		return m_limelight.getTY();
 	}
 
 	@Log.Dial(min = 0.0, max = 100.0, name = "Limelight TA", tabName = "Autonomous",
-				columnIndex = 36, rowIndex = 0)
+		  columnIndex = 9, rowIndex = 0)
 	@Log.Dial(min = 0.0, max = 100.0, name = "Limelight TA", tabName = "Driver",
-				columnIndex = 32, rowIndex = 0)
+		  columnIndex = 8, rowIndex = 0)
 	@Log.Dial(min = 0.0, max = 100.0, name = "Limelight TA", tabName = "Debugger",
-				columnIndex = 36, rowIndex = 0)
+		  columnIndex = 9, rowIndex = 0)
 	private double getTA() {
 		return m_limelight.getTA();
 	}
@@ -84,9 +84,9 @@ public class LimelightCamera extends SubsystemBase implements Loggable {
 	 * @return Returns an HttpCamera feed.
 	 */
 	@Log.CameraStream(name = "Limelight Camera", tabName = "Driver",
-			  showControls = false, showCrosshairs = false, columnIndex = 12, rowIndex = 8)
+			  showControls = false, showCrosshairs = false, columnIndex = 3, rowIndex = 2)
 	@Log.CameraStream(name = "Limelight Camera", tabName = "Debugger",
-			  showControls = false, showCrosshairs = false, columnIndex = 12, rowIndex = 8)
+			  showControls = false, showCrosshairs = false, columnIndex = 3, rowIndex = 2)
 	public HttpCamera getLimelightFeed() {
 		return m_limelightFeed;
 	}
