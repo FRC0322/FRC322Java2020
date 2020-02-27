@@ -35,6 +35,7 @@ import frc.robot.subsystems.LimelightCamera;
 import frc.robot.subsystems.RearCamera;
 import frc.robot.subsystems.Shooter;
 import frc.robot.utilities.F310Controller;
+import frc.robot.utilities.Limelight;
 import frc.robot.utilities.Limelight.CameraMode;
 import frc.robot.utilities.Limelight.LightMode;
 import io.github.oblarg.oblog.Logger;
@@ -105,6 +106,8 @@ public class RobotContainer {
 							 m_manipulatorLogButton));
 
 		m_led.setDefaultCommand(new AutomaticLED(m_led, m_AddressableLEDs));
+
+		m_limelightCamera.setDefaultCommand(new LimelightLightModeControl(m_limelightCamera, Limelight.LightMode.kforceOff));
 
 		m_rearCamera.setDefaultCommand(new RunRearCamera(m_rearCamera));
 
