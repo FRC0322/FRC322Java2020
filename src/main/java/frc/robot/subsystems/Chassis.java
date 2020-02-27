@@ -38,8 +38,8 @@ public class Chassis extends SubsystemBase implements Loggable {
 	private final SpeedController m_leftMotors = new SpeedControllerGroup(m_leftFrontMotor, m_leftRearMotor);
 	private final SpeedController m_rightMotors = new SpeedControllerGroup(m_rightFrontMotor, m_rightRearMotor);
 
-	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Driver", rowIndex = 0, columnIndex = 12)
-	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Debugger", rowIndex = 0, columnIndex = 12)
+	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Driver", columnIndex = 12, rowIndex = 0)
+	@Log.DifferentialDrive(name = "Robot Drive", tabName = "Debugger", columnIndex = 12, rowIndex = 0)
 	private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
 	@Log.ThreeAxisAccelerometer(name = "navX-Accelerometer", tabName = "Driver",
@@ -52,8 +52,6 @@ public class Chassis extends SubsystemBase implements Loggable {
 		  columnIndex = 24, rowIndex = 0)
 	private final AHRS m_imu = new AHRS();
 
-	// This is a constant which is the number of Encoder ticks that matches one inch of Robot travel.
-	private final int ticksPerInch = Constants.TICKS_PER_INCH;
 	/**
 	 * Creates a new Chassis.
 	 */
@@ -94,7 +92,7 @@ public class Chassis extends SubsystemBase implements Loggable {
 	 * @param distance Distance in inches
 	 */
 	public void autoDriveStraight(double heading, double distance) {
-		double ticks = distance * ticksPerInch;
+		double ticks = distance * Constants.TICKS_PER_INCH;
 		m_leftFrontMotor.set(ControlMode.MotionMagic, ticks, DemandType.AuxPID, heading);
 		m_leftRearMotor.follow(m_leftFrontMotor, FollowerType.AuxOutput1);
 		m_rightFrontMotor.follow(m_leftFrontMotor, FollowerType.AuxOutput1);
@@ -158,7 +156,7 @@ public class Chassis extends SubsystemBase implements Loggable {
 	@Log.NumberBar(name = "Left Encoder", min = -32768, center = 0,max = 32767,
 		       tabName = "Debugger", width = 8, columnIndex = 0, rowIndex = 4)
 	public double leftDistanceIn() {
-		return leftDistance() / this.ticksPerInch;
+		return leftDistance() / Constants.TICKS_PER_INCH;
 	}
 
 	// Encoder output from the right encoder in inches
@@ -167,7 +165,7 @@ public class Chassis extends SubsystemBase implements Loggable {
 	@Log.NumberBar(name = "Right Encoder", min = -32768, center = 0,max = 32767,
 		       tabName = "Debugger", width = 8, columnIndex = 0, rowIndex = 4)
 	public double rightDistanceIn() {
-		return rightDistance() / this.ticksPerInch;
+		return rightDistance() / Constants.TICKS_PER_INCH;
 	}
 
 	// This method checks for magnetic heading reliability.
@@ -238,8 +236,6 @@ public class Chassis extends SubsystemBase implements Loggable {
 	 * has recently rotated less than the Compass Noise Bandwidth (~2 degrees).
 	 * @return Fused Heading in Degrees (range 0-360)
 	 */
-	//@Log.Dial(name = "navX", min = 0.0, max = 360.0, tabName = "Driver")
-	//@Log.Dial(name = "navX", min = 0.0, max = 360.0, tabName = "Debugger")
 	public float getHeading() {
 		if (isHeadingReliable() && !isCalibrating())
 			return m_imu.getFusedHeading();
@@ -323,8 +319,6 @@ public class Chassis extends SubsystemBase implements Loggable {
 	 *<p>
 	 * @return Current world linear acceleration in the X-axis (in G).
 	 */
-	//@Log.NumberBar(name = "X Acceleration", min = -2.0, center = 1.0, max = 2.0, tabName = "Driver")
-	//@Log.NumberBar(name = "X Acceleration", min = -2.0, center = 1.0, max = 2.0, tabName = "Debugger")
 	public float getWorldLinearAccelX() {
 		return m_imu.getWorldLinearAccelX();
 	}
@@ -340,8 +334,6 @@ public class Chassis extends SubsystemBase implements Loggable {
 	 *<p>
 	 * @return Current world linear acceleration in the Y-axis (in G).
 	 */
-	//@Log.NumberBar(name = "Y Acceleration", min = -2.0, center = 1.0, max = 2.0, tabName = "Driver")
-	//@Log.NumberBar(name = "Y Acceleration", min = -2.0, center = 1.0, max = 2.0, tabName = "Debugger")
 	public float getWorldLinearAccelY() {
 		return m_imu.getWorldLinearAccelY();
 	}
@@ -357,8 +349,6 @@ public class Chassis extends SubsystemBase implements Loggable {
 	 *<p>
 	 * @return Current world linear acceleration in the Z-axis (in G).
 	 */
-	//@Log.NumberBar(name = "Z Acceleration", min = -2.0, center = 1.0, max = 2.0, tabName = "Driver")
-	//@Log.NumberBar(name = "Z Acceleration", min = -2.0, center = 1.0, max = 2.0, tabName = "Debugger")
 	public float getWorldLinearAccelZ() {
 		return m_imu.getWorldLinearAccelZ();
 	}

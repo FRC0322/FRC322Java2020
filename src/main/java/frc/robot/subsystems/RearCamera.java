@@ -33,9 +33,9 @@ public class RearCamera extends SubsystemBase implements Loggable {
 	 * @return Returns a UsbCamera feed.
 	 */
 	@Log.CameraStream(name = "Rear Camera", tabName = "Driver",
-			  showControls = false, showCrosshairs = true, rowIndex = 8, columnIndex = 24)
+			  showControls = false, showCrosshairs = true, columnIndex = 24, rowIndex = 8)
 	@Log.CameraStream(name = "Rear Camera", tabName = "Debugger",
-			  showControls = true, showCrosshairs = true, rowIndex = 8, columnIndex = 24)
+			  showControls = true, showCrosshairs = true, columnIndex = 24, rowIndex = 8)
 	public UsbCamera getCameraFeed() {
 		return rearCameraServer;
 	}
