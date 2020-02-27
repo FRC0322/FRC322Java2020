@@ -13,8 +13,6 @@ import frc.robot.subsystems.ColorSensor;
 
 public class ColorDetector extends CommandBase {
 	private ColorSensor m_colorSensor;
-	private String m_detectedColor;
-	private boolean m_match;
 	/**
 	 * Creates a new ColorDetector.
 	 */
@@ -28,21 +26,30 @@ public class ColorDetector extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
+		m_colorSensor.setMatchStatus(false);
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		if ((Constants.DS.getGameSpecificMessage() != null && Constants.DS.getGameSpecificMessage() != "")
-		    && (m_colorSensor.getColorString() != null && m_colorSensor.getColorString() != "")) {
-			m_detectedColor = Constants.DS.getGameSpecificMessage();
-			//if (m_detectedColor.charAt(0) == m_colorSensor.getColorString().charAt(0))
-			//	m_match = true;
-			//else
-			//	m_match = false;
+		if (Constants.DS.getGameSpecificMessage() != null && Constants.DS.getGameSpecificMessage() != "") {
+			var color = Constants.DS.getGameSpecificMessage();
+			if (m_colorSensor.getColorString() != null && m_colorSensor.getColorString() != "") {
+				if ((color.charAt(0) == 'b' && m_colorSensor.getColorString().charAt(0) == 'r')
+				    || (color.charAt(0) == 'y' && m_colorSensor.getColorString().charAt(0) == 'g')
+				    || (color.charAt(0) == 'g' && m_colorSensor.getColorString().charAt(0) == 'y')
+				    || (color.charAt(0) == 'r' && m_colorSensor.getColorString().charAt(0) == 'b'))
+					m_colorSensor.setMatchStatus(true);
+				else
+					m_colorSensor.setMatchStatus(false);
+			}
+			else {
+				m_colorSensor.setMatchStatus(false);
+			}
 		}
-		else
-			m_detectedColor = "unknown";
+		else {
+			m_colorSensor.setMatchStatus(false);
+		}
 	}
 
 	// Called once the command ends or is interrupted.

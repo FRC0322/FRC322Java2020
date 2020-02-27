@@ -45,6 +45,7 @@ public class ColorSensor extends SubsystemBase implements Loggable {
 	private final Color kBlueTarget = ColorMatch.makeColor(Constants.BLUE_R, Constants.BLUE_G, Constants.BLUE_B);
 	private final Color kYellowTarget = ColorMatch.makeColor(Constants.YELLOW_R, Constants.YELLOW_G, Constants.YELLOW_B);
 
+	private boolean m_match = false;
 	private String m_colorString = "";
 	/**
 	 * Creates a new ColorSensor.
@@ -58,11 +59,23 @@ public class ColorSensor extends SubsystemBase implements Loggable {
 
 	@Log.ToString(name = "Detected Color", tabName = "Driver", columnIndex = 8, rowIndex = 8)
 	@Log.ToString(name = "Detected Color", tabName = "Debugger", columnIndex = 8, rowIndex = 8)
+	public Color getDetectedColor() {
+		return m_colorSensor.getColor();
+	}
+
 	public String getColorString() {
 		if (m_colorString != null)
 			return m_colorString;
 		else
 			return "none";
+	}
+
+	public void setMatchStatus(boolean match) {
+		m_match = match;
+	}
+
+	public boolean getMatchStatus() {
+		return m_match;
 	}
 
 	@Override
@@ -76,14 +89,14 @@ public class ColorSensor extends SubsystemBase implements Loggable {
 		ColorMatchResult match = m_colorMatcher.matchClosestColor(detectedColor);
 
 		if (match.color == kRedTarget)
-			m_colorString = "Red";
+			m_colorString = "red";
 		else if (match.color == kGreenTarget)
-			m_colorString = "Green";
+			m_colorString = "green";
 		else if (match.color == kBlueTarget)
-			m_colorString = "Blue";
+			m_colorString = "blue";
 		else if (match.color == kYellowTarget)
-			m_colorString = "Yellow";
+			m_colorString = "yellow";
 		else
-			m_colorString = "Unknown";
+			m_colorString = "unknown";
 	}
 }
