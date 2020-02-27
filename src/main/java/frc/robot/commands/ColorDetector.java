@@ -35,13 +35,13 @@ public class ColorDetector extends CommandBase {
 		if (Constants.DS.getGameSpecificMessage() != null && Constants.DS.getGameSpecificMessage() != "") {
 			var color = Constants.DS.getGameSpecificMessage();
 			if (m_colorSensor.getColorString() != null && m_colorSensor.getColorString() != "") {
-				if ((color.charAt(0) == 'b' && m_colorSensor.getColorString().charAt(0) == 'r')
-				    || (color.charAt(0) == 'y' && m_colorSensor.getColorString().charAt(0) == 'g')
-				    || (color.charAt(0) == 'g' && m_colorSensor.getColorString().charAt(0) == 'y')
-				    || (color.charAt(0) == 'r' && m_colorSensor.getColorString().charAt(0) == 'b'))
-					m_colorSensor.setMatchStatus(true);
-				else
-					m_colorSensor.setMatchStatus(false);
+				//if ((color.charAt(0) == 'b' && m_colorSensor.getColorString().charAt(0) == 'r')
+				//    || (color.charAt(0) == 'y' && m_colorSensor.getColorString().charAt(0) == 'g')
+				//    || (color.charAt(0) == 'g' && m_colorSensor.getColorString().charAt(0) == 'y')
+				//    || (color.charAt(0) == 'r' && m_colorSensor.getColorString().charAt(0) == 'b'))
+				//	m_colorSensor.setMatchStatus(true);
+				//else
+				//	m_colorSensor.setMatchStatus(false);
 			}
 			else {
 				m_colorSensor.setMatchStatus(false);
