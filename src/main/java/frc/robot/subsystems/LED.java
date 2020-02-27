@@ -18,16 +18,14 @@ import frc.robot.Constants;
 
 public class LED extends SubsystemBase {
 	private final CANifier m_ledControlCANifier;
-	private double m_red, m_blue, m_green, m_startTime, m_blinkRate;
+	private double m_startTime;
 	/**
 	 * Creates a new LED.
 	 */
 	public LED() {
 		super();
 		m_ledControlCANifier = new CANifier(0);
-		m_red = m_blue = m_green = 0.0;
 		m_startTime = 0.0;
-		m_blinkRate = 0;
 	}
 
 	public void setRGB(double redIntensity, double greenIntensity, double blueIntensity, double blinkRate) {
@@ -52,34 +50,50 @@ public class LED extends SubsystemBase {
 			m_startTime = 0.0;
 	}
 
+	public void setRGB(Color color, double blinkRate) {
+		if(blinkRate <= 0.1) {
+			m_ledControlCANifier.setLEDOutput(color.red, LEDChannel.LEDChannelA);
+			m_ledControlCANifier.setLEDOutput(color.green, LEDChannel.LEDChannelB);
+			m_ledControlCANifier.setLEDOutput(color.blue, LEDChannel.LEDChannelC);
+		}
+		else if(m_startTime == 0.0 && blinkRate > 0.1)
+			m_startTime = Timer.getFPGATimestamp();
+		else if(((Timer.getFPGATimestamp()) < (m_startTime + blinkRate)) && blinkRate > 0.1) {
+			m_ledControlCANifier.setLEDOutput(color.red, LEDChannel.LEDChannelA);
+			m_ledControlCANifier.setLEDOutput(color.green, LEDChannel.LEDChannelB);
+			m_ledControlCANifier.setLEDOutput(color.blue, LEDChannel.LEDChannelC);
+		}
+		else if((Timer.getFPGATimestamp() < (m_startTime + (blinkRate * 2))) && blinkRate > 0.1) {
+			m_ledControlCANifier.setLEDOutput(Color.kBlack.red, LEDChannel.LEDChannelA);
+			m_ledControlCANifier.setLEDOutput(Color.kBlack.green, LEDChannel.LEDChannelB);
+			m_ledControlCANifier.setLEDOutput(Color.kBlack.blue, LEDChannel.LEDChannelC);
+		}
+		else
+			m_startTime = 0.0;
+	}
+
 	public void automaticLEDSetter() {
-		if(Constants.DS.isDisabled()) m_blinkRate = Constants.DISABLED_BLINK_RATE;
-		else if(Constants.DS.isAutonomous()) m_blinkRate = Constants.AUTONOMOUS_BLINK_RATE;
-		else if(Constants.DS.isOperatorControl()) m_blinkRate = Constants.TELOP_BLINK_RATE;
-		else m_blinkRate = 0.0;
+		var blinkRate = 0.0;
+		var color = Color.kBlack;
+		if(Constants.DS.isDisabled()) blinkRate = Constants.DISABLED_BLINK_RATE;
+		else if(Constants.DS.isAutonomous()) blinkRate = Constants.AUTONOMOUS_BLINK_RATE;
+		else if(Constants.DS.isOperatorControl()) blinkRate = Constants.TELOP_BLINK_RATE;
+		else blinkRate = 0.0;
 
 		if(Constants.DS.getAlliance() == DriverStation.Alliance.Red) {
-			m_red = Color.kFirstRed.red;
-			m_green = Color.kFirstRed.green;
-			m_blue = Color.kFirstRed.blue;
+			color = Color.kFirstRed;
 		}
 		else if(Constants.DS.getAlliance() == DriverStation.Alliance.Blue) {
-			m_red = Color.kFirstBlue.red;
-			m_green = Color.kFirstBlue.green;
-			m_blue = Color.kFirstBlue.blue;
+			color = Color.kFirstBlue;
 		}
 		else if(Constants.DS.getAlliance() == DriverStation.Alliance.Invalid) {
-			m_red = Color.kGreen.red;
-			m_green = Color.kGreen.green;
-			m_blue = Color.kGreen.blue;
+			color = Color.kKhaki;
 		}
 		else {
-			m_red = Color.kDarkMagenta.red;
-			m_green = Color.kDarkMagenta.green;
-			m_blue = Color.kDarkMagenta.blue;
+			color = Color.kDarkMagenta;
 		}
 
-		setRGB(m_red, m_green, m_blue, m_blinkRate);
+		setRGB(color, blinkRate);
 	}
 
 	@Override
