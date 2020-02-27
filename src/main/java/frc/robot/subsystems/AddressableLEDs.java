@@ -21,15 +21,13 @@ public class AddressableLEDs extends SubsystemBase {
 	private final AddressableLEDBuffer m_LEDBuffer;
 	private Color m_ledColor;
 	private int m_rainbowFirstPixelHue;
-	private double m_blinkRate, m_startTime, m_red, m_green, m_blue;
+	private double m_startTime;
 	/**
 	 * Creates a new AddressableLEDs.
 	 */
 	public AddressableLEDs() {
 		super();
-		m_red = m_blue = m_green = 0.0;
 		m_startTime = 0.0;
-		m_blinkRate = 0;
 		m_rainbowFirstPixelHue = 0;
 
 		m_LED = new AddressableLED(Constants.ADDRESSABLE_LED_PORT);
@@ -66,47 +64,39 @@ public class AddressableLEDs extends SubsystemBase {
 	}
 
 	public void automaticLEDSetter() {
-		if(Constants.DS.isDisabled()) m_blinkRate = Constants.DISABLED_BLINK_RATE;
-		else if(Constants.DS.isAutonomous()) m_blinkRate = Constants.AUTONOMOUS_BLINK_RATE;
-		else if(Constants.DS.isOperatorControl()) m_blinkRate = Constants.TELOP_BLINK_RATE;
-		else m_blinkRate = 0.0;
+		var blinkRate = 0.0;
+		if(Constants.DS.isDisabled()) blinkRate = Constants.DISABLED_BLINK_RATE;
+		else if(Constants.DS.isAutonomous()) blinkRate = Constants.AUTONOMOUS_BLINK_RATE;
+		else if(Constants.DS.isOperatorControl()) blinkRate = Constants.TELOP_BLINK_RATE;
+		else blinkRate = 0.0;
 
 		if(Constants.DS.getAlliance() == DriverStation.Alliance.Red) {
-			m_red = Color.kFirstRed.red;
-			m_green = Color.kFirstRed.green;
-			m_blue = Color.kFirstRed.blue;
+			m_ledColor = Color.kFirstRed;
 		}
 		else if(Constants.DS.getAlliance() == DriverStation.Alliance.Blue) {
-			m_red = Color.kFirstBlue.red;
-			m_green = Color.kFirstBlue.green;
-			m_blue = Color.kFirstBlue.blue;
+			m_ledColor = Color.kFirstBlue;
 		}
 		else if(Constants.DS.getAlliance() == DriverStation.Alliance.Invalid) {
-			m_red = Color.kGreen.red;
-			m_green = Color.kGreen.green;
-			m_blue = Color.kGreen.blue;
+			m_ledColor = Color.kKhaki;
 		}
 		else {
-			m_red = Color.kDarkMagenta.red;
-			m_green = Color.kDarkMagenta.green;
-			m_blue = Color.kDarkMagenta.blue;
+			m_ledColor = Color.kDarkMagenta;
 		}
 
-		m_ledColor = new Color(m_red, m_green, m_blue);
-		if (m_blinkRate < 0.03) {
+		if (blinkRate < 0.03) {
 			for (var i = 0; i < this.getLength(); i++) {
 				this.setLED(i, m_ledColor);
 			}
 		}
-		else if (m_startTime == 0.0 && m_blinkRate >= 0.03) {
+		else if (m_startTime == 0.0 && blinkRate >= 0.03) {
 			m_startTime = Timer.getFPGATimestamp();
 		}
-		else if(((Timer.getFPGATimestamp()) < (m_startTime + m_blinkRate)) && m_blinkRate >= 0.03) {
+		else if(((Timer.getFPGATimestamp()) < (m_startTime + blinkRate)) && blinkRate >= 0.03) {
 			for (var j = 0; j < this.getLength(); j++) {
 				this.setLED(j, m_ledColor);
 			}
 		}
-		else if((Timer.getFPGATimestamp() < (m_startTime + (m_blinkRate * 2))) && m_blinkRate >= 0.03) {
+		else if((Timer.getFPGATimestamp() < (m_startTime + (blinkRate * 2))) && blinkRate >= 0.03) {
 			for (var k = 0; k < this.getLength(); k++) {
 				this.setLED(k, Color.kBlack);
 			}

@@ -22,7 +22,7 @@ public final class Constants {
 	public static final DriverStation DS = DriverStation.getInstance();
 
 	// AddressableLEDs.java
-	public static final int ADDRESSABLE_LED_PORT = 1,
+	public static final int ADDRESSABLE_LED_PORT = 0,
 				ADDRESSABLE_LED_LENGTH = 60;
 
 	// AutomaticLED.java

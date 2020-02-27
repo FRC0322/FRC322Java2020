@@ -31,8 +31,7 @@ public class AutomaticLED extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		m_led.setRGB(Color.kWhite.red, Color.kWhite.green, Color.kWhite.blue,
-			     Constants.DEFAULT_BLINK_RATE);
+		m_led.setRGB(Color.kWhite, Constants.DEFAULT_BLINK_RATE);
 		for(var i = 0; i < m_addressableLEDs.getLength(); i++)
 			m_addressableLEDs.setLED(i, Color.kWhite);
 	}
@@ -47,8 +46,7 @@ public class AutomaticLED extends CommandBase {
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		m_led.setRGB(Color.kWhite.red, Color.kWhite.green, Color.kWhite.blue,
-			     Constants.DEFAULT_BLINK_RATE);
+		m_led.setRGB(Color.kWhite, Constants.DEFAULT_BLINK_RATE);
 		for(var i = 0; i < m_addressableLEDs.getLength(); i++)
 			m_addressableLEDs.setLED(i, Color.kWhite);
 	}
