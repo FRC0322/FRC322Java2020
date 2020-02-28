@@ -38,7 +38,6 @@ public class BasicAutonomous extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		//m_chassis.drive(0.5, 0.5);
 		m_chassis.autoDriveStraight(heading, distance);
 	}
 
