@@ -65,22 +65,10 @@ public final class Constants {
 	public static final int DRIVE_STICK = 0,
 				MANIPULATOR_STICK = 1,
 				DEBUGGER_STICK = 2,
-				BRAKE_BUTTON = 1,
-				LOG_BUTTON = 8,
-				FEEDER_BUTTON = 1,
-				SHOOTER_BUTTON = 3,
-				FEEDER_REVERSE_BUTTON = 2,
-				SHOOTER_REVERSE_BUTTON = 4,
-				VISION_MODE_BUTTON = 5,
-				DRIVER_MODE_BUTTON = 6,
-				LED_ON_BUTTON = 5,
-				LED_OFF_BUTTON = 6,
-				LED_BLINK_BUTTON = 7,
-				LED_DEFAULT_BUTTON = 8,
 				CAMERASERVER_FEEDS = 2;
-	public static final double FEEDER_SPEED = 0.5,
+	public static final double FEEDER_SPEED = 0.75,
 				   FEEDER_REVERSE_SPEED = -(0.5),
-				   SHOOTER_SPEED = 0.5,
+				   SHOOTER_SPEED = 1.0,
 				   SHOOTER_REVERSE_SPEED = -(0.5);
 
 	// BasicAutonomous.java

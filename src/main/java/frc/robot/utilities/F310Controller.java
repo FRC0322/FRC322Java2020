@@ -1,6 +1,10 @@
 package frc.robot.utilities;
 
 import edu.wpi.first.hal.FRCNetComm.tResourceType;
+
+import java.util.HashMap;
+import java.util.Map;
+
 import edu.wpi.first.hal.HAL;
 import edu.wpi.first.wpilibj.GenericHID;
 
@@ -15,7 +19,7 @@ public class F310Controller extends GenericHID {
 	/**
 	 * Represents a digital button on an F310Controller.
 	 */
-	private enum Button {
+	public enum Button {
 		kA(1),
 		kB(2),
 		kX(3),
@@ -27,11 +31,30 @@ public class F310Controller extends GenericHID {
 		kStickLeft(9),
 		kStickRight(10);
 
-		//@SuppressWarnings("MemberName")
+		private static final Map<Integer, Button> MY_MAP = new HashMap<Integer, Button>();
+
+		static {
+			for (Button button : values()) {
+				MY_MAP.put(button.getValue(), button);
+			}
+		}
+
 		private int value;
 
-		Button(int value) {
+		private Button(int value) {
 			this.value = value;
+		}
+
+		public int getValue() {
+			return value;
+		}
+
+		public static Button getByValue(int value) {
+			return MY_MAP.get(value);
+		}
+
+		public String toString() {
+			return name();
 		}
 	}
 

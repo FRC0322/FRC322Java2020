@@ -71,21 +71,21 @@ public class RobotContainer {
 	private final F310Controller m_manipulatorStick = new F310Controller(Constants.MANIPULATOR_STICK);
 	//private final RumblePad2 m_debuggerStick = new RumblePad2(Constants.DEBUGGER_STICK);
 
-	private final JoystickButton m_brakeButton = new JoystickButton(m_driveStick, Constants.BRAKE_BUTTON);
-	//private final JoystickButton m_brakeButton = new JoystickButton(m_debuggerStick, Constants.BRAKE_BUTTON);
-	private final JoystickButton m_logButton = new JoystickButton(m_driveStick, Constants.LOG_BUTTON);
-	//private final JoystickButton m_logButton = new JoystickButton(m_debuggerStick, Constants.LOG_BUTTON);
-	//private final JoystickButton m_feederButton = new JoystickButton(m_manipulatorStick, Constants.FEEDER_BUTTON);
-	//private final JoystickButton m_feederReverseButton = new JoystickButton(m_manipulatorStick, Constants.FEEDER_REVERSE_BUTTON);
-	//private final JoystickButton m_shooterButton = new JoystickButton(m_manipulatorStick, Constants.SHOOTER_BUTTON);
-	//private final JoystickButton m_shooterReverseButton = new JoystickButton(m_manipulatorStick, Constants.SHOOTER_REVERSE_BUTTON);
-	private final JoystickButton m_manipulatorLogButton = new JoystickButton(m_driveStick, Constants.LOG_BUTTON);
-	private final JoystickButton m_visionModeButton = new JoystickButton(m_driveStick, Constants.VISION_MODE_BUTTON);
-	private final JoystickButton m_driverModeButton = new JoystickButton(m_driveStick, Constants.DRIVER_MODE_BUTTON);
-	private final JoystickButton m_LEDOnButton = new JoystickButton(m_manipulatorStick, Constants.LED_ON_BUTTON);
-	private final JoystickButton m_LEDBlinkButton = new JoystickButton(m_manipulatorStick, Constants.LED_BLINK_BUTTON);
-	private final JoystickButton m_LEDOffButton = new JoystickButton(m_manipulatorStick, Constants.LED_OFF_BUTTON);
-	private final JoystickButton m_LEDDefaultButton = new JoystickButton(m_manipulatorStick, Constants.LED_DEFAULT_BUTTON);
+	private final JoystickButton m_brakeButton = new JoystickButton(m_driveStick, F310Controller.Button.kA.getValue());
+	//private final JoystickButton m_brakeButton = new JoystickButton(m_debuggerStick, F310Controller.Button.kA.getValue());
+	private final JoystickButton m_logButton = new JoystickButton(m_driveStick, F310Controller.Button.kStart.getValue());
+	//private final JoystickButton m_logButton = new JoystickButton(m_debuggerStick, F310Controller.Button.kStart.getValue());
+	private final JoystickButton m_feederButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kA.getValue());
+	private final JoystickButton m_feederReverseButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kB.getValue());
+	private final JoystickButton m_shooterButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kX.getValue());
+	private final JoystickButton m_shooterReverseButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kY.getValue());
+	private final JoystickButton m_manipulatorLogButton = new JoystickButton(m_driveStick, F310Controller.Button.kStart.getValue());
+	private final JoystickButton m_visionModeButton = new JoystickButton(m_driveStick, F310Controller.Button.kBumperLeft.getValue());
+	private final JoystickButton m_driverModeButton = new JoystickButton(m_driveStick, F310Controller.Button.kBumperRight.getValue());
+	private final JoystickButton m_LEDOnButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kBumperLeft.getValue());
+	private final JoystickButton m_LEDBlinkButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kBack.getValue());
+	private final JoystickButton m_LEDOffButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kBumperRight.getValue());
+	private final JoystickButton m_LEDDefaultButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kStart.getValue());
 
 /**
  * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -150,21 +150,16 @@ public class RobotContainer {
 		m_LEDOnButton.whileActiveOnce(new LimelightLightModeControl(m_limelightCamera,
 									    LightMode.kforceOn));
 
-		/**
-		 * This block will make the feeder and shooter run on button presses rather than by joystick axis.
-		 * We need to figure out how fast we want the motors running first though.
-		 *  m_feederButton.toggleWhenActive(new RunFeeder(m_feeder, Constants.FEEDER_SPEED,
-		 *    m_manipulatorLogButton), true);
-		 *
-		 *  m_feederReverseButton.toggleWhenActive(new RunFeeder(m_feeder, Constants.FEEDER_REVERSE_SPEED,
-		 *    m_manipulatorLogButton), true);
-		 *
-		 *  m_shooterButton.toggleWhenActive(new RunShooter(m_shooter, Constants.SHOOTER_SPEED,
-		 *    m_manipulatorLogButton), true);
-		 *
-		 *  m_shooterReverseButton.toggleWhenActive(new RunShooter(m_shooter, Constants.SHOOTER_REVERSE_SPEED,
-		 *    m_manipulatorLogButton), true);
-		 */
+		// These constants still need tuning.
+		m_feederButton.toggleWhenActive(new RunFeeder(m_feeder, Constants.FEEDER_SPEED,
+							      m_manipulatorLogButton), true);
+		m_feederReverseButton.toggleWhenActive(new RunFeeder(m_feeder, Constants.FEEDER_REVERSE_SPEED,
+								     m_manipulatorLogButton), true);
+		m_shooterButton.toggleWhenActive(new RunShooter(m_shooter, Constants.SHOOTER_SPEED,
+								m_manipulatorLogButton), true);
+		m_shooterReverseButton.toggleWhenActive(new RunShooter(m_shooter, Constants.SHOOTER_REVERSE_SPEED,
+								       m_manipulatorLogButton), true);
+
 	}
 
 	public Dashboard getDashboard() {
