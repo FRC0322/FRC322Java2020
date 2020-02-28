@@ -43,13 +43,13 @@ public class Chassis extends SubsystemBase implements Loggable {
 	private final DifferentialDrive m_drive = new DifferentialDrive(m_leftMotors, m_rightMotors);
 
 	@Log.ThreeAxisAccelerometer(name = "navX-Accelerometer", tabName = "Driver",
-				    width = 2, height = 1, columnIndex = 0, rowIndex = 8)
+				    columnIndex = 8, rowIndex = 0)
 	@Log.ThreeAxisAccelerometer(name = "navX-Accelerometer", tabName = "Debugger",
 				    columnIndex = 8, rowIndex = 0)
 	@Log.Gyro(name = "navX-Gyro", tabName = "Driver", startingAngle = 0.0,
-		  columnIndex = 3, rowIndex = 0)
+		  columnIndex = 6, rowIndex = 0)
 	@Log.Gyro(name = "navX-Gyro", tabName = "Debugger", startingAngle = 0.0,
-		  columnIndex = 3, rowIndex = 0)
+		  columnIndex = 6, rowIndex = 0)
 	private final AHRS m_imu = new AHRS();
 
 	/**
@@ -152,18 +152,18 @@ public class Chassis extends SubsystemBase implements Loggable {
 
 	// Encoder output from the left encoder in inches
 	@Log.NumberBar(name = "Left Encoder", min = -32768, center = 0,max = 32767,
-		       tabName = "Driver", width = 2, columnIndex = 0, rowIndex = 0)
+		       tabName = "Driver", width = 2, columnIndex = 0, rowIndex = 1)
 	@Log.NumberBar(name = "Left Encoder", min = -32768, center = 0,max = 32767,
-		       tabName = "Debugger", width = 2, columnIndex = 0, rowIndex = 0)
+		       tabName = "Debugger", width = 2, columnIndex = 0, rowIndex = 1)
 	public double leftDistanceIn() {
 		return leftDistance() / Constants.TICKS_PER_INCH;
 	}
 
 	// Encoder output from the right encoder in inches
 	@Log.NumberBar(name = "Right Encoder", min = -32768, center = 0,max = 32767,
-		       tabName = "Driver", width = 2, columnIndex = 0, rowIndex = 1)
+		       tabName = "Driver", width = 2, columnIndex = 0, rowIndex = 2)
 	@Log.NumberBar(name = "Right Encoder", min = -32768, center = 0,max = 32767,
-		       tabName = "Debugger", width = 2, columnIndex = 0, rowIndex = 1)
+		       tabName = "Debugger", width = 2, columnIndex = 0, rowIndex = 2)
 	public double rightDistanceIn() {
 		return rightDistance() / Constants.TICKS_PER_INCH;
 	}

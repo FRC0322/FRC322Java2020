@@ -51,7 +51,10 @@ import io.github.oblarg.oblog.annotations.Config;
 public class RobotContainer {
 // The robot's subsystems and commands are defined here...
 	Command m_autoCommand;
-	@Config(name = "Autonomous Chooser", tabName = "Autonomous", columnIndex = 0, rowIndex = 0)
+	@Config(name = "Autonomous Chooser", tabName = "Autonomous", width = 2, height = 1,
+		columnIndex = 0, rowIndex = 0)
+	@Config(name = "Autonomous Chooser", tabName = "Debugger", width = 2, height = 1,
+		columnIndex = 0, rowIndex = 0)
 	SendableChooser<String> autonomousChooser = new SendableChooser<>();
 
 	private final Chassis m_chassis = new Chassis();
