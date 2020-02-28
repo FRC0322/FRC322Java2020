@@ -55,7 +55,7 @@ public class RobotContainer {
 		columnIndex = 0, rowIndex = 0)
 	@Config(name = "Autonomous Chooser", tabName = "Debugger", width = 2, height = 1,
 		columnIndex = 0, rowIndex = 0)
-	SendableChooser<String> autonomousChooser = new SendableChooser<>();
+	SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
 	private final Chassis m_chassis = new Chassis();
 	private final ColorSensor m_colorSensor = new ColorSensor();
@@ -118,19 +118,9 @@ public class RobotContainer {
 							   m_manipulatorLogButton));
 
 		// Add commands to Autonomous SendableChooser
-		autonomousChooser.setDefaultOption("Do Nothing", "Do Nothing");
-		autonomousChooser.addOption("Basic Autonomous", "Basic Autonomous");
+		autonomousChooser.setDefaultOption("Do Nothing", new DoNothing());
+		autonomousChooser.addOption("Basic Autonomous", new BasicAutonomous(m_chassis));
 		//m_dashboard.getAutonomousTab().add("Auto mode", autonomousChooser);
-		switch (autonomousChooser.getSelected()) {
-		case "Do Nothing":        m_autoCommand = new DoNothing();
-			break;
-
-		case "Basic Autonomous":  m_autoCommand = new BasicAutonomous(m_chassis);
-			break;
-
-		default:                  m_autoCommand = new DoNothing();
-			break;
-		}
 
 		// Create the Oblog Logger
 		Logger.configureLoggingAndConfig(this, false);
