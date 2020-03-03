@@ -8,7 +8,6 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-//import com.ctre.phoenix.motorcontrol.can.WPI_TalonFX;
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,8 +15,6 @@ import frc.robot.Constants;
 
 public class Feeder extends SubsystemBase {
 	//The Feeder is our ground level ball intake.
-	//The we'll switch lines when we attach the Falcon 500
-	//private final WPI_TalonFX m_feederMotor = new WPI_TalonFX(Constants.FEEDER_MOTOR);
 	private final WPI_TalonSRX m_feederMotor = new WPI_TalonSRX(Constants.FEEDER_MOTOR);
 	/**
 	 * Creates a new Feeder.
