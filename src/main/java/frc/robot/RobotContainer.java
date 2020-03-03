@@ -51,10 +51,6 @@ import io.github.oblarg.oblog.annotations.Config;
 public class RobotContainer {
 // The robot's subsystems and commands are defined here...
 	Command m_autoCommand;
-	@Config(name = "Autonomous Chooser", tabName = "Autonomous", width = 2, height = 1,
-		columnIndex = 0, rowIndex = 0)
-	@Config(name = "Autonomous Chooser", tabName = "Debugger", width = 2, height = 1,
-		columnIndex = 0, rowIndex = 0)
 	SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
 	private final Chassis m_chassis = new Chassis();
@@ -93,8 +89,8 @@ public class RobotContainer {
 	public RobotContainer() {
 		// Assign default commands
 		m_chassis.setDefaultCommand(new DriveWithJoystick(
-						    ()->m_driveStick.getTriggerAxis(Hand.kRight) - m_driveStick.getTriggerAxis(Hand.kLeft),
-						    ()->- (m_driveStick.getX(Hand.kLeft)), m_chassis, m_brakeButton, m_logButton));
+						    ()-> m_driveStick.getTriggerAxis(Hand.kRight) - m_driveStick.getTriggerAxis(Hand.kLeft),
+						    ()-> -(m_driveStick.getX(Hand.kLeft)), m_chassis, m_brakeButton, m_logButton));
 
 		// Default command for debugging purposes
 		//m_chassis.setDefaultCommand(new DriveWithJoystick(
@@ -105,8 +101,8 @@ public class RobotContainer {
 
 		m_dashboard.setDefaultCommand(new DashboardUpdater(m_dashboard));
 
-		m_feeder.setDefaultCommand(new RunFeeder(m_feeder, m_manipulatorStick.getY(Hand.kLeft),
-							 m_manipulatorLogButton));
+		//m_feeder.setDefaultCommand(new RunFeeder(m_feeder, m_manipulatorStick.getY(Hand.kLeft),
+		//					 m_manipulatorLogButton));
 
 		m_led.setDefaultCommand(new AutomaticLED(m_led, m_AddressableLEDs));
 
@@ -114,13 +110,13 @@ public class RobotContainer {
 
 		m_rearCamera.setDefaultCommand(new RunRearCamera(m_rearCamera));
 
-		m_shooter.setDefaultCommand(new RunShooter(m_shooter, m_manipulatorStick.getY(Hand.kRight),
-							   m_manipulatorLogButton));
+		//m_shooter.setDefaultCommand(new RunShooter(m_shooter, m_manipulatorStick.getY(Hand.kRight),
+		//					   m_manipulatorLogButton));
 
 		// Add commands to Autonomous SendableChooser
-		autonomousChooser.setDefaultOption("Do Nothing", new DoNothing());
-		autonomousChooser.addOption("Basic Autonomous", new BasicAutonomous(m_chassis));
-		//m_dashboard.getAutonomousTab().add("Auto mode", autonomousChooser);
+		getChooser().setDefaultOption("Do Nothing", new DoNothing());
+		getChooser().addOption("Basic Autonomous", new BasicAutonomous(m_chassis));
+		//m_dashboard.getAutonomousTab().add("Auto mode", getChooser());
 
 		// Create the Oblog Logger
 		Logger.configureLoggingAndConfig(this, false);
@@ -164,6 +160,14 @@ public class RobotContainer {
 
 	public Dashboard getDashboard() {
 		return m_dashboard;
+	}
+
+	@Config(name = "Autonomous Chooser", tabName = "Autonomous", width = 2, height = 1,
+		columnIndex = 0, rowIndex = 0)
+	@Config(name = "Autonomous Chooser", tabName = "Debugger", width = 2, height = 1,
+		columnIndex = 0, rowIndex = 0)
+	private SendableChooser<Command> getChooser() {
+		return autonomousChooser;
 	}
 
 	/**
