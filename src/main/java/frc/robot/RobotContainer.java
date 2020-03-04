@@ -145,10 +145,10 @@ public class RobotContainer {
 									    LightMode.kforceOn));
 
 		// These constants still need tuning.
-		m_feederButton.toggleWhenActive(new RunFeeder(m_feeder, Constants.FEEDER_SPEED), true);
-		m_feederReverseButton.toggleWhenActive(new RunFeeder(m_feeder, Constants.FEEDER_REVERSE_SPEED), true);
-		m_shooterButton.toggleWhenActive(new RunShooter(m_shooter, Constants.SHOOTER_SPEED), true);
-		m_shooterReverseButton.toggleWhenActive(new RunShooter(m_shooter, Constants.SHOOTER_REVERSE_SPEED), true);
+		m_feederButton.toggleWhenActive(new RunFeeder(m_feeder, ()->Constants.FEEDER_SPEED), true);
+		m_feederReverseButton.toggleWhenActive(new RunFeeder(m_feeder, ()->Constants.FEEDER_REVERSE_SPEED), true);
+		m_shooterButton.toggleWhenActive(new RunShooter(m_shooter, ()->Constants.SHOOTER_SPEED), true);
+		m_shooterReverseButton.toggleWhenActive(new RunShooter(m_shooter, ()->Constants.SHOOTER_REVERSE_SPEED), true);
 
 	}
 
