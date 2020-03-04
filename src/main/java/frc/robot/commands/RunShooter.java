@@ -7,17 +7,18 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.subsystems.Shooter;
 
 public class RunShooter extends CommandBase {
 	private final Shooter m_shooter;
-	private final double m_speed;
+	private final DoubleSupplier m_speed;
 	/**
 	 * Creates a new RunShooter.
 	 */
-	public RunShooter(Shooter shooter, double speed) {
+	public RunShooter(Shooter shooter, DoubleSupplier speed) {
 		m_shooter = shooter;
 		m_speed = speed;
 		// Use addRequirements() here to declare subsystem dependencies.
@@ -32,7 +33,7 @@ public class RunShooter extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		m_shooter.run(m_speed);
+		m_shooter.run(m_speed.getAsDouble());
 	}
 
 	// Called once the command ends or is interrupted.

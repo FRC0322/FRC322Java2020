@@ -101,7 +101,7 @@ public class RobotContainer {
 
 		m_dashboard.setDefaultCommand(new DashboardUpdater(m_dashboard));
 
-		//m_feeder.setDefaultCommand(new RunFeeder(m_feeder, m_manipulatorStick.getY(Hand.kLeft)));
+		m_feeder.setDefaultCommand(new RunFeeder(m_feeder, ()->m_manipulatorStick.getY(Hand.kLeft)));
 
 		m_led.setDefaultCommand(new AutomaticLED(m_led, m_AddressableLEDs));
 
@@ -109,7 +109,7 @@ public class RobotContainer {
 
 		m_rearCamera.setDefaultCommand(new RunRearCamera(m_rearCamera));
 
-		//m_shooter.setDefaultCommand(new RunShooter(m_shooter, m_manipulatorStick.getY(Hand.kRight)));
+		m_shooter.setDefaultCommand(new RunShooter(m_shooter, ()->m_manipulatorStick.getY(Hand.kRight)));
 
 		// Add commands to Autonomous SendableChooser
 		getChooser().setDefaultOption("Do Nothing", new DoNothing());
