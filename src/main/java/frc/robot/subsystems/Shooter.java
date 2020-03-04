@@ -38,13 +38,6 @@ public class Shooter extends SubsystemBase {
 		m_shooterMotors.set(speed);
 	}
 
-	// This method will output data from various logging methods.
-	public void shooterLog(boolean logging) {
-		if(logging) {
-			System.out.println("There's nothing to see here. (Yet.)");
-		}
-	}
-
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run

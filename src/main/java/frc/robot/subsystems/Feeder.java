@@ -36,13 +36,6 @@ public class Feeder extends SubsystemBase {
 		m_feederMotor.set(speed);
 	}
 
-	// This method will output data from various logging methods.
-	public void feederLog(boolean logging) {
-		if(logging) {
-			System.out.println("There's nothing to see here. (Yet.)");
-		}
-	}
-
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run

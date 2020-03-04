@@ -89,8 +89,8 @@ public class RobotContainer {
 	public RobotContainer() {
 		// Assign default commands
 		m_chassis.setDefaultCommand(new DriveWithJoystick(
-						    ()-> m_driveStick.getTriggerAxis(Hand.kRight) - m_driveStick.getTriggerAxis(Hand.kLeft),
-						    ()-> -(m_driveStick.getX(Hand.kLeft)), m_chassis, m_brakeButton, m_logButton));
+						    ()->m_driveStick.getTriggerAxis(Hand.kRight) - m_driveStick.getTriggerAxis(Hand.kLeft),
+						    ()->- (m_driveStick.getX(Hand.kLeft)), m_chassis, m_brakeButton, m_logButton));
 
 		// Default command for debugging purposes
 		//m_chassis.setDefaultCommand(new DriveWithJoystick(
@@ -101,8 +101,7 @@ public class RobotContainer {
 
 		m_dashboard.setDefaultCommand(new DashboardUpdater(m_dashboard));
 
-		//m_feeder.setDefaultCommand(new RunFeeder(m_feeder, m_manipulatorStick.getY(Hand.kLeft),
-		//					 m_manipulatorLogButton));
+		//m_feeder.setDefaultCommand(new RunFeeder(m_feeder, m_manipulatorStick.getY(Hand.kLeft)));
 
 		m_led.setDefaultCommand(new AutomaticLED(m_led, m_AddressableLEDs));
 
@@ -110,8 +109,7 @@ public class RobotContainer {
 
 		m_rearCamera.setDefaultCommand(new RunRearCamera(m_rearCamera));
 
-		//m_shooter.setDefaultCommand(new RunShooter(m_shooter, m_manipulatorStick.getY(Hand.kRight),
-		//					   m_manipulatorLogButton));
+		//m_shooter.setDefaultCommand(new RunShooter(m_shooter, m_manipulatorStick.getY(Hand.kRight)));
 
 		// Add commands to Autonomous SendableChooser
 		getChooser().setDefaultOption("Do Nothing", new DoNothing());
@@ -147,14 +145,10 @@ public class RobotContainer {
 									    LightMode.kforceOn));
 
 		// These constants still need tuning.
-		m_feederButton.toggleWhenActive(new RunFeeder(m_feeder, Constants.FEEDER_SPEED,
-							      m_manipulatorLogButton), true);
-		m_feederReverseButton.toggleWhenActive(new RunFeeder(m_feeder, Constants.FEEDER_REVERSE_SPEED,
-								     m_manipulatorLogButton), true);
-		m_shooterButton.toggleWhenActive(new RunShooter(m_shooter, Constants.SHOOTER_SPEED,
-								m_manipulatorLogButton), true);
-		m_shooterReverseButton.toggleWhenActive(new RunShooter(m_shooter, Constants.SHOOTER_REVERSE_SPEED,
-								       m_manipulatorLogButton), true);
+		m_feederButton.toggleWhenActive(new RunFeeder(m_feeder, Constants.FEEDER_SPEED), true);
+		m_feederReverseButton.toggleWhenActive(new RunFeeder(m_feeder, Constants.FEEDER_REVERSE_SPEED), true);
+		m_shooterButton.toggleWhenActive(new RunShooter(m_shooter, Constants.SHOOTER_SPEED), true);
+		m_shooterReverseButton.toggleWhenActive(new RunShooter(m_shooter, Constants.SHOOTER_REVERSE_SPEED), true);
 
 	}
 

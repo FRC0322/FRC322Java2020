@@ -14,14 +14,12 @@ import frc.robot.subsystems.Feeder;
 public class RunFeeder extends CommandBase {
 	private final Feeder m_feeder;
 	private final double m_speed;
-	private final JoystickButton m_logButton;
 	/**
 	 * Creates a new RunFeeder.
 	 */
-	public RunFeeder(Feeder feeder, double speed, JoystickButton log) {
+	public RunFeeder(Feeder feeder, double speed) {
 		m_feeder = feeder;
 		m_speed = speed;
-		m_logButton = log;
 		// Use addRequirements() here to declare subsystem dependencies.
 		addRequirements(m_feeder);
 	}
@@ -35,10 +33,6 @@ public class RunFeeder extends CommandBase {
 	@Override
 	public void execute() {
 		m_feeder.run(m_speed);
-		if(m_logButton.get())
-			m_feeder.feederLog(true);
-		else
-			m_feeder.feederLog(false);
 	}
 
 	// Called once the command ends or is interrupted.

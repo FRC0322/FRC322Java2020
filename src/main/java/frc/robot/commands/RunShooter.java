@@ -14,14 +14,12 @@ import frc.robot.subsystems.Shooter;
 public class RunShooter extends CommandBase {
 	private final Shooter m_shooter;
 	private final double m_speed;
-	private final JoystickButton m_logButton;
 	/**
 	 * Creates a new RunShooter.
 	 */
-	public RunShooter(Shooter shooter, double speed, JoystickButton log) {
+	public RunShooter(Shooter shooter, double speed) {
 		m_shooter = shooter;
 		m_speed = speed;
-		m_logButton = log;
 		// Use addRequirements() here to declare subsystem dependencies.
 		addRequirements(m_shooter);
 	}
@@ -35,10 +33,6 @@ public class RunShooter extends CommandBase {
 	@Override
 	public void execute() {
 		m_shooter.run(m_speed);
-		if(m_logButton.get())
-			m_shooter.shooterLog(true);
-		else
-			m_shooter.shooterLog(false);
 	}
 
 	// Called once the command ends or is interrupted.
