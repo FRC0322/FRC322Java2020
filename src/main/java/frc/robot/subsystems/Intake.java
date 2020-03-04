@@ -13,27 +13,27 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
-public class Feeder extends SubsystemBase {
-	// The Feeder moves balls from the intake to the shooter.
-	private final WPI_TalonSRX m_feederMotor = new WPI_TalonSRX(Constants.FEEDER_MOTOR);
+public class Intake extends SubsystemBase {
+	// The Intake is our ground level ball intake.
+	private final WPI_TalonSRX m_intakeMotor = new WPI_TalonSRX(Constants.INTAKE_MOTOR);
 	/**
-	 * Creates a new Feeder.
+	 * Creates a new Intake.
 	 */
-	public Feeder() {
+	public Intake() {
 		super();
 
-		// Set the feeder motor to Brake mode to keep the feeder from running when we don't want it to.
-		m_feederMotor.setNeutralMode(NeutralMode.Brake);
+		// Set the intake motor to Coast.
+		m_intakeMotor.setNeutralMode(NeutralMode.Coast);
 	}
 
-	// This method stops the feeder.
+	// This method stops the intake.
 	public void stop() {
-		m_feederMotor.stopMotor();
+		m_intakeMotor.stopMotor();
 	}
 
-	// This method runs the feeder.
+	// This method runs the intake.
 	public void run(double speed) {
-		m_feederMotor.set(speed);
+		m_intakeMotor.set(speed);
 	}
 
 	@Override

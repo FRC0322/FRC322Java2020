@@ -57,6 +57,9 @@ public final class Constants {
 	// Feeder.java
 	public static final int FEEDER_MOTOR = 5;
 
+	// Intake.jave
+	public static final int INTAKE_MOTOR = 8;
+
 	// Shooter.java
 	public static final int LEFT_SHOOTER_MOTOR = 6;
 	public static final int RIGHT_SHOOTER_MOTOR = 7;
@@ -68,6 +71,8 @@ public final class Constants {
 				CAMERASERVER_FEEDS = 2;
 	public static final double FEEDER_SPEED = 0.75,
 				   FEEDER_REVERSE_SPEED = -(0.5),
+				   INTAKE_SPEED = 1.0,
+				   INTAKE_REVERSE_SPEED = -(0.5),
 				   SHOOTER_SPEED = 1.0,
 				   SHOOTER_REVERSE_SPEED = -(0.5);
 
