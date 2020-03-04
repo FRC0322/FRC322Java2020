@@ -30,8 +30,8 @@ public class Shooter extends SubsystemBase {
 		m_shooterMotors.setInverted(false);
 
 		// Set the shooter motors to Brake mode to keep the feeder from running when we don't want it to.
-		m_leftShooterMotor.setNeutralMode(NeutralMode.Brake);
-		m_rightShooterMotor.setNeutralMode(NeutralMode.Brake);
+		m_leftShooterMotor.setNeutralMode(NeutralMode.Coast);
+		m_rightShooterMotor.setNeutralMode(NeutralMode.Coast);
 	}
 
 	public void run(double speed) {
