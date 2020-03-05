@@ -81,12 +81,12 @@ public class RobotContainer {
 	//private final JoystickButton m_manipulatorLogButton = new JoystickButton(m_driveStick, F310Controller.Button.kStart.getValue());
 	private final JoystickButton m_visionModeButton = new JoystickButton(m_driveStick, F310Controller.Button.kBumperLeft.getValue());
 	private final JoystickButton m_driverModeButton = new JoystickButton(m_driveStick, F310Controller.Button.kBumperRight.getValue());
-	private final JoystickButton m_LEDOnButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kBumperLeft.getValue());
+	private final JoystickButton m_LEDOnButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kStart.getValue());
 	private final JoystickButton m_LEDBlinkButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kStickLeft.getValue());
-	private final JoystickButton m_LEDOffButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kBumperRight.getValue());
+	private final JoystickButton m_LEDOffButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kBack.getValue());
 	private final JoystickButton m_LEDDefaultButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kStickRight.getValue());
-	private final JoystickButton m_intakeReverseButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kStart.getValue());
-	private final JoystickButton m_intakeButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kBack.getValue());
+	private final JoystickButton m_intakeReverseButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kBumperLeft.getValue());
+	private final JoystickButton m_intakeButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kBumperRight.getValue());
 
 	/**
 	 * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -104,9 +104,9 @@ public class RobotContainer {
 
 		m_dashboard.setDefaultCommand(new DashboardUpdater(m_dashboard));
 
-		m_feeder.setDefaultCommand(new RunFeeder(m_feeder, ()->m_manipulatorStick.getY(Hand.kLeft)));
+		//m_feeder.setDefaultCommand(new RunFeeder(m_feeder, ()->m_manipulatorStick.getY(Hand.kLeft)));
 
-		m_intake.setDefaultCommand(new RunIntake(m_intake, ()->m_manipulatorStick.getX(Hand.kLeft)));
+		//m_intake.setDefaultCommand(new RunIntake(m_intake, ()->m_manipulatorStick.getX(Hand.kLeft)));
 
 		m_led.setDefaultCommand(new AutomaticLED(m_led, m_AddressableLEDs));
 
@@ -114,7 +114,7 @@ public class RobotContainer {
 
 		m_rearCamera.setDefaultCommand(new RunRearCamera(m_rearCamera));
 
-		m_shooter.setDefaultCommand(new RunShooter(m_shooter, ()->m_manipulatorStick.getY(Hand.kRight)));
+		//m_shooter.setDefaultCommand(new RunShooter(m_shooter, ()->m_manipulatorStick.getY(Hand.kRight)));
 
 		// Setup the SendableChooser
 		chooserSetup();
@@ -147,7 +147,6 @@ public class RobotContainer {
 		m_LEDOnButton.whileActiveOnce(new LimelightLightModeControl(m_limelightCamera,
 									    LightMode.kforceOn));
 
-		// These constants still need tuning.
 		m_feederButton.whileActiveOnce(new RunFeeder(m_feeder, ()->Constants.FEEDER_SPEED), true);
 		m_feederReverseButton.whileActiveOnce(new RunFeeder(m_feeder, ()->Constants.FEEDER_REVERSE_SPEED), true);
 

@@ -22,6 +22,9 @@ public class Feeder extends SubsystemBase {
 	public Feeder() {
 		super();
 
+		// Set the inversion of the feeder motor.
+		m_feederMotor.setInverted(true);
+
 		// Set the feeder motor to Brake mode to keep balls from moving when we don't want them to.
 		m_feederMotor.setNeutralMode(NeutralMode.Brake);
 	}
