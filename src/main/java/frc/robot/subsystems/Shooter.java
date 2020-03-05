@@ -27,7 +27,7 @@ public class Shooter extends SubsystemBase {
 		// Set the inversion on the shooter motors.
 		m_leftShooterMotor.setInverted(false);
 		m_rightShooterMotor.setInverted(false);
-		m_shooterMotors.setInverted(false);
+		m_shooterMotors.setInverted(true);
 
 		// Set the shooter motors to Coast so they don't stop balls moving through them.
 		m_leftShooterMotor.setNeutralMode(NeutralMode.Coast);

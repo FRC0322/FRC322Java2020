@@ -22,6 +22,9 @@ public class Intake extends SubsystemBase {
 	public Intake() {
 		super();
 
+		// Set the inversion of the intake motor.
+		m_intakeMotor.setInverted(false);
+
 		// Set the intake motor to Coast.
 		m_intakeMotor.setNeutralMode(NeutralMode.Coast);
 	}

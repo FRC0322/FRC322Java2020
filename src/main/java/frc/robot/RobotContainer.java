@@ -81,12 +81,12 @@ public class RobotContainer {
 	//private final JoystickButton m_manipulatorLogButton = new JoystickButton(m_driveStick, F310Controller.Button.kStart.getValue());
 	private final JoystickButton m_visionModeButton = new JoystickButton(m_driveStick, F310Controller.Button.kBumperLeft.getValue());
 	private final JoystickButton m_driverModeButton = new JoystickButton(m_driveStick, F310Controller.Button.kBumperRight.getValue());
-	private final JoystickButton m_LEDOnButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kBumperLeft.getValue());
+	private final JoystickButton m_LEDOnButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kStart.getValue());
 	private final JoystickButton m_LEDBlinkButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kStickLeft.getValue());
-	private final JoystickButton m_LEDOffButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kBumperRight.getValue());
+	private final JoystickButton m_LEDOffButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kBack.getValue());
 	private final JoystickButton m_LEDDefaultButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kStickRight.getValue());
-	private final JoystickButton m_intakeReverseButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kStart.getValue());
-	private final JoystickButton m_intakeButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kBack.getValue());
+	private final JoystickButton m_intakeReverseButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kBumperLeft.getValue());
+	private final JoystickButton m_intakeButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kBumperRight.getValue());
 
 	/**
 	 * The container for the robot.  Contains subsystems, OI devices, and commands.
