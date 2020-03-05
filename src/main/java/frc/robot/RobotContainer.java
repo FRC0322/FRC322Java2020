@@ -104,9 +104,9 @@ public class RobotContainer {
 
 		m_dashboard.setDefaultCommand(new DashboardUpdater(m_dashboard));
 
-		m_feeder.setDefaultCommand(new RunFeeder(m_feeder, ()->m_manipulatorStick.getY(Hand.kLeft)));
+		//m_feeder.setDefaultCommand(new RunFeeder(m_feeder, ()->m_manipulatorStick.getY(Hand.kLeft)));
 
-		m_intake.setDefaultCommand(new RunIntake(m_intake, ()->m_manipulatorStick.getX(Hand.kLeft)));
+		//m_intake.setDefaultCommand(new RunIntake(m_intake, ()->m_manipulatorStick.getX(Hand.kLeft)));
 
 		m_led.setDefaultCommand(new AutomaticLED(m_led, m_AddressableLEDs));
 
@@ -114,7 +114,7 @@ public class RobotContainer {
 
 		m_rearCamera.setDefaultCommand(new RunRearCamera(m_rearCamera));
 
-		m_shooter.setDefaultCommand(new RunShooter(m_shooter, ()->m_manipulatorStick.getY(Hand.kRight)));
+		//m_shooter.setDefaultCommand(new RunShooter(m_shooter, ()->m_manipulatorStick.getY(Hand.kRight)));
 
 		// Setup the SendableChooser
 		chooserSetup();
@@ -147,7 +147,6 @@ public class RobotContainer {
 		m_LEDOnButton.whileActiveOnce(new LimelightLightModeControl(m_limelightCamera,
 									    LightMode.kforceOn));
 
-		// These constants still need tuning.
 		m_feederButton.whileActiveOnce(new RunFeeder(m_feeder, ()->Constants.FEEDER_SPEED), true);
 		m_feederReverseButton.whileActiveOnce(new RunFeeder(m_feeder, ()->Constants.FEEDER_REVERSE_SPEED), true);
 
