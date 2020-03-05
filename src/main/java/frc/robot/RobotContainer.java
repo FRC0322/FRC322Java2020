@@ -15,7 +15,6 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.commands.AutomaticLED;
 import frc.robot.commands.BasicAutonomous;
-import frc.robot.commands.ColorDetector;
 import frc.robot.commands.DashboardUpdater;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.DriveWithJoystick;
@@ -28,7 +27,6 @@ import frc.robot.commands.RunShooter;
 import frc.robot.commands.SimpleAutonomous;
 import frc.robot.subsystems.AddressableLEDs;
 import frc.robot.subsystems.Chassis;
-import frc.robot.subsystems.ColorSensor;
 import frc.robot.subsystems.Dashboard;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Intake;
@@ -59,7 +57,6 @@ public class RobotContainer {
 
 	private final AddressableLEDs m_AddressableLEDs = new AddressableLEDs();
 	private final Chassis m_chassis = new Chassis();
-	private final ColorSensor m_colorSensor = new ColorSensor();
 	private final Dashboard m_dashboard = new Dashboard();
 	private final Feeder m_feeder = new Feeder();
 	private final Intake m_intake = new Intake();
@@ -104,8 +101,6 @@ public class RobotContainer {
 		//m_chassis.setDefaultCommand(new DriveWithJoystick(
 		//				    ()->- m_debuggerStick.getY(Hand.kRight), ()->- m_debuggerStick.getX(Hand.kRight),
 		//					   m_chassis, m_brakeButton, m_logButton));
-
-		m_colorSensor.setDefaultCommand(new ColorDetector(m_colorSensor));
 
 		m_dashboard.setDefaultCommand(new DashboardUpdater(m_dashboard));
 
