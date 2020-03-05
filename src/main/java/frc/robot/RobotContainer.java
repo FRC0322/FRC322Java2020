@@ -25,6 +25,7 @@ import frc.robot.commands.RunFeeder;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunRearCamera;
 import frc.robot.commands.RunShooter;
+import frc.robot.commands.SimpleAutonomous;
 import frc.robot.subsystems.AddressableLEDs;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.ColorSensor;
@@ -118,10 +119,8 @@ public class RobotContainer {
 
 		m_shooter.setDefaultCommand(new RunShooter(m_shooter, ()->m_manipulatorStick.getY(Hand.kRight)));
 
-		// Add commands to Autonomous SendableChooser
-		getChooser().setDefaultOption("Do Nothing", new DoNothing());
-		getChooser().addOption("Basic Autonomous", new BasicAutonomous(m_chassis));
-		//m_dashboard.getAutonomousTab().add("Auto mode", getChooser());
+		// Setup the SendableChooser
+		chooserSetup();
 
 		// Create the Oblog Logger
 		Logger.configureLoggingAndConfig(this, false);
@@ -166,8 +165,17 @@ public class RobotContainer {
 		return m_dashboard;
 	}
 
+	// Use this to setup the SendableChooser.
+	private void chooserSetup() {
+		// Add commands to Autonomous SendableChooser
+		autonomousChooser.setDefaultOption("Do Nothing", new DoNothing());
+		autonomousChooser.addOption("Basic Autonomous", new BasicAutonomous(m_chassis));
+		autonomousChooser.addOption("Simple Autonomous", new SimpleAutonomous(m_chassis));
+		//m_dashboard.getAutonomousTab().add("Auto mode", getChooser());
+	}
+
 	/**
-	 * Use this to pass the SendableChooser to the Logger.
+	 * Use this to pass the SendableChooser to the Logger or the main {@link Robot} class.
 	 *
 	 * @return the SendableChooser<Command>
 	 */
@@ -175,7 +183,7 @@ public class RobotContainer {
 		columnIndex = 0, rowIndex = 0)
 	@Config(name = "Autonomous Chooser", tabName = "Debugger", width = 2, height = 1,
 		columnIndex = 0, rowIndex = 0)
-	private SendableChooser<Command> getChooser() {
+	public SendableChooser<Command> getChooser() {
 		return autonomousChooser;
 	}
 

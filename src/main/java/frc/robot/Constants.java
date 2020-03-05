@@ -76,8 +76,9 @@ public final class Constants {
 				   SHOOTER_SPEED = 1.0,
 				   SHOOTER_REVERSE_SPEED = -(0.5);
 
-	// BasicAutonomous.java
+	// Autonomous
 	public static final double DEFAULT_AUTONOMOUS_DISTANCE = 24.0,
 				   DEFAULT_AUTONOMOUS_HEADING = 0.0,
-				   AUTONOMOUS_DISTANCE_ERROR_FACTOR = 6.0;
+				   AUTONOMOUS_DISTANCE_ERROR_FACTOR = 6.0,
+				   DEFAULT_AUTONOMOUS_TIME = 10.0;
 }
