@@ -7,53 +7,45 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj2.command.CommandBase;
-import frc.robot.Constants;
-import frc.robot.subsystems.Chassis;
-import io.github.oblarg.oblog.annotations.Config;
+import frc.robot.subsystems.Shooter;
 
-public class BasicAutonomous extends CommandBase {
-	private final Chassis m_chassis;
-
-	@Config
-	private double heading, distance, startingDistance, errorFactor;
+public class RunShooter extends CommandBase {
+	private final Shooter m_shooter;
+	private final DoubleSupplier m_speed;
 	/**
-	 * Creates a new BasicAutonomous.
+	 * Creates a new RunShooter.
 	 */
-	public BasicAutonomous(Chassis chassis) {
-		m_chassis = chassis;
+	public RunShooter(Shooter shooter, DoubleSupplier speed) {
+		m_shooter = shooter;
+		m_speed = speed;
 		// Use addRequirements() here to declare subsystem dependencies.
-		addRequirements(m_chassis);
+		addRequirements(m_shooter);
 	}
 
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		startingDistance = Math.min(m_chassis.leftDistanceIn(), m_chassis.rightDistanceIn());
-		heading = Constants.DEFAULT_AUTONOMOUS_HEADING;
-		distance = Constants.DEFAULT_AUTONOMOUS_DISTANCE;
-		errorFactor = Constants.AUTONOMOUS_DISTANCE_ERROR_FACTOR;
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		m_chassis.autoDriveStraight(heading, distance);
+		m_shooter.run(m_speed.getAsDouble());
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
-		m_chassis.stop();
+		if (!interrupted)
+			m_shooter.stop();
 	}
 
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		if((startingDistance + distance + errorFactor) > Math.min(Math.abs(m_chassis.leftDistanceIn()),
-									  Math.abs(m_chassis.rightDistanceIn())))
-			return false;
-		else
-			return true;
+		return false;
 	}
 }

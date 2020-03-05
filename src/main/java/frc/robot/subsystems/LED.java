@@ -12,77 +12,92 @@ import com.ctre.phoenix.CANifier.LEDChannel;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 
 public class LED extends SubsystemBase {
-  private final CANifier m_ledControlCANifier;
-  private double m_red, m_blue, m_green, m_startTime, m_blinkRate;
-  /**
-   * Creates a new LED.
-   */
-  public LED() {
-    super();
-    m_ledControlCANifier = new CANifier(0);
-    m_red = m_blue = m_green = 0.0;
-    m_startTime = 0.0;
-    m_blinkRate = 0;
-  }
+	private final CANifier m_ledControlCANifier;
+	private double m_startTime;
+	/**
+	 * Creates a new LED.
+	 */
+	public LED() {
+		super();
+		m_ledControlCANifier = new CANifier(0);
+		m_startTime = 0.0;
+	}
 
-  public void setRGB(double redIntensity, double greenIntensity, double blueIntensity, double blinkRate) throws InterruptedException {
-    if(blinkRate <= 0.1) {
-      m_ledControlCANifier.setLEDOutput(redIntensity, LEDChannel.LEDChannelA);
-      m_ledControlCANifier.setLEDOutput(greenIntensity, LEDChannel.LEDChannelB);
-      m_ledControlCANifier.setLEDOutput(blueIntensity, LEDChannel.LEDChannelC);      
-    }
-    else if(m_startTime == 0.0 && blinkRate > 0.1)
-      m_startTime = Timer.getFPGATimestamp();
-    else if(((Timer.getFPGATimestamp()) < (m_startTime + blinkRate)) && blinkRate > 0.1) {
-      m_ledControlCANifier.setLEDOutput(redIntensity, LEDChannel.LEDChannelA);
-      m_ledControlCANifier.setLEDOutput(greenIntensity, LEDChannel.LEDChannelB);
-      m_ledControlCANifier.setLEDOutput(blueIntensity, LEDChannel.LEDChannelC);
-    }
-    else if((Timer.getFPGATimestamp() < (m_startTime + (blinkRate * 2))) && blinkRate > 0.1) {
-      m_ledControlCANifier.setLEDOutput(0.0, LEDChannel.LEDChannelA);
-      m_ledControlCANifier.setLEDOutput(0.0, LEDChannel.LEDChannelB);
-      m_ledControlCANifier.setLEDOutput(0.0, LEDChannel.LEDChannelC);
-    }
-    else
-      m_startTime = 0.0;
-  }
+	public void setRGB(double redIntensity, double greenIntensity, double blueIntensity, double blinkRate) {
+		if(blinkRate <= 0.1) {
+			m_ledControlCANifier.setLEDOutput(redIntensity, LEDChannel.LEDChannelA);
+			m_ledControlCANifier.setLEDOutput(greenIntensity, LEDChannel.LEDChannelB);
+			m_ledControlCANifier.setLEDOutput(blueIntensity, LEDChannel.LEDChannelC);
+		}
+		else if(m_startTime == 0.0 && blinkRate > 0.1)
+			m_startTime = Timer.getFPGATimestamp();
+		else if(((Timer.getFPGATimestamp()) < (m_startTime + blinkRate)) && blinkRate > 0.1) {
+			m_ledControlCANifier.setLEDOutput(redIntensity, LEDChannel.LEDChannelA);
+			m_ledControlCANifier.setLEDOutput(greenIntensity, LEDChannel.LEDChannelB);
+			m_ledControlCANifier.setLEDOutput(blueIntensity, LEDChannel.LEDChannelC);
+		}
+		else if((Timer.getFPGATimestamp() < (m_startTime + (blinkRate * 2))) && blinkRate > 0.1) {
+			m_ledControlCANifier.setLEDOutput(0.0, LEDChannel.LEDChannelA);
+			m_ledControlCANifier.setLEDOutput(0.0, LEDChannel.LEDChannelB);
+			m_ledControlCANifier.setLEDOutput(0.0, LEDChannel.LEDChannelC);
+		}
+		else
+			m_startTime = 0.0;
+	}
 
-  public void automaticLEDSetter() throws InterruptedException {
-   	if(Constants.DS.isDisabled())             m_blinkRate = 0.5;
-   	else if(Constants.DS.isAutonomous())      m_blinkRate = 0.1;
-   	else if(Constants.DS.isOperatorControl()) m_blinkRate = 0.25;
-   	else                                      m_blinkRate = 0.0;
-  
-    if(Constants.DS.getAlliance() == DriverStation.Alliance.Red) {
-   		m_red = 1.0;
-   		m_green = 0.0;
-   		m_blue = 0.0;
-   	}
-   	else if(Constants.DS.getAlliance() == DriverStation.Alliance.Blue) {
-   		m_red = 0.0;
-   		m_green = 0.0;
-   		m_blue = 1.0;
-   	}
-   	else if(Constants.DS.getAlliance() == DriverStation.Alliance.Invalid) {
-   		m_red = 1.0;
-   		m_green = 0.0;
-   		m_blue = 1.0;
-   	}
-   	else {
-   		m_red = 0.0;
-   		m_green = 1.0;
-   		m_blue = 0.0;
-   	}
-  
-     setRGB(m_red, m_green, m_blue, m_blinkRate);
-  }
+	public void setRGB(Color color, double blinkRate) {
+		if(blinkRate <= 0.1) {
+			m_ledControlCANifier.setLEDOutput(color.red, LEDChannel.LEDChannelA);
+			m_ledControlCANifier.setLEDOutput(color.green, LEDChannel.LEDChannelB);
+			m_ledControlCANifier.setLEDOutput(color.blue, LEDChannel.LEDChannelC);
+		}
+		else if(m_startTime == 0.0 && blinkRate > 0.1)
+			m_startTime = Timer.getFPGATimestamp();
+		else if(((Timer.getFPGATimestamp()) < (m_startTime + blinkRate)) && blinkRate > 0.1) {
+			m_ledControlCANifier.setLEDOutput(color.red, LEDChannel.LEDChannelA);
+			m_ledControlCANifier.setLEDOutput(color.green, LEDChannel.LEDChannelB);
+			m_ledControlCANifier.setLEDOutput(color.blue, LEDChannel.LEDChannelC);
+		}
+		else if((Timer.getFPGATimestamp() < (m_startTime + (blinkRate * 2))) && blinkRate > 0.1) {
+			m_ledControlCANifier.setLEDOutput(Color.kBlack.red, LEDChannel.LEDChannelA);
+			m_ledControlCANifier.setLEDOutput(Color.kBlack.green, LEDChannel.LEDChannelB);
+			m_ledControlCANifier.setLEDOutput(Color.kBlack.blue, LEDChannel.LEDChannelC);
+		}
+		else
+			m_startTime = 0.0;
+	}
 
-  @Override
-  public void periodic() {
-    // This method will be called once per scheduler run
-  }
+	public void automaticLEDSetter() {
+		var blinkRate = 0.0;
+		var color = Color.kBlack;
+		if(Constants.DS.isDisabled()) blinkRate = Constants.DISABLED_BLINK_RATE;
+		else if(Constants.DS.isAutonomous()) blinkRate = Constants.AUTONOMOUS_BLINK_RATE;
+		else if(Constants.DS.isOperatorControl()) blinkRate = Constants.TELOP_BLINK_RATE;
+		else blinkRate = 0.0;
+
+		if(Constants.DS.getAlliance() == DriverStation.Alliance.Red) {
+			color = Color.kFirstRed;
+		}
+		else if(Constants.DS.getAlliance() == DriverStation.Alliance.Blue) {
+			color = Color.kFirstBlue;
+		}
+		else if(Constants.DS.getAlliance() == DriverStation.Alliance.Invalid) {
+			color = Color.kKhaki;
+		}
+		else {
+			color = Color.kDarkMagenta;
+		}
+
+		setRGB(color, blinkRate);
+	}
+
+	@Override
+	public void periodic() {
+		// This method will be called once per scheduler run
+	}
 }
