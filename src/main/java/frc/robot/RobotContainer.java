@@ -7,13 +7,12 @@
 
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.GenericHID.Hand;
-import edu.wpi.first.wpilibj.XboxController;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 //import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+
 import frc.robot.commands.AutomaticLED;
 import frc.robot.commands.BasicAutonomous;
 import frc.robot.commands.ColorDetector;
@@ -40,9 +39,10 @@ import frc.robot.utilities.F310Controller;
 import frc.robot.utilities.Limelight;
 import frc.robot.utilities.Limelight.CameraMode;
 import frc.robot.utilities.Limelight.LightMode;
+//import frc.robot.utilities.RumblePad2;
+
 import io.github.oblarg.oblog.Logger;
 import io.github.oblarg.oblog.annotations.Config;
-//import frc.robot.utilities.RumblePad2;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -55,13 +55,13 @@ public class RobotContainer {
 	Command m_autoCommand;
 	SendableChooser<Command> autonomousChooser = new SendableChooser<>();
 
+	private final AddressableLEDs m_AddressableLEDs = new AddressableLEDs();
 	private final Chassis m_chassis = new Chassis();
 	private final ColorSensor m_colorSensor = new ColorSensor();
 	private final Dashboard m_dashboard = new Dashboard();
 	private final Feeder m_feeder = new Feeder();
 	private final Intake m_intake = new Intake();
 	private final LED m_led = new LED();
-	private final AddressableLEDs m_AddressableLEDs = new AddressableLEDs();
 	private final LimelightCamera m_limelightCamera = new LimelightCamera();
 	private final RearCamera m_rearCamera = new RearCamera();
 	private final Shooter m_shooter = new Shooter();
@@ -86,10 +86,11 @@ public class RobotContainer {
 	private final JoystickButton m_LEDOffButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kBumperRight.getValue());
 	private final JoystickButton m_LEDDefaultButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kStickRight.getValue());
 	private final JoystickButton m_intakeReverseButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kStart.getValue());
+	private final JoystickButton m_intakeButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kBack.getValue());
 
-/**
- * The container for the robot.  Contains subsystems, OI devices, and commands.
- */
+	/**
+	 * The container for the robot.  Contains subsystems, OI devices, and commands.
+	 */
 	public RobotContainer() {
 		// Assign default commands
 		m_chassis.setDefaultCommand(new DriveWithJoystick(
@@ -108,7 +109,6 @@ public class RobotContainer {
 		m_feeder.setDefaultCommand(new RunFeeder(m_feeder, ()->m_manipulatorStick.getY(Hand.kLeft)));
 
 		m_intake.setDefaultCommand(new RunIntake(m_intake, ()->m_manipulatorStick.getX(Hand.kLeft)));
-		//m_intake.setDefaultCommand(new RunIntake(m_intake, ()->Constants.INTAKE_SPEED));
 
 		m_led.setDefaultCommand(new AutomaticLED(m_led, m_AddressableLEDs));
 
@@ -130,12 +130,12 @@ public class RobotContainer {
 		configureButtonBindings();
 	}
 
-/**
- * Use this method to define your button->command mappings.  Buttons can be created by
- * instantiating a {@link GenericHID} or one of its subclasses ({@link
- * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
- * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
- */
+	/**
+	 * Use this method to define your button->command mappings.  Buttons can be created by
+	 * instantiating a {@link GenericHID} or one of its subclasses ({@link
+	 * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
+	 * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
+	 */
 	private void configureButtonBindings() {
 		m_visionModeButton.whileActiveOnce(new LimelightCameraModeControl(m_limelightCamera,
 										  CameraMode.kvision));
@@ -152,10 +152,13 @@ public class RobotContainer {
 									    LightMode.kforceOn));
 
 		// These constants still need tuning.
-		m_feederButton.toggleWhenActive(new RunFeeder(m_feeder, ()->Constants.FEEDER_SPEED), true);
-		m_feederReverseButton.toggleWhenActive(new RunFeeder(m_feeder, ()->Constants.FEEDER_REVERSE_SPEED), true);
-		m_shooterButton.toggleWhenActive(new RunShooter(m_shooter, ()->Constants.SHOOTER_SPEED), true);
-		m_shooterReverseButton.toggleWhenActive(new RunShooter(m_shooter, ()->Constants.SHOOTER_REVERSE_SPEED), true);
+		m_feederButton.whileActiveOnce(new RunFeeder(m_feeder, ()->Constants.FEEDER_SPEED), true);
+		m_feederReverseButton.whileActiveOnce(new RunFeeder(m_feeder, ()->Constants.FEEDER_REVERSE_SPEED), true);
+
+		m_shooterButton.whileActiveOnce(new RunShooter(m_shooter, ()->Constants.SHOOTER_SPEED), true);
+		m_shooterReverseButton.whileActiveOnce(new RunShooter(m_shooter, ()->Constants.SHOOTER_REVERSE_SPEED), true);
+
+		m_intakeButton.whileActiveOnce(new RunIntake(m_intake, ()->Constants.INTAKE_SPEED));
 		m_intakeReverseButton.whileActiveOnce(new RunIntake(m_intake, ()->Constants.INTAKE_REVERSE_SPEED));
 	}
 
@@ -163,6 +166,11 @@ public class RobotContainer {
 		return m_dashboard;
 	}
 
+	/**
+	 * Use this to pass the SendableChooser to the Logger.
+	 *
+	 * @return the SendableChooser<Command>
+	 */
 	@Config(name = "Autonomous Chooser", tabName = "Autonomous", width = 2, height = 1,
 		columnIndex = 0, rowIndex = 0)
 	@Config(name = "Autonomous Chooser", tabName = "Debugger", width = 2, height = 1,
