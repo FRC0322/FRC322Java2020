@@ -76,6 +76,9 @@ public final class Constants {
 				   SHOOTER_SPEED = 1.0,
 				   SHOOTER_REVERSE_SPEED = -(0.5);
 
+	// Robot Power
+	public static final int PDP_CHANNEL = 0;
+
 	// Autonomous
 	public static final double DEFAULT_AUTONOMOUS_DISTANCE = 24.0,
 				   DEFAULT_AUTONOMOUS_HEADING = 0.0,

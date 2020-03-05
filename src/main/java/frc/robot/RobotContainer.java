@@ -35,6 +35,7 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.LED;
 import frc.robot.subsystems.LimelightCamera;
 import frc.robot.subsystems.RearCamera;
+import frc.robot.subsystems.RobotPower;
 import frc.robot.subsystems.Shooter;
 import frc.robot.utilities.F310Controller;
 import frc.robot.utilities.Limelight;
@@ -65,6 +66,7 @@ public class RobotContainer {
 	private final LED m_led = new LED();
 	private final LimelightCamera m_limelightCamera = new LimelightCamera();
 	private final RearCamera m_rearCamera = new RearCamera();
+	private final RobotPower m_robotPower = new RobotPower();
 	private final Shooter m_shooter = new Shooter();
 
 	private final F310Controller m_driveStick = new F310Controller(Constants.DRIVE_STICK);
