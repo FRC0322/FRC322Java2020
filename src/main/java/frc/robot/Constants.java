@@ -72,7 +72,7 @@ public final class Constants {
 	public static final double FEEDER_SPEED = 0.75,
 				   FEEDER_REVERSE_SPEED = -(0.5),
 				   INTAKE_SPEED = 1.0,
-				   INTAKE_REVERSE_SPEED = -(0.5),
+				   INTAKE_REVERSE_SPEED = -(0.75),
 				   SHOOTER_SPEED = 1.0,
 				   SHOOTER_REVERSE_SPEED = -(0.5);
 
