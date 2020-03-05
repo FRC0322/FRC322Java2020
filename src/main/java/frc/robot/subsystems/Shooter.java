@@ -8,7 +8,7 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -16,8 +16,8 @@ import frc.robot.Constants;
 
 public class Shooter extends SubsystemBase {
 	//The Shooter is both our upper level ball intake and our ball output mechanism.
-	private final WPI_TalonSRX m_leftShooterMotor = new WPI_TalonSRX(Constants.LEFT_SHOOTER_MOTOR);
-	private final WPI_TalonSRX m_rightShooterMotor = new WPI_TalonSRX(Constants.RIGHT_SHOOTER_MOTOR);
+	private final WPI_VictorSPX m_leftShooterMotor = new WPI_VictorSPX(Constants.LEFT_SHOOTER_MOTOR);
+	private final WPI_VictorSPX m_rightShooterMotor = new WPI_VictorSPX(Constants.RIGHT_SHOOTER_MOTOR);
 	private final SpeedControllerGroup m_shooterMotors = new SpeedControllerGroup(m_leftShooterMotor, m_rightShooterMotor);
 	/**
 	 * Creates a new Shooter.
