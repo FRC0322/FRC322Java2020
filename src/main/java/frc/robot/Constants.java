@@ -34,18 +34,18 @@ public final class Constants {
 	// ColorSensor.java
 	// These are predetermined defaults.
 	// We need to recalibrate these for ourselves.
-	public static final double RED_R = 0.561,
-				   RED_G = 0.232,
-				   RED_B = 0.114,
-				   GREEN_R = 0.197,
-				   GREEN_G = 0.561,
-				   GREEN_B = 0.240,
-				   BLUE_R = 0.143,
-				   BLUE_G = 0.427,
-				   BLUE_B = 0.429,
-				   YELLOW_R = 0.361,
-				   YELLOW_G = 0.524,
-				   YELLOW_B = 0.113;
+	//public static final double RED_R = 0.561,
+	//			   RED_G = 0.232,
+	//			   RED_B = 0.114,
+	//			   GREEN_R = 0.197,
+	//			   GREEN_G = 0.561,
+	//			   GREEN_B = 0.240,
+	//			   BLUE_R = 0.143,
+	//			   BLUE_G = 0.427,
+	//			   BLUE_B = 0.429,
+	//			   YELLOW_R = 0.361,
+	//			   YELLOW_G = 0.524,
+	//			   YELLOW_B = 0.113;
 
 	// Chassis.java
 	public static final int DRIVE_LEFTFRONT = 1,
@@ -81,7 +81,9 @@ public final class Constants {
 
 	// Autonomous
 	public static final double DEFAULT_AUTONOMOUS_DISTANCE = 24.0,
+				   DEFAULT_AUTONOMOUS_SPEED = 0.35,
 				   DEFAULT_AUTONOMOUS_HEADING = 0.0,
 				   AUTONOMOUS_DISTANCE_ERROR_FACTOR = 6.0,
-				   DEFAULT_AUTONOMOUS_TIME = 10.0;
+				   DEFAULT_AUTONOMOUS_TIME = 10.0,
+				   SHOOTER_AUTONOMOUS_DRIVETIME = 3.0;
 }

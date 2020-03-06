@@ -24,6 +24,7 @@ import frc.robot.commands.RunFeeder;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunRearCamera;
 import frc.robot.commands.RunShooter;
+import frc.robot.commands.ShooterAutonomous;
 import frc.robot.commands.SimpleAutonomous;
 import frc.robot.subsystems.AddressableLEDs;
 import frc.robot.subsystems.Chassis;
@@ -95,18 +96,18 @@ public class RobotContainer {
 		// Assign default commands
 		m_chassis.setDefaultCommand(new DriveWithJoystick(
 						    ()->m_driveStick.getTriggerAxis(Hand.kRight) - m_driveStick.getTriggerAxis(Hand.kLeft),
-						    ()->- (m_driveStick.getX(Hand.kLeft)), m_chassis, m_brakeButton, m_logButton));
+						    ()->(m_driveStick.getX(Hand.kLeft)), m_chassis, m_brakeButton, m_logButton));
 
 		// Default command for debugging purposes
 		//m_chassis.setDefaultCommand(new DriveWithJoystick(
-		//				    ()->- m_debuggerStick.getY(Hand.kRight), ()->- m_debuggerStick.getX(Hand.kRight),
+		//				    ()-> m_debuggerStick.getY(Hand.kRight), ()-> m_debuggerStick.getX(Hand.kRight),
 		//					   m_chassis, m_brakeButton, m_logButton));
 
 		m_dashboard.setDefaultCommand(new DashboardUpdater(m_dashboard));
 
-		//m_feeder.setDefaultCommand(new RunFeeder(m_feeder, ()->m_manipulatorStick.getY(Hand.kLeft)));
+		m_feeder.setDefaultCommand(new RunFeeder(m_feeder, ()->- m_manipulatorStick.getY(Hand.kLeft)));
 
-		//m_intake.setDefaultCommand(new RunIntake(m_intake, ()->m_manipulatorStick.getX(Hand.kLeft)));
+		m_intake.setDefaultCommand(new RunIntake(m_intake, ()->- m_manipulatorStick.getY(Hand.kRight)));
 
 		m_led.setDefaultCommand(new AutomaticLED(m_led, m_AddressableLEDs));
 
@@ -114,7 +115,8 @@ public class RobotContainer {
 
 		m_rearCamera.setDefaultCommand(new RunRearCamera(m_rearCamera));
 
-		//m_shooter.setDefaultCommand(new RunShooter(m_shooter, ()->m_manipulatorStick.getY(Hand.kRight)));
+		m_shooter.setDefaultCommand(new RunShooter(m_shooter, ()->m_manipulatorStick.getTriggerAxis(Hand.kRight)
+							   - m_manipulatorStick.getTriggerAxis(Hand.kLeft)));
 
 		// Setup the SendableChooser
 		chooserSetup();
@@ -167,7 +169,8 @@ public class RobotContainer {
 		autonomousChooser.setDefaultOption("Do Nothing", new DoNothing());
 		autonomousChooser.addOption("Basic Autonomous", new BasicAutonomous(m_chassis));
 		autonomousChooser.addOption("Simple Autonomous", new SimpleAutonomous(m_chassis));
-		//m_dashboard.getAutonomousTab().add("Auto mode", getChooser());
+		autonomousChooser.addOption("Shooter Autonomous", new ShooterAutonomous(m_chassis, m_feeder, m_shooter));
+		m_dashboard.getAutonomousTab().add("Auto mode", getChooser());
 	}
 
 	/**
