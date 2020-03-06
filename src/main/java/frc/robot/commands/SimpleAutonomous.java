@@ -36,7 +36,7 @@ public class SimpleAutonomous extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		m_chassis.drive(Constants.DEFAULT_AUTONOMOUS_SPEED, Constants.DEFAULT_AUTONOMOUS_HEADING);
+		m_chassis.drive(-(Constants.DEFAULT_AUTONOMOUS_SPEED), Constants.DEFAULT_AUTONOMOUS_HEADING);
 	}
 
 	// Called once the command ends or is interrupted.
