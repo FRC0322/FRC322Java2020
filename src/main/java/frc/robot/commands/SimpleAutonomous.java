@@ -48,9 +48,11 @@ public class SimpleAutonomous extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		if(Timer.getFPGATimestamp() < (startTime + Constants.DEFAULT_AUTONOMOUS_TIME))
+		if(Timer.getFPGATimestamp() < (startTime + Constants.DEFAULT_AUTONOMOUS_TIME)) {
 			return false;
-		else
+		}
+		else {
 			return true;
+		}
 	}
 }
