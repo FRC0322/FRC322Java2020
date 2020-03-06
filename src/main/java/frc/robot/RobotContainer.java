@@ -24,6 +24,7 @@ import frc.robot.commands.RunFeeder;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunRearCamera;
 import frc.robot.commands.RunShooter;
+import frc.robot.commands.ShooterAutonomous;
 import frc.robot.commands.SimpleAutonomous;
 import frc.robot.subsystems.AddressableLEDs;
 import frc.robot.subsystems.Chassis;
@@ -168,7 +169,8 @@ public class RobotContainer {
 		autonomousChooser.setDefaultOption("Do Nothing", new DoNothing());
 		autonomousChooser.addOption("Basic Autonomous", new BasicAutonomous(m_chassis));
 		autonomousChooser.addOption("Simple Autonomous", new SimpleAutonomous(m_chassis));
-		//m_dashboard.getAutonomousTab().add("Auto mode", getChooser());
+		autonomousChooser.addOption("Shooter Autonomous", new ShooterAutonomous(m_chassis, m_feeder, m_shooter));
+		m_dashboard.getAutonomousTab().add("Auto mode", getChooser());
 	}
 
 	/**
