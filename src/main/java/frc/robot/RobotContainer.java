@@ -18,6 +18,7 @@ import frc.robot.commands.BasicAutonomous;
 import frc.robot.commands.DashboardUpdater;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.DriveWithJoystick;
+import frc.robot.commands.ForwardAutonomous;
 import frc.robot.commands.LimelightCameraModeControl;
 import frc.robot.commands.LimelightLightModeControl;
 import frc.robot.commands.RunFeeder;
@@ -168,9 +169,12 @@ public class RobotContainer {
 		// Add commands to Autonomous SendableChooser
 		autonomousChooser.setDefaultOption("Do Nothing", new DoNothing());
 		autonomousChooser.addOption("Basic Autonomous", new BasicAutonomous(m_chassis));
+		autonomousChooser.addOption("Forward Autonomous", new ForwardAutonomous(m_chassis));
 		autonomousChooser.addOption("Simple Autonomous", new SimpleAutonomous(m_chassis));
 		autonomousChooser.addOption("Shooter Autonomous", new ShooterAutonomous(m_chassis, m_feeder, m_shooter));
-		m_dashboard.getAutonomousTab().add("Auto mode", getChooser());
+
+		// Add the Autonomous SendableChooser to the Shuffleboard
+		m_dashboard.getAutonomousTab().add("Autonomous Mode", getChooser());
 	}
 
 	/**
