@@ -46,7 +46,7 @@ public class ShooterAutonomous extends CommandBase {
 	public void execute() {
 		if (Timer.getFPGATimestamp() < (startTime + 3.0))
 			m_chassis.drive(-Constants.DEFAULT_AUTONOMOUS_SPEED, Constants.DEFAULT_AUTONOMOUS_HEADING);
-		else if (Timer.getFPGATimestamp() < (startTime + 3.0 + 1.0)) {
+		else if (Timer.getFPGATimestamp() < (startTime + 3.0 + 0.5)) {
 			m_chassis.drive(0.0, -Constants.DEFAULT_AUTONOMOUS_SPEED);
 		}
 		else if (Timer.getFPGATimestamp() < (startTime + 3.0 + 1.0 + 0.5)) {
