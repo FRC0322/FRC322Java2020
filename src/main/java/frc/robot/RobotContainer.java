@@ -9,7 +9,6 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID.Hand;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
-//import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
@@ -24,6 +23,7 @@ import frc.robot.commands.RunFeeder;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunRearCamera;
 import frc.robot.commands.RunShooter;
+import frc.robot.commands.TotalCurrentWarning;
 import frc.robot.commands.AutonomousShootFromRight;
 import frc.robot.commands.AutonomousDriveBackward;
 import frc.robot.commands.AutonomousShootStraight;
@@ -115,6 +115,8 @@ public class RobotContainer {
 		m_limelightCamera.setDefaultCommand(new LimelightLightModeControl(m_limelightCamera, Limelight.LightMode.kforceOff));
 
 		m_rearCamera.setDefaultCommand(new RunRearCamera(m_rearCamera));
+
+		m_robotPower.setDefaultCommand(new TotalCurrentWarning(m_robotPower));
 
 		m_shooter.setDefaultCommand(new RunShooter(m_shooter, ()->m_manipulatorStick.getTriggerAxis(Hand.kRight)
 							   - m_manipulatorStick.getTriggerAxis(Hand.kLeft)));
