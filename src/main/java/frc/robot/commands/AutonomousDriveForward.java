@@ -7,21 +7,26 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Chassis;
-import io.github.oblarg.oblog.annotations.Config;
 
-public class BasicAutonomous extends CommandBase {
+public class AutonomousDriveForward extends CommandBase {
 	private final Chassis m_chassis;
 
-	@Config
-	private double heading, distance, startingDistance, errorFactor;
+	private final DoubleSupplier m_autonSpeed, m_autonHeading;
+
+	private double startTime;
 	/**
-	 * Creates a new BasicAutonomous.
+	 * Creates a new SimpleAutonomous.
 	 */
-	public BasicAutonomous(Chassis chassis) {
+	public AutonomousDriveForward(Chassis chassis) {
 		m_chassis = chassis;
+		m_autonSpeed = ()->Constants.DEFAULT_AUTONOMOUS_SPEED;
+		m_autonHeading = ()->Constants.DEFAULT_AUTONOMOUS_HEADING;
 		// Use addRequirements() here to declare subsystem dependencies.
 		addRequirements(m_chassis);
 	}
@@ -29,16 +34,13 @@ public class BasicAutonomous extends CommandBase {
 	// Called when the command is initially scheduled.
 	@Override
 	public void initialize() {
-		startingDistance = Math.min(m_chassis.leftDistanceIn(), m_chassis.rightDistanceIn());
-		heading = Constants.DEFAULT_AUTONOMOUS_HEADING;
-		distance = Constants.DEFAULT_AUTONOMOUS_DISTANCE;
-		errorFactor = Constants.AUTONOMOUS_DISTANCE_ERROR_FACTOR;
+		startTime = Timer.getFPGATimestamp();
 	}
 
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		m_chassis.autoDriveStraight(heading, distance);
+		m_chassis.drive(-m_autonSpeed.getAsDouble(), m_autonHeading.getAsDouble());
 	}
 
 	// Called once the command ends or is interrupted.
@@ -50,10 +52,11 @@ public class BasicAutonomous extends CommandBase {
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		if((startingDistance + distance + errorFactor) > Math.min(Math.abs(m_chassis.leftDistanceIn()),
-									  Math.abs(m_chassis.rightDistanceIn())))
+		if(Timer.getFPGATimestamp() < (startTime + Constants.DEFAULT_AUTONOMOUS_TIME)) {
 			return false;
-		else
+		}
+		else {
 			return true;
+		}
 	}
 }

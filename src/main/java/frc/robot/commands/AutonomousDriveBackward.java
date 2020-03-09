@@ -7,32 +7,28 @@
 
 package frc.robot.commands;
 
+import java.util.function.DoubleSupplier;
+
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.Constants;
 import frc.robot.subsystems.Chassis;
-import frc.robot.subsystems.Feeder;
-import frc.robot.subsystems.Shooter;
-import io.github.oblarg.oblog.annotations.Config;
 
-public class StraightShooterAutonomous extends CommandBase {
+public class AutonomousDriveBackward extends CommandBase {
 	private final Chassis m_chassis;
-	private final Feeder m_feeder;
-	private final Shooter m_shooter;
 
-	@Config
+	private final DoubleSupplier m_autonSpeed, m_autonHeading;
+
 	private double startTime;
 	/**
-	 * Creates a new ShooterAutonomous.
+	 * Creates a new SimpleAutonomous.
 	 */
-	public StraightShooterAutonomous(Chassis chassis, Feeder feeder, Shooter shooter) {
+	public AutonomousDriveBackward(Chassis chassis) {
 		m_chassis = chassis;
-		m_feeder = feeder;
-		m_shooter = shooter;
+		m_autonSpeed = ()->Constants.DEFAULT_AUTONOMOUS_SPEED;
+		m_autonHeading = ()->Constants.DEFAULT_AUTONOMOUS_HEADING;
 		// Use addRequirements() here to declare subsystem dependencies.
 		addRequirements(m_chassis);
-		addRequirements(m_feeder);
-		addRequirements(m_shooter);
 	}
 
 	// Called when the command is initially scheduled.
@@ -44,31 +40,23 @@ public class StraightShooterAutonomous extends CommandBase {
 	// Called every time the scheduler runs while the command is scheduled.
 	@Override
 	public void execute() {
-		if (Timer.getFPGATimestamp() < (startTime + 3.0))
-			m_chassis.drive(-Constants.DEFAULT_AUTONOMOUS_SPEED, Constants.DEFAULT_AUTONOMOUS_HEADING);
-		else if (Timer.getFPGATimestamp() < (startTime + 3.0 + 1.0)) {
-			m_shooter.run(Constants.SHOOTER_SPEED);
-		}
-		else if (Timer.getFPGATimestamp() > (startTime + 3.0 + 1.0 + 0.75)) {
-			m_shooter.run(Constants.SHOOTER_SPEED);
-			m_feeder.run(Constants.FEEDER_SPEED);
-		}
+		m_chassis.drive(-m_autonSpeed.getAsDouble(), m_autonHeading.getAsDouble());
 	}
 
 	// Called once the command ends or is interrupted.
 	@Override
 	public void end(boolean interrupted) {
 		m_chassis.stop();
-		m_shooter.stop();
-		m_feeder.stop();
 	}
 
 	// Returns true when the command should end.
 	@Override
 	public boolean isFinished() {
-		if(Timer.getFPGATimestamp() < (startTime + 10.0))
+		if(Timer.getFPGATimestamp() < (startTime + Constants.DEFAULT_AUTONOMOUS_TIME)) {
 			return false;
-		else
+		}
+		else {
 			return true;
+		}
 	}
 }

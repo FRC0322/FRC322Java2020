@@ -14,20 +14,19 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 
 import frc.robot.commands.AutomaticLED;
-import frc.robot.commands.BasicAutonomous;
 import frc.robot.commands.DashboardUpdater;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.DriveWithJoystick;
-import frc.robot.commands.ForwardAutonomous;
+import frc.robot.commands.AutonomousDriveForward;
 import frc.robot.commands.LimelightCameraModeControl;
 import frc.robot.commands.LimelightLightModeControl;
 import frc.robot.commands.RunFeeder;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunRearCamera;
 import frc.robot.commands.RunShooter;
-import frc.robot.commands.ShooterAutonomous;
-import frc.robot.commands.SimpleAutonomous;
-import frc.robot.commands.StraightShooterAutonomous;
+import frc.robot.commands.AutonomousShootFromRight;
+import frc.robot.commands.AutonomousDriveBackward;
+import frc.robot.commands.AutonomousShootStraight;
 import frc.robot.subsystems.AddressableLEDs;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Dashboard;
@@ -169,11 +168,10 @@ public class RobotContainer {
 	private void chooserSetup() {
 		// Add commands to Autonomous SendableChooser
 		autonomousChooser.setDefaultOption("Do Nothing", new DoNothing());
-		autonomousChooser.addOption("Basic Autonomous", new BasicAutonomous(m_chassis));
-		autonomousChooser.addOption("Forward Autonomous", new ForwardAutonomous(m_chassis));
-		autonomousChooser.addOption("Simple Autonomous", new SimpleAutonomous(m_chassis));
-		autonomousChooser.addOption("Shooter Autonomous", new ShooterAutonomous(m_chassis, m_feeder, m_shooter));
-		autonomousChooser.addOption("Straight Shooter", new StraightShooterAutonomous(m_chassis, m_feeder, m_shooter));
+		autonomousChooser.addOption("Drive Forward", new AutonomousDriveForward(m_chassis));
+		autonomousChooser.addOption("Drive Backward", new AutonomousDriveBackward(m_chassis));
+		autonomousChooser.addOption("Shoot From the Right", new AutonomousShootFromRight(m_chassis, m_feeder, m_shooter));
+		autonomousChooser.addOption("Shoot Straight", new AutonomousShootStraight(m_chassis, m_feeder, m_shooter));
 
 		// Add the Autonomous SendableChooser to the Shuffleboard
 		m_dashboard.getAutonomousTab().add("Autonomous Mode", getChooser());
