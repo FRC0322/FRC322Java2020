@@ -13,7 +13,7 @@ import frc.robot.Constants;
 import frc.robot.subsystems.Chassis;
 import io.github.oblarg.oblog.annotations.Config;
 
-public class SimpleAutonomous extends CommandBase {
+public class ForwardAutonomous extends CommandBase {
 	private final Chassis m_chassis;
 
 	@Config
@@ -21,7 +21,7 @@ public class SimpleAutonomous extends CommandBase {
 	/**
 	 * Creates a new SimpleAutonomous.
 	 */
-	public SimpleAutonomous(Chassis chassis) {
+	public ForwardAutonomous(Chassis chassis) {
 		m_chassis = chassis;
 		// Use addRequirements() here to declare subsystem dependencies.
 		addRequirements(m_chassis);

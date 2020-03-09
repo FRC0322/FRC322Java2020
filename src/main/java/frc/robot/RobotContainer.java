@@ -18,6 +18,7 @@ import frc.robot.commands.BasicAutonomous;
 import frc.robot.commands.DashboardUpdater;
 import frc.robot.commands.DoNothing;
 import frc.robot.commands.DriveWithJoystick;
+import frc.robot.commands.ForwardAutonomous;
 import frc.robot.commands.LimelightCameraModeControl;
 import frc.robot.commands.LimelightLightModeControl;
 import frc.robot.commands.RunFeeder;
@@ -26,6 +27,7 @@ import frc.robot.commands.RunRearCamera;
 import frc.robot.commands.RunShooter;
 import frc.robot.commands.ShooterAutonomous;
 import frc.robot.commands.SimpleAutonomous;
+import frc.robot.commands.StraightShooterAutonomous;
 import frc.robot.subsystems.AddressableLEDs;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Dashboard;
@@ -168,9 +170,13 @@ public class RobotContainer {
 		// Add commands to Autonomous SendableChooser
 		autonomousChooser.setDefaultOption("Do Nothing", new DoNothing());
 		autonomousChooser.addOption("Basic Autonomous", new BasicAutonomous(m_chassis));
+		autonomousChooser.addOption("Forward Autonomous", new ForwardAutonomous(m_chassis));
 		autonomousChooser.addOption("Simple Autonomous", new SimpleAutonomous(m_chassis));
 		autonomousChooser.addOption("Shooter Autonomous", new ShooterAutonomous(m_chassis, m_feeder, m_shooter));
-		m_dashboard.getAutonomousTab().add("Auto mode", getChooser());
+		autonomousChooser.addOption("Straight Shooter", new StraightShooterAutonomous(m_chassis, m_feeder, m_shooter));
+
+		// Add the Autonomous SendableChooser to the Shuffleboard
+		m_dashboard.getAutonomousTab().add("Autonomous Mode", getChooser());
 	}
 
 	/**
@@ -192,6 +198,7 @@ public class RobotContainer {
 	 * @return the command to run in autonomous
 	 */
 	public Command getAutonomousCommand() {
+		m_autoCommand = autonomousChooser.getSelected();
 		return m_autoCommand;
 	}
 }
