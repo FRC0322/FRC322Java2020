@@ -39,6 +39,12 @@ public class Intake extends SubsystemBase {
 		m_intakeMotor.set(speed);
 	}
 
+	public void intakeLog(boolean logging) {
+		if (logging) {
+			System.out.println("Nothing here, yet.");
+		}
+	}
+
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run

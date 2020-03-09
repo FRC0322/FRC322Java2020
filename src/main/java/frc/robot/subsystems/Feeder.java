@@ -39,6 +39,12 @@ public class Feeder extends SubsystemBase {
 		m_feederMotor.set(speed);
 	}
 
+	public void feederLog(boolean logging) {
+		if (logging) {
+			System.out.println("Nothing here, yet.");
+		}
+	}
+
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run

@@ -67,12 +67,10 @@ public class Chassis extends SubsystemBase implements Loggable {
 		// Setup the encoders
 		m_leftFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
 		m_rightFrontMotor.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder);
-		System.out.println("Encoders Setup");
 
 		// Choose whether to invert the encoders on the Talon SRX's
 		m_leftFrontMotor.setSensorPhase(false);
 		m_rightFrontMotor.setSensorPhase(false);
-		System.out.println("Encoder Phasing Complete");
 	}
 
 	/**

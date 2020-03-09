@@ -42,6 +42,12 @@ public class Shooter extends SubsystemBase {
 		m_shooterMotors.set(speed);
 	}
 
+	public void shooterLog(boolean logging) {
+		if (logging) {
+			System.out.println("Nothing here, yet.");
+		}
+	}
+
 	@Override
 	public void periodic() {
 		// This method will be called once per scheduler run

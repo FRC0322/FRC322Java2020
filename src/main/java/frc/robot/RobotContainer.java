@@ -19,6 +19,7 @@ import frc.robot.commands.DriveWithJoystick;
 import frc.robot.commands.AutonomousDriveForward;
 import frc.robot.commands.LimelightCameraModeControl;
 import frc.robot.commands.LimelightLightModeControl;
+import frc.robot.commands.ManipulatorLog;
 import frc.robot.commands.RunFeeder;
 import frc.robot.commands.RunIntake;
 import frc.robot.commands.RunRearCamera;
@@ -27,6 +28,8 @@ import frc.robot.commands.TotalCurrentWarning;
 import frc.robot.commands.AutonomousShootFromRight;
 import frc.robot.commands.AutonomousDriveBackward;
 import frc.robot.commands.AutonomousShootStraight;
+import frc.robot.commands.ChassisBrake;
+import frc.robot.commands.ChassisLog;
 import frc.robot.subsystems.AddressableLEDs;
 import frc.robot.subsystems.Chassis;
 import frc.robot.subsystems.Dashboard;
@@ -80,7 +83,7 @@ public class RobotContainer {
 	private final JoystickButton m_feederReverseButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kB.getValue());
 	private final JoystickButton m_shooterButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kX.getValue());
 	private final JoystickButton m_shooterReverseButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kY.getValue());
-	//private final JoystickButton m_manipulatorLogButton = new JoystickButton(m_driveStick, F310Controller.Button.kStart.getValue());
+	private final JoystickButton m_manipulatorLogButton = new JoystickButton(m_driveStick, F310Controller.Button.kStart.getValue());
 	private final JoystickButton m_visionModeButton = new JoystickButton(m_driveStick, F310Controller.Button.kBumperLeft.getValue());
 	private final JoystickButton m_driverModeButton = new JoystickButton(m_driveStick, F310Controller.Button.kBumperRight.getValue());
 	private final JoystickButton m_LEDOnButton = new JoystickButton(m_manipulatorStick, F310Controller.Button.kStart.getValue());
@@ -97,12 +100,11 @@ public class RobotContainer {
 		// Assign default commands
 		m_chassis.setDefaultCommand(new DriveWithJoystick(
 						    ()->m_driveStick.getTriggerAxis(Hand.kRight) - m_driveStick.getTriggerAxis(Hand.kLeft),
-						    ()->(m_driveStick.getX(Hand.kLeft)), m_chassis, m_brakeButton, m_logButton));
+						    ()->(m_driveStick.getX(Hand.kLeft)), m_chassis));
 
 		// Default command for debugging purposes
 		//m_chassis.setDefaultCommand(new DriveWithJoystick(
-		//				    ()-> m_debuggerStick.getY(Hand.kRight), ()-> m_debuggerStick.getX(Hand.kRight),
-		//					   m_chassis, m_brakeButton, m_logButton));
+		//				    ()-> m_debuggerStick.getY(Hand.kRight), ()-> m_debuggerStick.getX(Hand.kRight), m_chassis));
 
 		m_dashboard.setDefaultCommand(new DashboardUpdater(m_dashboard));
 
@@ -138,19 +140,17 @@ public class RobotContainer {
 	 * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
 	 */
 	private void configureButtonBindings() {
-		m_visionModeButton.whileActiveOnce(new LimelightCameraModeControl(m_limelightCamera,
-										  CameraMode.kvision));
-		m_driverModeButton.whileActiveOnce(new LimelightCameraModeControl(m_limelightCamera,
-										  CameraMode.kdriver));
+		m_brakeButton.whileActiveOnce(new ChassisBrake(m_chassis, m_brakeButton));
+		m_logButton.whileActiveOnce(new ChassisLog(m_chassis, m_logButton));
 
-		m_LEDDefaultButton.whileActiveOnce(new LimelightLightModeControl(m_limelightCamera,
-										 LightMode.kpipeLine));
-		m_LEDOffButton.whileActiveOnce(new LimelightLightModeControl(m_limelightCamera,
-									     LightMode.kforceOff));
-		m_LEDBlinkButton.whileActiveOnce(new LimelightLightModeControl(m_limelightCamera,
-									       LightMode.kforceBlink));
-		m_LEDOnButton.whileActiveOnce(new LimelightLightModeControl(m_limelightCamera,
-									    LightMode.kforceOn));
+		m_visionModeButton.whileActiveOnce(new LimelightCameraModeControl(m_limelightCamera, CameraMode.kvision));
+		m_driverModeButton.whileActiveOnce(new LimelightCameraModeControl(m_limelightCamera, CameraMode.kdriver));
+
+		m_manipulatorLogButton.whileActiveOnce(new ManipulatorLog(m_shooter, m_feeder, m_intake, m_manipulatorLogButton));
+		m_LEDDefaultButton.whileActiveOnce(new LimelightLightModeControl(m_limelightCamera, LightMode.kpipeLine));
+		m_LEDOffButton.whileActiveOnce(new LimelightLightModeControl(m_limelightCamera, LightMode.kforceOff));
+		m_LEDBlinkButton.whileActiveOnce(new LimelightLightModeControl(m_limelightCamera, LightMode.kforceBlink));
+		m_LEDOnButton.whileActiveOnce(new LimelightLightModeControl(m_limelightCamera, LightMode.kforceOn));
 
 		m_feederButton.whileActiveOnce(new RunFeeder(m_feeder, ()->Constants.FEEDER_SPEED), true);
 		m_feederReverseButton.whileActiveOnce(new RunFeeder(m_feeder, ()->Constants.FEEDER_REVERSE_SPEED), true);
